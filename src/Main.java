@@ -1,3 +1,5 @@
+package src;
+
 public class Main {
     public static void creerGraphe(String type, int nbSommets) {
         Graphe graphe = new Graphe(type, nbSommets);

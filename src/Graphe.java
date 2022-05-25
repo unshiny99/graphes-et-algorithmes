@@ -34,6 +34,16 @@ public class Graphe {
         }
     }
 
+    public void suppConnexion(Sommet a, Sommet b){
+        for(List<Sommet> liste : this.listeSuccesseurs){
+            for(Sommet sommet : liste){
+                if(sommet.equals(a)){
+                    sommet.suppVoisons(b);
+                }
+            }
+        }
+    }
+
     public String getType() {
         return type;
     }

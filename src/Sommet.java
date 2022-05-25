@@ -32,6 +32,10 @@ public class Sommet {
         this.voisins = voisins;
     }
 
+    public void suppVoisons(Sommet sommet){
+        this.voisins.remove(sommet);
+    }
+
     @Override
     public String toString(){
         return "[Voisins : "+ this.voisins + "] \n";
