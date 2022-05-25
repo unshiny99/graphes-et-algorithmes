@@ -1,4 +1,4 @@
-package src;
+package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,11 @@ public class Graphe {
         this.nbSommets = nbSommets;
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
+    }
+
+    public static Graphe creerGraphe(String type, int nbSommets) {
+        Graphe graphe = new Graphe(type, nbSommets);
+        return graphe;
     }
 
     public void addConnexion(Sommet a, Sommet b){
