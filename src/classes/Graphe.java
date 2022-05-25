@@ -1,6 +1,6 @@
 // Geoffrey Auzou, Maxime Frémeaux
-//package src.classes;
-package classes;
+package src.classes;
+//package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class Graphe {
     }
 
     /**
-     * Constructeur d'un Graph avec un type, un nombre de sommet
+     * Constructeur d'un Graphe avec un type, et un nombre de sommet(s)
      * @param type String
      * @param nbSommets Integer
      */
@@ -63,36 +63,38 @@ public class Graphe {
      * @param p Double
      */
     public void generationAleatoire(Integer n, Double p){
+        Graphe graphe = new Graphe("Orienté", n);
         for(int i = 0; i<n; ++i){
-            this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
+            graphe.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
         }
 
-        for(int i = 0; i < this.listeSuccesseurs.size(); ++i){
+        for(int i = 0; i < graphe.listeSuccesseurs.size(); ++i){
             Double double1 = random.nextDouble();
 
-            if(double1 < p && i < this.listeSuccesseurs.size() - 1){
+            if(double1 < p && i < graphe.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
-                this.listeSuccesseurs.get(i+1).getIndex());
+                graphe.listeSuccesseurs.get(i+1).getIndex());
             }
         }
     }
 
     /**
-     * Ajout d'une connexion
+     * Ajout d'une connexion par identifiants de sommets
      * @param identifiant_a Integer
      * @param identifiant_b Integer
      */
     public void addConnexion(Integer identifiant_a, Integer identifiant_b){
-        if(this.type.equals("Orienté")){
+        if(this.type.equals("Orienté")) {
             for(Sommet sommet : this.listeSuccesseurs){
-                if(sommet.getIndex().equals(identifiant_a)){
-                    sommet.addVoisin(this.getSommet(identifiant_b));
+                if(sommet.getIndex().equals(identifiant_a)) {
+                    sommet.addVoisin(new Sommet(identifiant_b));
                 }
             }
-        }else{
-            for(Sommet sommet : this.listeSuccesseurs){
-                if(sommet.getIndex().equals(identifiant_a)){
-                    sommet.addVoisin(this.getSommet(identifiant_b));
+        } else {
+            for(Sommet sommet : this.listeSuccesseurs) {
+                if(sommet.getIndex().equals(identifiant_a)) {
+                    sommet.addVoisin(new Sommet(identifiant_b));
+                    // insertion autre sens
                     this.getSommet(identifiant_b).addVoisin(sommet);
                 }
             }
@@ -130,10 +132,10 @@ public class Graphe {
     }
 
     /**
-     * 
-     * @param s1
-     * @param s2
-     * @return
+     * vérifie si un sommet est adjacent à un autre
+     * @param s1 Sommet
+     * @param s2 Sommet
+     * @return vrai si adjacent direct, faux sinon
      */
     public boolean estAdjacentDirect(int s1, int s2) {
         Sommet sommetRef = null;
@@ -218,6 +220,8 @@ public class Graphe {
     public void affichage(){
         System.out.println("[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
-                            ", \n\tliste d'adjacence : " + this.afficherListeSuccesseurs());
+                            ", \n\tliste d'adjacence : " + this.afficherListeSuccesseurs() +
+                            "\n]"
+                            );
     }
 }

@@ -1,7 +1,7 @@
 // Geoffrey Auzou, Maxime Frémeaux
 
-//package src.classes;
-package classes;
+package src.classes;
+//package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,14 @@ public class Sommet {
     private Integer index;
     private List<Sommet> voisins;
 
-    public Sommet(Integer index, List<Sommet> voisins){
+    public Sommet(Integer index){
         this.index = index;
         this.voisins = new ArrayList<>();
+    }
+
+    public Sommet(Integer index, List<Sommet> voisins){
+        this.index = index;
+        this.voisins = voisins;
     }
 
     public void addVoisin(Sommet sommet){
@@ -45,6 +50,6 @@ public class Sommet {
 
     @Override
     public String toString(){
-        return "[Index : " + this.index + ", Voisins => " + this.voisins + "]";
+        return "[ Index : " + this.index + ", Voisins => " + this.voisins + " ]";
     }
 }

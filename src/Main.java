@@ -13,7 +13,7 @@ public class Main {
 
     /**
      * charger un fichier txt pour générer un graphe correspondant
-     * @param cheminFic chemin (PATH) du fichier
+     * @param cheminFic String
      */
     public static void chargerGraphe(String cheminFic) {
         try {
@@ -25,14 +25,13 @@ public class Main {
                 if (i == 0) {
                     int type = in.nextInt();
                     int nbSommets = in.nextInt();
-                    int nbConnexions = in.nextInt();
+                    //int nbConnexions = in.nextInt();
                     if (type == 1) {
                         graphe = Graphe.creerGraphe("Orienté", nbSommets);
-                        //graphe = new Graphe("Orienté", nbSommets, nbConnexions);
                     } else { // cas par défaut
                         graphe = Graphe.creerGraphe("Non orienté", nbSommets);
-                        //graphe = new Graphe("Non orienté", nbSommets, nbConnexions);
                     }
+                    graphe.affichage();
                 } else {
                     int sommetSource = in.nextInt();
                     int sommetDest = in.nextInt();
@@ -53,8 +52,8 @@ public class Main {
     }
 
     /**
-     * fonction principale
-     * @param args
+     * fonction principale du programme
+     * @param args String[]
      */
     public static void main(String[] args) {
 
@@ -82,7 +81,7 @@ public class Main {
 
         // System.out.println("---- After suppConnexion ----");
 
-        // g1.generationAleatoire(10, 0.5);
-        // g1.affichage();
+        g1.generationAleatoire(10, 0.5);
+        g1.affichage();
     }
 }
