@@ -16,4 +16,36 @@ public class Graphe {
         this.nbConnexion = nbConnexion;
         this.listeSuccesseurs = new ArrayList<>();
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getNbSommets() {
+        return nbSommets;
+    }
+
+    public void setNbSommets(Integer nbSommets) {
+        this.nbSommets = nbSommets;
+    }
+
+    public Integer getNbConnexion() {
+        return nbConnexion;
+    }
+
+    public void setNbConnexion(Integer nbConnexion) {
+        this.nbConnexion = nbConnexion;
+    }
+
+    public List<List<Integer>> getListeSuccesseurs() {
+        return listeSuccesseurs;
+    }
+
+    public void setListeSuccesseurs(List<List<Integer>> listeSuccesseurs) {
+        this.listeSuccesseurs = listeSuccesseurs;
+    }
 }
