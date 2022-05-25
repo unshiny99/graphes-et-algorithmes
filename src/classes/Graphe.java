@@ -51,10 +51,15 @@ public class Graphe {
     }
 
     public void addSommet(Integer identifiant){
+        Boolean existe = false;
         for(Sommet sommet : this.listeSuccesseurs){
             if(sommet.getIndex().equals(identifiant)){
-                this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));
+                existe = true;
             }
+        }
+
+        if(!existe){
+            this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));
         }
     }
 
