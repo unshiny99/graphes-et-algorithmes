@@ -45,6 +45,12 @@ public class Graphe {
         }
     }
 
+    public void addSommet(Sommet sommet){
+        if(!(this.listeSuccesseurs.contains(sommet))){
+            this.listeSuccesseurs.add(sommet);
+        }
+    }
+
     public String getType() {
         return type;
     }
