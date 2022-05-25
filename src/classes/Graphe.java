@@ -34,10 +34,10 @@ public class Graphe {
         return graphe;
     }
 
-    public void addConnexion(Integer a, Integer b){
+    public void addConnexion(Integer identifiant_a, Integer identifiant_b){
         for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.getIndex().equals(a)){
-                sommet.addVoisin(this.getSommet(b));
+            if(sommet.getIndex().equals(identifiant_a)){
+                sommet.addVoisin(this.getSommet(identifiant_b));
             }
         }
     }
@@ -50,9 +50,11 @@ public class Graphe {
         }
     }
 
-    public void addSommet(Sommet sommet){
-        if(!(this.listeSuccesseurs.contains(sommet))){
-            this.listeSuccesseurs.add(sommet);
+    public void addSommet(Integer identifiant){
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.getIndex().equals(identifiant)){
+                this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));
+            }
         }
     }
 
