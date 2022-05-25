@@ -1,5 +1,3 @@
-package src;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,13 @@ public class Graphe {
         this.type = type;
         this.nbSommets = nbSommets;
         this.nbConnexion = nbConnexion;
+        this.listeSuccesseurs = new ArrayList<>();
+    }
+
+    public Graphe(String type, Integer nbSommets) {
+        this.type = type;
+        this.nbSommets = nbSommets;
+        this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
     }
 
