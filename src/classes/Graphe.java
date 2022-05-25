@@ -58,11 +58,18 @@ public class Graphe {
 
     public boolean estAdjacentDirect(int s1, int s2) {
         Sommet sommetRef = null;
+        Sommet sommetDest= null;
+
         for (Sommet sommet : listeSuccesseurs) {
             if (sommet.getIndex().equals(s1)) {
-                 sommetRef = sommet;
-
+                sommetRef = sommet;
             }
+            if (sommet.getIndex().equals(s1)) {
+                sommetDest = sommet;
+            }
+        }
+        if (sommetRef != null && sommetDest != null) {
+            return sommetRef.getVoisins().contains(sommetDest);
         }
         return false;
     }
@@ -73,7 +80,7 @@ public class Graphe {
                 return sommet;
             }
         }
-        System.out.println("Sommet : " + identifiant + "n'éxiste pas");
+        System.out.println("Sommet : " + identifiant + " n'existe pas");
         return null;
     }
 
@@ -109,9 +116,9 @@ public class Graphe {
         this.listeSuccesseurs = listeSuccesseurs;
     }
 
-    public void Affichage(){
+    public void affichage(){
         System.out.println("[type = " + this.type + 
-                            ", nb sommet = " + this.nbSommets +
-                            ", liste adjacence : " + this.listeSuccesseurs);
+                            ", nb sommet(s) = " + this.nbSommets +
+                            ", liste d'adjacence : " + this.listeSuccesseurs);
     }
 }
