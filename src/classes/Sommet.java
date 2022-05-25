@@ -39,6 +39,6 @@ public class Sommet {
 
     @Override
     public String toString(){
-        return "[Index : " + this.index + " Voisins => " + this.voisins + "] \n";
+        return "[Index : " + this.index + ", Voisins => " + this.voisins + "] \n";
     }
 }

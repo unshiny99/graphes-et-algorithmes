@@ -28,7 +28,7 @@ public class Graphe {
     public static Graphe creerGraphe(String type, int nbSommets) {
         Graphe graphe = new Graphe(type, nbSommets);
         for (int i=0;i<nbSommets;i++) {
-            Sommet sommet = new Sommet(i, new ArrayList<Sommet>());
+            Sommet sommet = new Sommet(i+1, new ArrayList<Sommet>());
             graphe.listeSuccesseurs.add(sommet);
         }
         return graphe;
@@ -116,9 +116,17 @@ public class Graphe {
         this.listeSuccesseurs = listeSuccesseurs;
     }
 
+    public String afficherListeSuccesseurs() {
+        StringBuilder s = new StringBuilder();
+        for (Sommet sommet : listeSuccesseurs) {
+            s.append("\n\t\t").append(sommet);
+        }
+        return s.toString();
+    }
+
     public void affichage(){
-        System.out.println("[type = " + this.type + 
-                            ", nb sommet(s) = " + this.nbSommets +
-                            ", liste d'adjacence : " + this.listeSuccesseurs);
+        System.out.println("[\n\ttype = " + this.type +
+                            ", \n\tnb sommet(s) = " + this.nbSommets +
+                            ", \n\tliste d'adjacence : " + this.afficherListeSuccesseurs());
     }
 }
