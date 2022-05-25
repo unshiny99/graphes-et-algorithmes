@@ -15,6 +15,12 @@ public class Graphe {
 
     private List<Sommet> listeSuccesseurs;
 
+    /**
+     * Constructeur d'un Graph avec un type, un nombre de sommet, un nombre de connexion
+     * @param type String
+     * @param nbSommets Integer
+     * @param nbConnexion Integer
+     */
     public Graphe(String type, Integer nbSommets, Integer nbConnexion){
         this.type = type;
         this.nbSommets = nbSommets;
@@ -23,6 +29,11 @@ public class Graphe {
         this.random = new Random();
     }
 
+    /**
+     * Constructeur d'un Graph avec un type, un nombre de sommet
+     * @param type String
+     * @param nbSommets Integer
+     */
     public Graphe(String type, Integer nbSommets) {
         this.type = type;
         this.nbSommets = nbSommets;
@@ -31,6 +42,12 @@ public class Graphe {
         this.random = new Random();
     }
 
+    /**
+     * Création d'un graphe avec un type et un nombre de sommet
+     * @param type String
+     * @param nbSommets Integer
+     * @return
+     */
     public static Graphe creerGraphe(String type, int nbSommets) {
         Graphe graphe = new Graphe(type, nbSommets);
         for (int i=0;i<nbSommets;i++) {
@@ -40,6 +57,11 @@ public class Graphe {
         return graphe;
     }
 
+    /**
+     * Generation aléatoire d'un graphe avec n nombre de sommet, p proba de génération d'une connexion
+     * @param n Integer
+     * @param p Double
+     */
     public void generationAleatoire(Integer n, Double p){
         for(int i = 0; i<n; ++i){
             this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
@@ -55,6 +77,11 @@ public class Graphe {
         }
     }
 
+    /**
+     * Ajout d'une connexion
+     * @param identifiant_a Integer
+     * @param identifiant_b Integer
+     */
     public void addConnexion(Integer identifiant_a, Integer identifiant_b){
         if(this.type.equals("Orienté")){
             for(Sommet sommet : this.listeSuccesseurs){
@@ -72,6 +99,11 @@ public class Graphe {
         }
     }
 
+    /**
+     * Suppresion d'une connexion
+     * @param a Integer
+     * @param b Integer
+     */
     public void suppConnexion(Integer a, Integer b){
         for(Sommet sommet : this.listeSuccesseurs){
             if(sommet.getIndex().equals(a)){
@@ -80,6 +112,10 @@ public class Graphe {
         }
     }
 
+    /**
+     * Ajout un sommet
+     * @param identifiant Integer
+     */
     public void addSommet(Integer identifiant){
         Boolean existe = false;
         for(Sommet sommet : this.listeSuccesseurs){
@@ -93,6 +129,12 @@ public class Graphe {
         }
     }
 
+    /**
+     * 
+     * @param s1
+     * @param s2
+     * @return
+     */
     public boolean estAdjacentDirect(int s1, int s2) {
         Sommet sommetRef = null;
         Sommet sommetDest= null;
@@ -111,6 +153,11 @@ public class Graphe {
         return false;
     }
 
+    /**
+     * Retourne un sommet via son identifiant
+     * @param identifiant Integer
+     * @return Sommet
+     */
     public Sommet getSommet(Integer identifiant){
         for(Sommet sommet : this.listeSuccesseurs){
             if(sommet.getIndex().equals(identifiant)){
@@ -153,6 +200,10 @@ public class Graphe {
         this.listeSuccesseurs = listeSuccesseurs;
     }
 
+    /**
+     * Affichage de la liste des seccesseurs
+     * @return String
+     */
     public String afficherListeSuccesseurs() {
         StringBuilder s = new StringBuilder();
         for (Sommet sommet : listeSuccesseurs) {
@@ -161,6 +212,9 @@ public class Graphe {
         return s.toString();
     }
 
+    /**
+     * Affichage du graphe
+     */
     public void affichage(){
         System.out.println("[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
