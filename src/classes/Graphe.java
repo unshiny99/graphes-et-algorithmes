@@ -1,6 +1,6 @@
 // Geoffrey Auzou, Maxime Frémeaux
-//package src.classes;
-package classes;
+package src.classes;
+// package classes;
 
 import java.util.ArrayList;
 import java.util.List;
