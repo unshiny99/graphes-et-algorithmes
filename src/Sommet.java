@@ -20,8 +20,12 @@ public class Sommet {
         return this.voisins;
     }
 
+    public Integer getIndex(){
+        return this.index;
+    }
+
     @Override
     public String toString(){
-        return "[Voisins : " this.voisins + "] \n";
+        return "[Voisins : "+ this.voisins + "] \n";
     }
 }
