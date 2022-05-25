@@ -8,7 +8,7 @@ public class Graphe {
     private Integer nbSommets;
     private Integer nbConnexion;
 
-    private List<List<Integer>> listeSuccesseurs;
+    private List<List<Sommet>> listeSuccesseurs;
 
     public Graphe(String type, Integer nbSommets, Integer nbConnexion){
         this.type = type;
@@ -41,11 +41,11 @@ public class Graphe {
         this.nbConnexion = nbConnexion;
     }
 
-    public List<List<Integer>> getListeSuccesseurs() {
+    public List<List<Sommet>> getListeSuccesseurs() {
         return listeSuccesseurs;
     }
 
-    public void setListeSuccesseurs(List<List<Integer>> listeSuccesseurs) {
+    public void setListeSuccesseurs(List<List<Sommet>> listeSuccesseurs) {
         this.listeSuccesseurs = listeSuccesseurs;
     }
 }
