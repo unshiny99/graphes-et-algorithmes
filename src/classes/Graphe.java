@@ -8,7 +8,7 @@ public class Graphe {
     private Integer nbSommets;
     private Integer nbConnexion;
 
-    private List<List<Sommet>> listeSuccesseurs;
+    private List<Sommet> listeSuccesseurs;
 
     public Graphe(String type, Integer nbSommets, Integer nbConnexion){
         this.type = type;
@@ -30,21 +30,17 @@ public class Graphe {
     }
 
     public void addConnexion(Sommet a, Sommet b){
-        for(List<Sommet> liste : this.listeSuccesseurs){
-            for(Sommet sommet : liste){
-                if(sommet.equals(a)){
-                    sommet.addVoisin(b);
-                }
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.equals(a)){
+                sommet.addVoisin(b);
             }
         }
     }
 
     public void suppConnexion(Sommet a, Sommet b){
-        for(List<Sommet> liste : this.listeSuccesseurs){
-            for(Sommet sommet : liste){
-                if(sommet.equals(a)){
-                    sommet.suppVoisons(b);
-                }
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.equals(a)){
+                sommet.suppVoisons(b);
             }
         }
     }
@@ -73,11 +69,11 @@ public class Graphe {
         this.nbConnexion = nbConnexion;
     }
 
-    public List<List<Sommet>> getListeSuccesseurs() {
+    public List<Sommet> getListeSuccesseurs() {
         return listeSuccesseurs;
     }
 
-    public void setListeSuccesseurs(List<List<Sommet>> listeSuccesseurs) {
+    public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {
         this.listeSuccesseurs = listeSuccesseurs;
     }
 }
