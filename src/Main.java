@@ -1,13 +1,13 @@
 // Geoffrey Auzou, Maxime Frémeaux
 
-//package src;
+package src;
 
-import classes.Graphe;
+// import classes.Graphe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-// import src.classes.Graphe;
+import src.classes.Graphe;
 
 public class Main {
 

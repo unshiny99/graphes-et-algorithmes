@@ -1,7 +1,7 @@
 // Geoffrey Auzou, Maxime Frémeaux
 
-// package src.classes;
-package classes;
+package src.classes;
+// package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,6 @@ public class Sommet {
 
     @Override
     public String toString(){
-        return "[Index : " + this.index + ", Voisins => " + this.voisins + "] \n";
+        return "[Index : " + this.index + ", Voisins => " + this.voisins + "]";
     }
 }
