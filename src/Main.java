@@ -1,6 +1,4 @@
-package src;
-
-import src.classes.Graphe;
+import classes.Graphe;
 
 public class Main {
 

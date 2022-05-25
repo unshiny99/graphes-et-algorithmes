@@ -1,4 +1,5 @@
-package src.classes;
+// package src.classes
+package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Graphe {
         Graphe graphe = new Graphe(type, nbSommets);
         for (int i=0;i<nbSommets;i++) {
             Sommet sommet = new Sommet(i, new ArrayList<Sommet>());
-            //graphe.listeSuccesseurs.add();
+            graphe.listeSuccesseurs.add(sommet);
         }
         return graphe;
     }
@@ -44,7 +45,7 @@ public class Graphe {
     public void suppConnexion(Sommet a, Sommet b){
         for(Sommet sommet : this.listeSuccesseurs){
             if(sommet.equals(a)){
-                sommet.suppVoisons(b);
+                sommet.suppVoisins(b);
             }
         }
     }

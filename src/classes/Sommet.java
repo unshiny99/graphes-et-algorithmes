@@ -1,4 +1,5 @@
-package src.classes;
+// package src.classes
+package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Sommet {
         this.voisins = voisins;
     }
 
-    public void suppVoisons(Sommet sommet){
+    public void suppVoisins(Sommet sommet){
         this.voisins.remove(sommet);
     }
 
