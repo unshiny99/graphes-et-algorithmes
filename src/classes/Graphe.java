@@ -29,18 +29,18 @@ public class Graphe {
         return graphe;
     }
 
-    public void addConnexion(Sommet a, Sommet b){
+    public void addConnexion(Integer a, Integer b){
         for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.equals(a)){
-                sommet.addVoisin(b);
+            if(sommet.getIndex().equals(a)){
+                sommet.addVoisin(this.getSommet(b));
             }
         }
     }
 
-    public void suppConnexion(Sommet a, Sommet b){
+    public void suppConnexion(Integer a, Integer b){
         for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.equals(a)){
-                sommet.suppVoisons(b);
+            if(sommet.getIndex().equals(a)){
+                sommet.suppVoisons(this.getSommet(b));
             }
         }
     }
@@ -49,6 +49,16 @@ public class Graphe {
         if(!(this.listeSuccesseurs.contains(sommet))){
             this.listeSuccesseurs.add(sommet);
         }
+    }
+
+    public Sommet getSommet(Integer identifiant){
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.getIndex().equals(identifiant)){
+                return sommet;
+            }
+        }
+        System.out.println("Sommet : " + identifiant + "n'éxiste pas");
+        return null;
     }
 
     public String getType() {
