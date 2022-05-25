@@ -26,6 +26,10 @@ public class Graphe {
 
     public static Graphe creerGraphe(String type, int nbSommets) {
         Graphe graphe = new Graphe(type, nbSommets);
+        for (int i=0;i<nbSommets;i++) {
+            Sommet sommet = new Sommet(i, new ArrayList<Sommet>());
+            //graphe.listeSuccesseurs.add();
+        }
         return graphe;
     }
 
