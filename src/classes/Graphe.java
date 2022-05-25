@@ -97,4 +97,10 @@ public class Graphe {
     public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {
         this.listeSuccesseurs = listeSuccesseurs;
     }
+
+    public void Affichage(){
+        System.out.println("[type = " + this.type + 
+                            ", nb sommet = " + this.nbSommets +
+                            ", liste adjacence : " + this.listeSuccesseurs);
+    }
 }
