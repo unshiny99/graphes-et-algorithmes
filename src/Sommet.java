@@ -14,12 +14,20 @@ public class Sommet {
         this.voisins.add(sommet);
     }
 
-    public List<Sommet> getListeVoisin(){
+    public List<Sommet> getVoisins(){
         return this.voisins;
     }
 
     public Integer getIndex(){
         return this.index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public void setVoisins(List<Sommet> voisins) {
+        this.voisins = voisins;
     }
 
     @Override
