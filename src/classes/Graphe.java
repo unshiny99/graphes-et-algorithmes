@@ -1,6 +1,6 @@
-package src.classes;
-// package classes;
 // Geoffrey Auzou, Maxime Frémeaux
+//package src.classes;
+package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class Graphe {
         }
 
         for(int i = 0; i < this.listeSuccesseurs.size(); ++i){
-            Double double1 = random.nextDouble(1);
+            Double double1 = random.nextDouble();
 
             if(double1 < p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),

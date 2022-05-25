@@ -11,6 +11,10 @@ import src.classes.Graphe;
 
 public class Main {
 
+    /**
+     * charger un fichier txt pour générer un graphe correspondant
+     * @param cheminFic chemin (PATH) du fichier
+     */
     public static void chargerGraphe(String cheminFic) {
         try {
             Scanner in = new Scanner(new File("data/" + cheminFic));
@@ -48,11 +52,15 @@ public class Main {
         }
     }
 
+    /**
+     * fonction principale
+     * @param args
+     */
     public static void main(String[] args) {
 
         // PREMIERE PARTIE : test des créations de graphe
         Graphe g1 = Graphe.creerGraphe("Orienté", 10);
-        Graphe g2 = Graphe.creerGraphe("Non orienté", 3);
+        //Graphe g2 = Graphe.creerGraphe("Non orienté", 3);
 
         //g1.affichage();
         //g2.affichage();
