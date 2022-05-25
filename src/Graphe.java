@@ -1,3 +1,5 @@
+package src;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,16 @@ public class Graphe {
         this.nbSommets = nbSommets;
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
+    }
+
+    public void addConnexion(Sommet a, Sommet b){
+        for(List<Sommet> liste : this.listeSuccesseurs){
+            for(Sommet sommet : liste){
+                if(sommet.equals(a)){
+                    sommet.addVoisin(b);
+                }
+            }
+        }
     }
 
     public String getType() {
