@@ -66,6 +66,7 @@ public class Graphe {
             for(Sommet sommet : this.listeSuccesseurs){
                 if(sommet.getIndex().equals(identifiant_a)){
                     sommet.addVoisin(this.getSommet(identifiant_b));
+                    this.getSommet(identifiant_b).addVoisin(sommet);
                 }
             }
         }

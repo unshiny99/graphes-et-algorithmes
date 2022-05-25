@@ -74,7 +74,7 @@ public class Main {
 
         // System.out.println("---- After suppConnexion ----");
 
-        g1.generationAleatoire(10, 0.5);
-        g1.affichage();
+        // g1.generationAleatoire(10, 0.5);
+        // g1.affichage();
     }
 }
