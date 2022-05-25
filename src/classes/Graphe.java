@@ -56,6 +56,17 @@ public class Graphe {
         }
     }
 
+    public boolean estAdjacentDirect(int s1, int s2) {
+        Sommet sommetRef = null;
+        for (Sommet sommet : listeSuccesseurs) {
+            if (sommet.getIndex().equals(s1)) {
+                 sommetRef = sommet;
+
+            }
+        }
+        return false;
+    }
+
     public String getType() {
         return type;
     }
