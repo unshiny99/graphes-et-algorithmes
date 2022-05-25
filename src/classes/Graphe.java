@@ -1,3 +1,5 @@
+// Geoffrey Auzou, Maxime Frémeaux
+
 package src.classes;
 // package classes;
 
@@ -55,9 +57,17 @@ public class Graphe {
     }
 
     public void addConnexion(Integer identifiant_a, Integer identifiant_b){
-        for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.getIndex().equals(identifiant_a)){
-                sommet.addVoisin(this.getSommet(identifiant_b));
+        if(this.type.equals("Orienté")){
+            for(Sommet sommet : this.listeSuccesseurs){
+                if(sommet.getIndex().equals(identifiant_a)){
+                    sommet.addVoisin(this.getSommet(identifiant_b));
+                }
+            }
+        }else{
+            for(Sommet sommet : this.listeSuccesseurs){
+                if(sommet.getIndex().equals(identifiant_a)){
+                    sommet.addVoisin(this.getSommet(identifiant_b));
+                }
             }
         }
     }

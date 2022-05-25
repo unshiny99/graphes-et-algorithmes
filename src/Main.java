@@ -1,3 +1,5 @@
+// Geoffrey Auzou, Maxime Frémeaux
+
 package src;
 
 import src.classes.Graphe;
