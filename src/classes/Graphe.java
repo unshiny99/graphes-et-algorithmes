@@ -1,13 +1,17 @@
 // package src.classes
 package classes;
+// Geoffrey Auzou, Maxime Frémeaux
 
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Random;
 
 public class Graphe {
     private String type;
     private Integer nbSommets;
     private Integer nbConnexion;
+    private Random random;
 
     private List<Sommet> listeSuccesseurs;
 
@@ -16,6 +20,7 @@ public class Graphe {
         this.nbSommets = nbSommets;
         this.nbConnexion = nbConnexion;
         this.listeSuccesseurs = new ArrayList<>();
+        this.random = new Random();
     }
 
     public Graphe(String type, Integer nbSommets) {
@@ -23,6 +28,7 @@ public class Graphe {
         this.nbSommets = nbSommets;
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
+        this.random = new Random();
     }
 
     public static Graphe creerGraphe(String type, int nbSommets) {
@@ -34,10 +40,33 @@ public class Graphe {
         return graphe;
     }
 
-    public void addConnexion(Integer a, Integer b){
-        for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.getIndex().equals(a)){
-                sommet.addVoisin(this.getSommet(b));
+    public void generationAleatoire(Integer n, Double p){
+        for(int i = 0; i<n; ++i){
+            this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
+        }
+
+        for(int i = 0; i < this.listeSuccesseurs.size(); ++i){
+            Double double1 = random.nextDouble(1);
+
+            if(double1 < p && i < this.listeSuccesseurs.size() - 1){
+                addConnexion(this.listeSuccesseurs.get(i).getIndex(),
+                this.listeSuccesseurs.get(i+1).getIndex());
+            }
+        }
+    }
+
+    public void addConnexion(Integer identifiant_a, Integer identifiant_b){
+        if(this.type.equals("Orienté")){
+            for(Sommet sommet : this.listeSuccesseurs){
+                if(sommet.getIndex().equals(identifiant_a)){
+                    sommet.addVoisin(this.getSommet(identifiant_b));
+                }
+            }
+        }else{
+            for(Sommet sommet : this.listeSuccesseurs){
+                if(sommet.getIndex().equals(identifiant_a)){
+                    sommet.addVoisin(this.getSommet(identifiant_b));
+                }
             }
         }
     }
@@ -50,9 +79,16 @@ public class Graphe {
         }
     }
 
-    public void addSommet(Sommet sommet){
-        if(!(this.listeSuccesseurs.contains(sommet))){
-            this.listeSuccesseurs.add(sommet);
+    public void addSommet(Integer identifiant){
+        Boolean existe = false;
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.getIndex().equals(identifiant)){
+                existe = true;
+            }
+        }
+
+        if(!existe){
+            this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));
         }
     }
 
