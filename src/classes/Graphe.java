@@ -2,6 +2,9 @@
 package src.classes;
 //package classes;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +91,7 @@ public class Graphe {
             for(Sommet sommet : this.listeSuccesseurs){
                 if(sommet.getIndex().equals(identifiant_a)) {
                     sommet.addVoisin(new Sommet(identifiant_b));
+                    this.nbConnexion += 1;
                 }
             }
         } else {
@@ -96,6 +100,7 @@ public class Graphe {
                     sommet.addVoisin(new Sommet(identifiant_b));
                     // insertion autre sens
                     this.getSommet(identifiant_b).addVoisin(sommet);
+                    this.nbConnexion += 1;
                 }
             }
         }
@@ -110,6 +115,7 @@ public class Graphe {
         for(Sommet sommet : this.listeSuccesseurs){
             if(sommet.getIndex().equals(a)){
                 sommet.suppVoisins(this.getSommet(b));
+                this.nbConnexion -= 1;
             }
         }
     }
@@ -222,6 +228,34 @@ public class Graphe {
                             ", \n\tnb sommet(s) = " + this.nbSommets +
                             ", \n\tliste d'adjacence : " + this.afficherListeSuccesseurs() +
                             "\n]"
-                            );
+        );
+    }
+
+    /**
+     * sauvegarder un graphe dans un fichier texte
+     * @param nomFic String
+     */
+    public void sauvegarderGraphe(String nomFic) {
+        try {
+            File fichier = new File("data/" + nomFic);
+            if(fichier.createNewFile()) {
+                FileWriter myWriter = new FileWriter("data/" + nomFic);
+                if(this.type.equals("Orienté")) {
+                    myWriter.write("1 " + this.getNbSommets().toString() + " "  + this.getNbConnexion().toString() + "\n");
+                } else {
+                    myWriter.write("0 " + this.getNbSommets().toString() + " " + this.getNbConnexion().toString() + "\n");
+                }
+                for(Sommet s : this.listeSuccesseurs) {
+                    for(Sommet v : s.getVoisins()) {
+                        myWriter.write(s.getIndex().toString() + " " + v.getIndex().toString() + "\n");
+                    }
+                }
+                myWriter.close();
+            } else {
+                System.out.println("Le fichier existe déjà !");
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }

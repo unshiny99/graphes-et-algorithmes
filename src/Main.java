@@ -15,7 +15,7 @@ public class Main {
      * charger un fichier txt pour générer un graphe correspondant
      * @param cheminFic String
      */
-    public static void chargerGraphe(String cheminFic) {
+    public static Graphe chargerGraphe(String cheminFic) {
         try {
             Scanner in = new Scanner(new File("data/" + cheminFic));
             int i = 0;
@@ -44,11 +44,13 @@ public class Main {
             }
             if (graphe != null) {
                 graphe.affichage();
+                return graphe;
             }
             in.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     /**
@@ -59,12 +61,16 @@ public class Main {
 
         // PREMIERE PARTIE : test des créations de graphe
         Graphe g1 = Graphe.creerGraphe("Orienté", 10);
-        //Graphe g2 = Graphe.creerGraphe("Non orienté", 3);
+        Graphe g2 = Graphe.creerGraphe("Non orienté", 3);
 
         //g1.affichage();
-        //g2.affichage();
+        g2.affichage();
 
-        chargerGraphe("mon_graphe.txt");
+        Graphe grapheGen = chargerGraphe("mon_graphe.txt");
+        grapheGen.affichage();
+        // générer le même graphe pour tester
+        grapheGen.sauvegarderGraphe("test.txt");
+
         // g1.addSommet(11);
         // g1.addSommet(12);
 
