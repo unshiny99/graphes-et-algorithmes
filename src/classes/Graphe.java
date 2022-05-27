@@ -1,14 +1,12 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src.classes;
-//package classes;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Random;
 
 public class Graphe {
-    private String type;
+    private Integer type;
     private Integer nbSommets;
     private Integer nbConnexion;
     private Random random;
@@ -17,11 +15,11 @@ public class Graphe {
 
     /**
      * Constructeur d'un Graph avec un type, un nombre de sommet, un nombre de connexion
-     * @param type String
+     * @param type Integer
      * @param nbSommets Integer
      * @param nbConnexion Integer
      */
-    public Graphe(String type, Integer nbSommets, Integer nbConnexion){
+    public Graphe(Integer type, Integer nbSommets, Integer nbConnexion){
         this.type = type;
         this.nbSommets = nbSommets;
         this.nbConnexion = nbConnexion;
@@ -31,30 +29,52 @@ public class Graphe {
 
     /**
      * Constructeur d'un Graphe avec un type, et un nombre de sommet(s)
-     * @param type String
+     * @param type Integer
      * @param nbSommets Integer
      */
-    public Graphe(String type, Integer nbSommets) {
+    public Graphe(Integer type, Integer nbSommets) {
         this.type = type;
         this.nbSommets = nbSommets;
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
         this.random = new Random();
     }
+    
+    /**
+     * Constructeur d'un Graphe avec un type
+     * @param type Integer
+     * @param nbSommets Integer
+     */
+    public Graphe(Integer type) {
+        this.type = type;
+        this.nbConnexion = 0;
+        this.listeSuccesseurs = new ArrayList<>();
+        this.random = new Random();
+    }
+
+    /**
+     * Constructeur d'un Graphe
+     */
+    public Graphe() {
+        this.type = null;
+        this.nbConnexion = 0;
+        this.listeSuccesseurs = new ArrayList<>();
+        this.random = new Random();
+    }
+
 
     /**
      * Création d'un graphe avec un type et un nombre de sommet
      * @param type String
      * @param nbSommets Integer
-     * @return
      */
-    public static Graphe creerGraphe(String type, int nbSommets) {
-        Graphe graphe = new Graphe(type, nbSommets);
-        for (int i=0;i<nbSommets;i++) {
-            Sommet sommet = new Sommet(i+1, new ArrayList<Sommet>());
-            graphe.listeSuccesseurs.add(sommet);
+    public void creerGraphe(Integer type, int nbSommets) {
+        this.type = type;
+        this.nbSommets = nbSommets;
+
+        for (int i = 0; i < nbSommets; i++) {
+            this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
         }
-        return graphe;
     }
 
     /**
@@ -63,18 +83,30 @@ public class Graphe {
      * @param p Double
      */
     public void generationAleatoire(Integer n, Double p){
-        Graphe graphe = new Graphe("Orienté", n);
+        this.nbSommets = n;
         for(int i = 0; i<n; ++i){
-            graphe.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
+            if(checkIdentifiantExiste(i)){
+                this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
+            }
         }
 
-        for(int i = 0; i < graphe.listeSuccesseurs.size(); ++i){
+        for(int i = 0; i < this.listeSuccesseurs.size(); ++i){
             Double double1 = random.nextDouble();
 
-            if(double1 < p && i < graphe.listeSuccesseurs.size() - 1){
+            if(double1 < p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
-                graphe.listeSuccesseurs.get(i+1).getIndex());
+                                this.listeSuccesseurs.get(i+1).getIndex());
             }
+        }
+    }
+
+    /**
+     * Génération aléatoire de création de connexion
+     * @param nbConnexion Integer
+     */
+    public void generationAleatoireConnexion(Integer nbConnexion){       
+        for(int i = 0; i < nbConnexion; ++i){
+            this.addConnexion(random.nextInt(this.listeSuccesseurs.size()), random.nextInt(this.listeSuccesseurs.size()));
         }
     }
 
@@ -84,10 +116,12 @@ public class Graphe {
      * @param identifiant_b Integer
      */
     public void addConnexion(Integer identifiant_a, Integer identifiant_b){
-        if(this.type.equals("Orienté")) {
+        if(this.type.equals(1)) {
             for(Sommet sommet : this.listeSuccesseurs){
                 if(sommet.getIndex().equals(identifiant_a)) {
-                    sommet.addVoisin(new Sommet(identifiant_b));
+                    if(!(sommet.voisinExiste(identifiant_b))){
+                        sommet.addVoisin(new Sommet(identifiant_b));
+                    }
                 }
             }
         } else {
@@ -119,16 +153,22 @@ public class Graphe {
      * @param identifiant Integer
      */
     public void addSommet(Integer identifiant){
-        Boolean existe = false;
-        for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.getIndex().equals(identifiant)){
-                existe = true;
+        if(!(checkIdentifiantExiste(identifiant))){
+            this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));   
+        }
+    }
+
+    /**
+     * Ajout nb sommet à la liste des succeseurs
+     * @param nbSommet Integer
+     */
+    public void addNbSommet(Integer nbSommet){
+        for(int i = 0; i < nbSommet; ++i){
+            if(!(checkIdentifiantExiste(i))){
+                this.listeSuccesseurs.add(new Sommet(i, new ArrayList<>()));   
             }
         }
-
-        if(!existe){
-            this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));
-        }
+        
     }
 
     /**
@@ -145,7 +185,7 @@ public class Graphe {
             if (sommet.getIndex().equals(s1)) {
                 sommetRef = sommet;
             }
-            if (sommet.getIndex().equals(s1)) {
+            if (sommet.getIndex().equals(s2)) {
                 sommetDest = sommet;
             }
         }
@@ -170,36 +210,25 @@ public class Graphe {
         return null;
     }
 
-    public String getType() {
-        return type;
-    }
+    public Integer getType() {return type;}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public void setType(Integer type) {this.type = type;}
+    public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
+    public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
+    public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {this.listeSuccesseurs = listeSuccesseurs;}
 
-    public Integer getNbSommets() {
-        return nbSommets;
-    }
+    public Integer getNbSommets() {return nbSommets;}
+    public Integer getNbConnexion() {return nbConnexion;}
 
-    public void setNbSommets(Integer nbSommets) {
-        this.nbSommets = nbSommets;
-    }
+    public List<Sommet> getListeSuccesseurs() {return listeSuccesseurs;}
 
-    public Integer getNbConnexion() {
-        return nbConnexion;
-    }
-
-    public void setNbConnexion(Integer nbConnexion) {
-        this.nbConnexion = nbConnexion;
-    }
-
-    public List<Sommet> getListeSuccesseurs() {
-        return listeSuccesseurs;
-    }
-
-    public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {
-        this.listeSuccesseurs = listeSuccesseurs;
+    private Boolean checkIdentifiantExiste(Integer identifiant){
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.getIndex().equals(identifiant)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -218,7 +247,8 @@ public class Graphe {
      * Affichage du graphe
      */
     public void affichage(){
-        System.out.println("[\n\ttype = " + this.type +
+        System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
+                            "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
                             ", \n\tliste d'adjacence : " + this.afficherListeSuccesseurs() +
                             "\n]"

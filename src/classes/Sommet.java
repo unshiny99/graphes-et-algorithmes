@@ -1,7 +1,6 @@
 // Geoffrey Auzou, Maxime Frémeaux
 
 package src.classes;
-//package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +39,15 @@ public class Sommet {
         this.voisins = voisins;
     }
 
+    public Boolean voisinExiste(Integer identifiant){
+        for(Sommet sommet : this.voisins){
+            if(sommet.getIndex().equals(identifiant)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * supprimer les voisins d'un sommet
      * @param sommet
@@ -48,8 +56,18 @@ public class Sommet {
         this.voisins.remove(sommet);
     }
 
+    private String formaString(){
+        String res = "";
+
+        for(Sommet sommet : this.voisins){
+            res += " => " + sommet.getIndex();
+        }
+
+        return res;
+    }
+
     @Override
     public String toString(){
-        return "[ Index : " + this.index + ", Voisins => " + this.voisins + " ]";
+        return "[ Index : " + this.index + ", Voisins" + formaString() + " ]";
     }
 }
