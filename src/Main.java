@@ -104,12 +104,13 @@ public class Main {
         // g3.generationAleatoire(30, 0.9);
         // g3.affichage();
         //g1.affichage();
-        // g2.generationAleatoire(30, 0.9);
-        // g2.generationAleatoire(30, 0.6);
-        // g2.creerGraphe(1, 30);
-        // g2.generationAleatoireConnexion(30);
         // g2.affichage();
-        // Fichier.chargerGraphe("mon_graphe.txt");
+
+        // Graphe grapheGen = chargerGraphe("mon_graphe.txt");
+        // grapheGen.affichage();
+        // générer le même graphe pour tester
+        // grapheGen.sauvegarderGraphe("test.txt");
+
         // g1.addSommet(11);
         // g1.addSommet(12);
 
