@@ -29,20 +29,21 @@ public class Main {
                 System.out.println("[Done]");
             }
 
-            System.out.println("------------------------ \n" +
-                               "|    MENU TP GRAPHE    | \n" +
-                               "------------------------ \n" +
-                               "0 : Stop \n" +
-                               "1 : MODE : Création graphe avec (type/nombre sommets) \n" +
-                               "2 : MODE : Ajout connexion \n" +
-                               "3 : MODE : Suppresion connexion \n" +
-                               "4 : MODE : Ajout sommet \n" +
-                               "5 : MODE : Afficher graphe \n" +
-                               "6 : MODE : Charger graphe \n" +
-                               "7 : MODE : Génération aléatoire graphe \n" + 
-                               "8 : MODE : Génération aléatoire connexion \n" + 
-                               "9 : MODE : Génération nbSommet \n" +
-                               "10 : MODE : Suppresion instance graphe \n");
+            System.out.println("-------------------------------------------------------- \n" +
+                               "|                   MENU TP GRAPHE                     | \n" +
+                               "--------------------------------------------------------\n" +
+                               "|0  : STOP                                             |\n" +
+                               "|1  : MODE : Création graphe avec (type/nombre sommets)|\n" +
+                               "|2  : MODE : Ajout connexion                           |\n" +
+                               "|3  : MODE : Suppresion connexion                      |\n" +
+                               "|4  : MODE : Ajout sommet                              |\n" +
+                               "|5  : MODE : Afficher graphe                           |\n" +
+                               "|6  : MODE : Charger graphe                            |\n" +
+                               "|7  : MODE : Génération aléatoire graphe               |\n" + 
+                               "|8  : MODE : Génération aléatoire connexion            |\n" + 
+                               "|9  : MODE : Génération nbSommet                       |\n" +
+                               "|10 : MODE : Suppresion instance graphe                |\n" + 
+                               "--------------------------------------------------------");
             try{
                 select = scan_menu.nextInt();
             }catch(Exception e){
