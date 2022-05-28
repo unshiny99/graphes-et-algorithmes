@@ -60,29 +60,61 @@ public class Main {
                     graphe.addNbSommet(nbSommet);
                     break;
                 case 2:
+                    if(graphe != null){
+                        
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 case 3:
+                    if(graphe != null){
+                            
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 case 4:
+                    if(graphe != null){
+                            
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 case 5:
-                    graphe.affichage();
+                    if(graphe != null){
+                        graphe.affichage();
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 case 6:
-                    Fichier.chargerGraphe("mon_graphe.txt");
+                    graphe = Fichier.chargerGraphe("mon_graphe.txt");
                     break;
                 case 7:
+                    if(graphe != null){
+                            
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 case 8:
-                    System.out.println("Nombre de connexion à générer : ");
-                    nbConnexion = scan.nextInt();
-                    graphe.generationAleatoireConnexion(10);
+                    if(graphe != null){
+                        System.out.println("Nombre de connexion à générer : ");
+                        nbConnexion = scan.nextInt();
+                        graphe.generationAleatoireConnexion(10);
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 case 9:
-                    System.out.println("Choisir nombre de sommet à créer : ");
-                    nbSommet = scan.nextInt();
+                    if(graphe != null){
+                        System.out.println("Choisir nombre de sommet à créer : ");
+                        nbSommet = scan.nextInt();
 
-                    graphe.addNbSommet(nbSommet);
+                        graphe.addNbSommet(nbSommet);       
+                    }else{
+                        System.out.println("Aucun graphe instancier !");
+                    }
                     break;
                 default:
                     select = 0;

@@ -11,7 +11,7 @@ public class Fichier {
      * charger un fichier txt pour générer un graphe correspondant
      * @param cheminFic String
      */
-    public static void chargerGraphe(String cheminFic) {
+    public static Graphe chargerGraphe(String cheminFic) {
         try {
             Scanner in = new Scanner(new File("data/" + cheminFic));
             int i = 0;
@@ -42,6 +42,7 @@ public class Fichier {
                 graphe.affichage();
             }
             in.close();
+            return graphe;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
