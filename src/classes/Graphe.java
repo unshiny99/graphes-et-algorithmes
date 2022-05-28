@@ -216,16 +216,28 @@ public class Graphe {
     }
 
     public Integer getType() {return type;}
+    public Integer getNbSommets() {return nbSommets;}
+    public Integer getNbConnexion() {return nbConnexion;}
 
     public void setType(Integer type) {this.type = type;}
     public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
     public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
     public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {this.listeSuccesseurs = listeSuccesseurs;}
 
-    public Integer getNbSommets() {return nbSommets;}
-    public Integer getNbConnexion() {return nbConnexion;}
-
     public List<Sommet> getListeSuccesseurs() {return listeSuccesseurs;}
+
+    /**
+     * Retourne la liste des identifiants depuis la liste des sucesseurs
+     * @return String
+     */
+    public String getIdentifiantAll(){
+        String res = "[";
+        for(Sommet sommet : this.listeSuccesseurs){
+            res += sommet.getIndex() + " | ";
+        }
+        res += "]";
+        return res;
+    }
 
     private Boolean checkIdentifiantExiste(Integer identifiant){
         for(Sommet sommet : this.listeSuccesseurs){

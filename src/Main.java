@@ -17,6 +17,9 @@ public class Main {
         Integer nbSommet = null;
         Integer nbConnexion = null;
 
+        Integer identifiant_a;
+        Integer identifiant_b;
+
         Graphe graphe = null;
         
         do{
@@ -61,7 +64,13 @@ public class Main {
                     break;
                 case 2:
                     if(graphe != null){
+                        System.out.println("Liste identifiant : " + graphe.getIdentifiantAll());
+                        System.out.println("Choisir identifiant source :");
+                        identifiant_a = scan.nextInt();
+                        System.out.println("Choisir identifiant cible :");
+                        identifiant_b = scan.nextInt();
                         
+                        graphe.addConnexion(identifiant_a, identifiant_b);
                     }else{
                         System.out.println("Aucun graphe instancier !");
                     }
