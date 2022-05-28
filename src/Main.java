@@ -29,8 +29,8 @@ public class Main {
                 System.out.println("[Done]");
             }
 
-            System.out.println("-------------------------------------------------------- \n" +
-                               "|                   MENU TP GRAPHE                     | \n" +
+            System.out.println("--------------------------------------------------------\n" +
+                               "|                   MENU TP GRAPHE                     |\n" +
                                "--------------------------------------------------------\n" +
                                "|0  : STOP                                             |\n" +
                                "|1  : MODE : Création graphe avec (type/nombre sommets)|\n" +
