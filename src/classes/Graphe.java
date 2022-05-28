@@ -99,6 +99,7 @@ public class Graphe {
             if(double1 < p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
                                 this.listeSuccesseurs.get(i+1).getIndex());
+                this.nbConnexion += 1;
             }
         }
     }
@@ -108,6 +109,7 @@ public class Graphe {
      * @param nbConnexion Integer
      */
     public void generationAleatoireConnexion(Integer nbConnexion){       
+        this.nbConnexion += nbConnexion;
         for(int i = 0; i < nbConnexion; ++i){
             this.addConnexion(random.nextInt(this.listeSuccesseurs.size()), random.nextInt(this.listeSuccesseurs.size()));
         }
@@ -124,6 +126,7 @@ public class Graphe {
                 if(sommet.getIndex().equals(identifiant_a)) {
                     if(!(sommet.voisinExiste(identifiant_b))){
                         sommet.addVoisin(new Sommet(identifiant_b));
+                        this.nbConnexion += 1;
                     }
                 }
             }
@@ -160,6 +163,8 @@ public class Graphe {
     public void addSommet(Integer identifiant){
         if(!(checkIdentifiantExiste(identifiant))){
             this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));   
+        }else{
+            System.out.println("Sommet : " + identifiant + " existe déja !");
         }
     }
 
@@ -211,7 +216,7 @@ public class Graphe {
                 return sommet;
             }
         }
-        System.out.println("Sommet : " + identifiant + " n'existe pas");
+        System.out.println("Sommet : " + identifiant + " n'existe pas !");
         return null;
     }
 
@@ -239,6 +244,11 @@ public class Graphe {
         return res;
     }
 
+    /**
+     * Vérifie si un identifiant existe dans la liste des sucesseurs
+     * @param identifiant
+     * @return Boolean
+     */
     private Boolean checkIdentifiantExiste(Integer identifiant){
         for(Sommet sommet : this.listeSuccesseurs){
             if(sommet.getIndex().equals(identifiant)){

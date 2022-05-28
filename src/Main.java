@@ -77,14 +77,24 @@ public class Main {
                     break;
                 case 3:
                     if(graphe != null){
-                            
+                        System.out.println("Liste identifiant : " + graphe.getIdentifiantAll());
+                        System.out.println("Choisir identifiant source :");
+                        identifiant_a = scan.nextInt();
+                        System.out.println("Choisir identifiant cible :");
+                        identifiant_b = scan.nextInt();
+                        
+                        graphe.suppConnexion(identifiant_a, identifiant_b);     
                     }else{
                         System.out.println("Aucun graphe instancier !");
                     }
                     break;
                 case 4:
                     if(graphe != null){
-                            
+                        System.out.println("Liste identifiant : " + graphe.getIdentifiantAll());
+                        System.out.println("Choisir identifiant du sommet : ");
+                        identifiant_a = scan.nextInt();
+                        
+                        graphe.addSommet(identifiant_a);
                     }else{
                         System.out.println("Aucun graphe instancier !");
                     }

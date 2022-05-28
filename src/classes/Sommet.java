@@ -49,8 +49,8 @@ public class Sommet {
     }
 
     /**
-     * supprimer les voisins d'un sommet
-     * @param sommet
+     * supprimer le voisin d'un sommet
+     * @param Sommet
      */
     public void suppVoisins(Sommet sommet){
         this.voisins.remove(sommet);
