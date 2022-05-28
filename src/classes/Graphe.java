@@ -277,9 +277,9 @@ public class Graphe {
      */
     public void sauvegarderGraphe(String nomFic) {
         try {
-            File fichier = new File("data/" + nomFic);
+            File fichier = new File("data/" + nomFic + ".txt");
             if(fichier.createNewFile()) {
-                FileWriter myWriter = new FileWriter("data/" + nomFic);
+                FileWriter myWriter = new FileWriter("data/" + nomFic + ".txt");
                 if(this.type.equals(1)) {
                     myWriter.write("1 " + this.getNbSommets().toString() + " "  + this.getNbConnexion().toString() + "\n");
                 } else {
