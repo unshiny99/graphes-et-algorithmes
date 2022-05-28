@@ -88,7 +88,7 @@ public class Graphe {
     public void generationAleatoire(Integer n, Double p){
         this.nbSommets = n;
         for(int i = 0; i<n; ++i){
-            if(checkIdentifiantExiste(i)){
+            if(!(checkIdentifiantExiste(i))){
                 this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
             }
         }

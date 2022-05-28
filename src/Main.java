@@ -17,8 +17,10 @@ public class Main {
         Integer nbSommet = null;
         Integer nbConnexion = null;
 
-        Integer identifiant_a;
-        Integer identifiant_b;
+        Integer identifiant_a = null;
+        Integer identifiant_b = null;
+        
+        Double proba = null;
 
         Graphe graphe = null;
         
@@ -39,7 +41,8 @@ public class Main {
                                "6 : MODE : Charger graphe \n" +
                                "7 : MODE : Génération aléatoire graphe \n" + 
                                "8 : MODE : Génération aléatoire connexion \n" + 
-                               "9 : MODE : Génération nbSommet \n");
+                               "9 : MODE : Génération nbSommet \n" +
+                               "10 : MODE : Suppresion instance graphe \n");
             try{
                 select = scan_menu.nextInt();
             }catch(Exception e){
@@ -110,10 +113,17 @@ public class Main {
                     graphe = Fichier.chargerGraphe("mon_graphe.txt");
                     break;
                 case 7:
-                    if(graphe != null){
-                            
+                    if(graphe == null){
+                        graphe = new Graphe();
+
+                        System.out.println("Choisir nombre sommets : ");
+                        nbSommet = scan.nextInt();
+                        System.out.println("Choisir une probabilité 0,0 <= p <= 1,0 : ");
+                        proba = scan.nextDouble();
+
+                        graphe.generationAleatoire(nbSommet, proba);
                     }else{
-                        System.out.println("Aucun graphe instancier !");
+                        System.out.println("Le graphe est déja instancier !");
                     }
                     break;
                 case 8:
@@ -133,6 +143,13 @@ public class Main {
                         graphe.addNbSommet(nbSommet);       
                     }else{
                         System.out.println("Aucun graphe instancier !");
+                    }
+                    break;
+                case 10:
+                    if(graphe == null){
+                        System.out.println("Instance du graphe déja null");
+                    }else{
+                        graphe = null;
                     }
                     break;
                 default:
