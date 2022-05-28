@@ -220,17 +220,6 @@ public class Graphe {
         return null;
     }
 
-    public Integer getType() {return type;}
-    public Integer getNbSommets() {return nbSommets;}
-    public Integer getNbConnexion() {return nbConnexion;}
-
-    public void setType(Integer type) {this.type = type;}
-    public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
-    public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
-    public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {this.listeSuccesseurs = listeSuccesseurs;}
-
-    public List<Sommet> getListeSuccesseurs() {return listeSuccesseurs;}
-
     /**
      * Retourne la liste des identifiants depuis la liste des sucesseurs
      * @return String
@@ -309,4 +298,15 @@ public class Graphe {
             e.printStackTrace();
         }
     }
+
+    public Integer getType() {return type;}
+    public Integer getNbSommets() {return nbSommets;}
+    public Integer getNbConnexion() {return nbConnexion;}
+
+    public void setType(Integer type) {this.type = type;}
+    public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
+    public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
+    public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {this.listeSuccesseurs = listeSuccesseurs;}
+
+    public List<Sommet> getListeSuccesseurs() {return listeSuccesseurs;}
 }
