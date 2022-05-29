@@ -76,7 +76,7 @@ public class Graphe {
         this.nbSommets = nbSommets;
 
         for (int i = 0; i < nbSommets; i++) {
-            this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
+            this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<Sommet>()));
         }
     }
 
@@ -88,8 +88,8 @@ public class Graphe {
     public void generationAleatoire(Integer n, Double p){
         this.nbSommets = n;
         for(int i = 0; i<n; ++i){
-            if(!(checkIdentifiantExiste(i))){
-                this.listeSuccesseurs.add(new Sommet(i, new ArrayList<Sommet>()));
+            if(!(checkIdentifiantExiste(i+1))){
+                this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<Sommet>()));
             }
         }
 
@@ -164,18 +164,18 @@ public class Graphe {
         if(!(checkIdentifiantExiste(identifiant))){
             this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));   
         }else{
-            System.out.println("Sommet : " + identifiant + " existe déja !");
+            System.out.println("Sommet : " + identifiant + " existe déjà !");
         }
     }
 
     /**
-     * Ajout nb sommet à la liste des succeseurs
+     * Ajout nb sommet(s) à la liste des voisins/succeseurs
      * @param nbSommet Integer
      */
     public void addNbSommet(Integer nbSommet){
         for(int i = 0; i < nbSommet; ++i){
-            if(!(checkIdentifiantExiste(i))){
-                this.listeSuccesseurs.add(new Sommet(i, new ArrayList<>()));   
+            if(!(checkIdentifiantExiste(i+1))){
+                this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<>()));   
             }
         }
         
@@ -183,15 +183,16 @@ public class Graphe {
 
     /**
      * vérifie si un sommet est adjacent à un autre
+     * pour un graphe orienté, le sens est pris en compte
      * @param s1 Sommet
      * @param s2 Sommet
      * @return vrai si adjacent direct, faux sinon
      */
     public boolean estAdjacentDirect(int s1, int s2) {
         Sommet sommetRef = null;
-        Sommet sommetDest= null;
+        Sommet sommetDest = null;
 
-        for (Sommet sommet : listeSuccesseurs) {
+        for (Sommet sommet : this.listeSuccesseurs) {
             if (sommet.getIndex().equals(s1)) {
                 sommetRef = sommet;
             }

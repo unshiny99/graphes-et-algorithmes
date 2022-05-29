@@ -21,18 +21,19 @@ public class Fichier {
                 if (i == 0) {
                     int type = in.nextInt();
                     int nbSommets = in.nextInt();
-                    //int nbConnexions = in.nextInt();
                     if (type == 1) {
                         graphe.creerGraphe(1, nbSommets);
                     } else { // cas par défaut
                         graphe.creerGraphe(0, nbSommets);
                     }
-                    graphe.affichage();
                 } else {
                     int sommetSource = in.nextInt();
                     int sommetDest = in.nextInt();
 
-                    graphe.addConnexion(sommetSource, sommetDest);
+                    Sommet sommet = graphe.getSommet(sommetSource);
+                    if(!(sommet.voisinExiste(sommetDest))){
+                        graphe.addConnexion(sommetSource, sommetDest);
+                    }
                 }
                 i++;
                 if (in.hasNextLine())
