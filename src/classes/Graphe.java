@@ -111,7 +111,7 @@ public class Graphe {
     public void generationAleatoireConnexion(Integer nbConnexion){       
         this.nbConnexion += nbConnexion;
         for(int i = 0; i < nbConnexion; ++i){
-            this.addConnexion(random.nextInt(this.listeSuccesseurs.size()), random.nextInt(this.listeSuccesseurs.size()));
+            this.addConnexion(random.nextInt(this.listeSuccesseurs.size())+1, random.nextInt(this.listeSuccesseurs.size())+1);
         }
     }
 
@@ -147,12 +147,23 @@ public class Graphe {
      * @param a Integer
      * @param b Integer
      */
-    public void suppConnexion(Integer a, Integer b){
-        for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.getIndex().equals(a)){
-                sommet.suppVoisins(this.getSommet(b));
-                this.nbConnexion -= 1;
+    public void suppConnexion(Integer a, Integer b) {
+        Boolean trouve = false;
+        for(Sommet sommet : this.listeSuccesseurs) {
+            if(sommet.getIndex().equals(a)) {
+                for(Sommet sommetDest : sommet.getVoisins()) {
+                    if(sommetDest.getIndex().equals(b)) {
+                        sommet.getVoisins().remove(sommetDest);
+                        this.nbConnexion -= 1;
+                        trouve = true;
+                        System.out.println("La connexion a bien été supprimée.");
+                        break;
+                    }
+                }
             }
+        }
+        if(!trouve) {
+            System.out.println("La connexion n'a pas été trouvée.");
         }
     }
 
@@ -190,18 +201,16 @@ public class Graphe {
      */
     public boolean estAdjacentDirect(int s1, int s2) {
         Sommet sommetRef = null;
-        Sommet sommetDest = null;
 
         for (Sommet sommet : this.listeSuccesseurs) {
             if (sommet.getIndex().equals(s1)) {
                 sommetRef = sommet;
+                for(Sommet sommetDest : sommetRef.getVoisins()) {
+                    if(sommetDest.getIndex().equals(s2)) {
+                        return true;
+                    }
+                }
             }
-            if (sommet.getIndex().equals(s2)) {
-                sommetDest = sommet;
-            }
-        }
-        if (sommetRef != null && sommetDest != null) {
-            return sommetRef.getVoisins().contains(sommetDest);
         }
         return false;
     }
@@ -211,9 +220,9 @@ public class Graphe {
      * @param identifiant Integer
      * @return Sommet
      */
-    public Sommet getSommet(Integer identifiant){
-        for(Sommet sommet : this.listeSuccesseurs){
-            if(sommet.getIndex().equals(identifiant)){
+    public Sommet getSommet(Integer identifiant) {
+        for(Sommet sommet : this.listeSuccesseurs) {
+            if(sommet.getIndex().equals(identifiant)) {
                 return sommet;
             }
         }
@@ -227,8 +236,12 @@ public class Graphe {
      */
     public String getIdentifiantAll(){
         String res = "[";
-        for(Sommet sommet : this.listeSuccesseurs){
-            res += sommet.getIndex() + " | ";
+        for(int i=0; i<this.listeSuccesseurs.size();i++){
+            if(i != this.listeSuccesseurs.size()-1) {
+                res += this.listeSuccesseurs.get(i).getIndex() + " | ";
+            } else {
+                res += this.listeSuccesseurs.get(i).getIndex();
+            } 
         }
         res += "]";
         return res;

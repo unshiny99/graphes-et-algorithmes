@@ -45,7 +45,9 @@ public class Fichier {
             in.close();
             return graphe;
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("\nLe fichier spécifié est introuvable.\n");
+            e.getMessage();
         }
+        return null;
     } 
 }
