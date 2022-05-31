@@ -236,16 +236,13 @@ public class Graphe {
      */
     public String getIdentifiantAll(){
         String res = "[";
-        for(int i=0; i<this.listeSuccesseurs.size();i++){
-            if(i != this.listeSuccesseurs.size()-1) {
-                res += this.listeSuccesseurs.get(i).getIndex() + " | ";
-            } else {
-                res += this.listeSuccesseurs.get(i).getIndex();
-            } 
+        for(Sommet sommet : this.listeSuccesseurs){
+            res += sommet.getIndex() + " | ";
         }
         res += "]";
-        return res;
+        return res.replace(" | ]", "]");
     }
+
 
     /**
      * Vérifie si un identifiant existe dans la liste des sucesseurs

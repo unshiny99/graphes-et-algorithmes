@@ -86,6 +86,7 @@ public class Main {
                         identifiant_a = scan.nextInt();
                         System.out.println("Choisir identifiant cible :");
                         identifiant_b = scan.nextInt();
+
                         graphe.addConnexion(identifiant_a, identifiant_b);
                     } else {
                         System.out.println("Aucun graphe instancié !");
@@ -120,6 +121,7 @@ public class Main {
                     if(graphe != null) {
                         System.out.println("Choisir nom fichier : ");
                         name_file = scan.next();
+
                         graphe.sauvegarderGraphe(name_file);
                     } else {
                         System.out.println("Aucun graphe instancié !");
@@ -132,6 +134,7 @@ public class Main {
                         identifiant_a = scan.nextInt();
                         System.out.println("Choisir identifiant cible :");
                         identifiant_b = scan.nextInt();
+
                         graphe.suppConnexion(identifiant_a, identifiant_b);     
                     } else {
                         System.out.println("Aucun graphe instancié !");
@@ -150,8 +153,9 @@ public class Main {
                         type = scan.nextInt();
                         System.out.println("Choisir nombre sommets : ");
                         nbSommet = scan.nextInt();
-                        System.out.println("Choisir une probabilité 0,0 <= p <= 1,0 : ");
+                        System.out.println("Choisir une probabilité 0,0 <= p <= 1,0 : (Exemple : 0,4 et non 0.4)");
                         proba = scan.nextDouble();
+
                         graphe = new Graphe(type);
                         graphe.generationAleatoire(nbSommet, proba);
                     } else {
@@ -165,6 +169,7 @@ public class Main {
                         identifiant_a = scan.nextInt();
                         System.out.println("Choisir identifiant cible :");
                         identifiant_b = scan.nextInt();
+                        
                         Boolean estAdjacent = graphe.estAdjacentDirect(identifiant_a, identifiant_b);
                         if(estAdjacent) {
                             System.out.println("Les sommets sont adjacents direct.");
