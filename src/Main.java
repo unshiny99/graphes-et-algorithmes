@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
         Scanner scan_menu = new Scanner(System.in);
@@ -29,7 +30,7 @@ public class Main {
         String name_file = null;
 
         Graphe graphe = null;
-        
+
         do{
             if(select != null){
                 System.out.println("[Terminé]");
@@ -71,71 +72,97 @@ public class Main {
                     }
                     break;
                 case 2:
-                    System.out.println("Choisir type : 0(Non Orienté), 1(Orienté)");
-                    type = scan.nextInt();
-                    System.out.println("Choisir nombre sommet(s) : ");
-                    nbSommet = scan.nextInt();
+                    try{
+                        System.out.println("Choisir type : 0(Non Orienté), 1(Orienté)");
+                        type = scan.nextInt();
+                        System.out.println("Choisir nombre sommet(s) : ");
+                        nbSommet = scan.nextInt();
 
-                    graphe = new Graphe(type, nbSommet);
-                    graphe.addNbSommet(nbSommet);
+                        graphe = new Graphe(type, nbSommet);
+                        graphe.addNbSommet(nbSommet);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                        scan.next();
+                    } 
                     break;
                 case 3:
                     if(graphe != null) {
-                        System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
-                        System.out.println("Choisir identifiant source :");
-                        identifiant_a = scan.nextInt();
-                        System.out.println("Choisir identifiant cible :");
-                        identifiant_b = scan.nextInt();
+                        try{
+                            System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
 
-                        graphe.addConnexion(identifiant_a, identifiant_b);
+                            graphe.addConnexion(identifiant_a, identifiant_b);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
                     } else {
                         System.out.println("Aucun graphe instancié !");
                     }
                     break;
                 case 4:
                     if(graphe != null) {
-                        System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
-                        System.out.println("Choisir identifiant du sommet : ");
-                        identifiant_a = scan.nextInt();
-                        
-                        graphe.addSommet(identifiant_a);
+                        try{
+                            System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                            System.out.println("Choisir identifiant du sommet : ");
+                            identifiant_a = scan.nextInt();
+                            
+                            graphe.addSommet(identifiant_a);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
                     } else {
                         System.out.println("Aucun graphe instancié !");
                     }
                     break;
                 case 5:
-                    System.out.println("Choisir nom fichier : ");
                     Path dir = Paths.get("./data/");
 
                     try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.txt")) {
                         for (Path file : stream) {
                             System.out.println(file.getFileName());
                         }
+                        System.out.println("Choisir nom fichier : ");
+                        name_file = scan.next();
+                        graphe = Fichier.chargerGraphe(name_file);
                     } catch(Exception e) {
                         e.printStackTrace();
+                        scan.next();
                     }
-                    name_file = scan.next();
-                    graphe = Fichier.chargerGraphe(name_file);
                     break;
                 case 6:
                     if(graphe != null) {
-                        System.out.println("Choisir nom fichier : ");
-                        name_file = scan.next();
+                        try{
+                            System.out.println("Choisir nom fichier : ");
+                            name_file = scan.next();
 
-                        graphe.sauvegarderGraphe(name_file);
+                            graphe.sauvegarderGraphe(name_file);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }
                     } else {
                         System.out.println("Aucun graphe instancié !");
                     }
                     break;
                 case 7:
                     if(graphe != null) {
-                        System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
-                        System.out.println("Choisir identifiant source :");
-                        identifiant_a = scan.nextInt();
-                        System.out.println("Choisir identifiant cible :");
-                        identifiant_b = scan.nextInt();
-
-                        graphe.suppConnexion(identifiant_a, identifiant_b);     
+                        try{
+                            System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
+                        
+                            graphe.suppConnexion(identifiant_a, identifiant_b);  
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }   
                     } else {
                         System.out.println("Aucun graphe instancié !");
                     }
@@ -148,37 +175,47 @@ public class Main {
                     }
                     break;
                 case 9:
-                    if(graphe == null) {
+                    try{
+                        if(graphe == null) {
                         System.out.println("Choisir type : 0(Non Orienté), 1(Orienté)");
                         type = scan.nextInt();
                         System.out.println("Choisir nombre sommets : ");
                         nbSommet = scan.nextInt();
-                        System.out.println("Choisir une probabilité 0,0 <= p <= 1,0 : (Exemple : 0,4 et non 0.4)");
+                        System.out.println("Choisir une probabilité 0,0 <= p <= 1,0 : p = (nombre de connexions) (Exemple : 0,4 et non 0.4)");
                         proba = scan.nextDouble();
 
                         graphe = new Graphe(type);
                         graphe.generationAleatoire(nbSommet, proba);
-                    } else {
-                        System.out.println("Le graphe est déjà instancié !");
+                        } else {
+                            System.out.println("Le graphe est déjà instancié !");
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        scan.next();
                     }
                     break;
                 case 10:
-                    if(graphe != null) {
-                        System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
-                        System.out.println("Choisir identifiant source :");
-                        identifiant_a = scan.nextInt();
-                        System.out.println("Choisir identifiant cible :");
-                        identifiant_b = scan.nextInt();
-                        
-                        Boolean estAdjacent = graphe.estAdjacentDirect(identifiant_a, identifiant_b);
-                        if(estAdjacent) {
-                            System.out.println("Les sommets sont adjacents direct.");
+                        if(graphe != null) {
+                            try{
+                                System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                                System.out.println("Choisir identifiant source :");
+                                identifiant_a = scan.nextInt();
+                                System.out.println("Choisir identifiant cible :");
+                                identifiant_b = scan.nextInt();
+                                
+                                Boolean estAdjacent = graphe.estAdjacentDirect(identifiant_a, identifiant_b);
+                                if(estAdjacent) {
+                                    System.out.println("Les sommets sont adjacents direct.");
+                                } else {
+                                    System.out.println("Les sommets ne sont pas adjacents direct.");
+                                }
+                            }catch(Exception e){
+                                e.printStackTrace();
+                                scan.next();
+                            }
                         } else {
-                            System.out.println("Les sommets ne sont pas adjacents direct.");
+                            System.out.println("Aucun graphe instancié !");
                         }
-                    } else {
-                        System.out.println("Aucun graphe instancié !");
-                    }
                     break;
                 default:
                     select = 0;
