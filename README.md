@@ -1,1 +1,1 @@
-important : pour le bien du fonctionnement du projet, il est nécessaire de le run depuis la racine.
+IMPORTANT : pour le bon fonctionnement du projet, il est nécessaire de le run depuis la racine.
