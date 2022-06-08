@@ -59,15 +59,44 @@ public class Matrice {
     }
 
     /**
+     * Création d'un graphe avec un type et un nombre de sommet
+     * @param type String
+     * @param nbSommets Integer
+     */
+    public void creerGraphe(Integer type, int nbSommets) {
+        this.type = type;
+        this.nbSommets = nbSommets;
+
+        this.matrice = new Integer[nbSommets][nbSommets];
+
+        for(int x = 0; x < nbSommets; x++){
+            for (int i = 0; i < nbSommets; i++) {
+                this.matrice[x][i] = 0;
+            }
+        }   
+    }
+
+    /**
      * Affichage du graphe
      */
     public void affichage(){
         System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
                             "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
-                            ", \n\tMatrice : " + this.matrice +
+                            ", \n\tMatrice : " + this.affichageMatrice() +
                             "\n]"
         );
+    }
+
+    public String affichageMatrice(){
+        String res = "";
+        for (int i = 0; i < this.matrice.length; i++) {
+            for (int j = 0; j < this.matrice[0].length; j++) {
+                res += this.matrice[i][j] + " ";
+            }
+            res += "\n";
+        }
+        return res;
     }
 
     public Integer getType() {return type;}

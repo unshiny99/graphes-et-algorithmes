@@ -31,6 +31,7 @@ public class Main {
         String name_file = null;
 
         Graphe graphe = null;
+        Matrice matrice = null;
 
         do{
             if(select != null){
@@ -236,10 +237,25 @@ public class Main {
                         }
                     break;
                 case 11:
-                    System.out.println("cas 11");
+                    if(matrice != null) {
+                        matrice.affichage();
+                    } else {
+                        System.out.println("Aucun graphe(tp2) instancié !");
+                    }
                     break;
                 case 12:
-                    System.out.println("cas 12");
+                    try{
+                        System.out.println("Choisir type : 0(Non Orienté), 1(Orienté)");
+                        type = scan.nextInt();
+                        System.out.println("Choisir nombre sommet(s) : ");
+                        nbSommet = scan.nextInt();
+
+                        matrice = new Matrice();
+                        matrice.creerGraphe(type,nbSommet);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                        scan.next();
+                    } 
                     break;
                 case 13:
                     System.out.println("cas 13");
