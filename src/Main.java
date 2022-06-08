@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import src.classes_tp1.Fichier;
 import src.classes_tp1.Graphe;
+import src.classes_tp2.Matrice;
 
 
 public class Main {
