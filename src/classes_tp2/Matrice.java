@@ -1,6 +1,7 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src.classes_tp2;
 
+import java.security.Identity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -111,11 +112,57 @@ public class Matrice {
         this.matrice = new Integer[nbSommets][nbSommets];
 
         for(int x = 0; x < nbSommets; x++){
+            this.sommets.add(new Sommet(x));
             for (int i = 0; i < nbSommets; i++) {
                 this.matrice[x][i] = 0;
             }
         }   
     }
+
+    /**
+     * Ajout un sommet
+     * @param identifiant Integer
+     */
+    public void addSommet(Integer identifiant){
+        if(!(checkIdentifiantExiste(identifiant))){
+            this.sommets.add(new Sommet(identifiant, new ArrayList<>()));   
+        }else{
+            System.out.println("Sommet : " + identifiant + " existe déjà !");
+        }
+    }
+
+    /**
+     * Vérifie si un identifiant existe dans la liste des sucesseurs
+     * @param identifiant
+     * @return Boolean
+     */
+    private Boolean checkIdentifiantExiste(Integer identifiant){
+        for(Sommet sommet : this.sommets){
+            if(sommet.getIndex().equals(identifiant)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * vérifie si un sommet est adjacent à un autre
+     * pour un graphe orienté, le sens est pris en compte
+     * @param s1 Sommet
+     * @param s2 Sommet
+     * @return vrai si adjacent direct, faux sinon
+     */
+    public boolean estAdjacentDirect(int s1, int s2) {
+        Sommet start = this.getSommetListe(s1);
+        Sommet stop = this.getSommetListe(s2);
+
+        if(this.matrice[this.sommets.indexOf(start)][this.sommets.indexOf(stop)].equals(1)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     /**
      * Affichage du graphe
@@ -124,6 +171,7 @@ public class Matrice {
         System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
                             "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
+                            ", \n\tliste sommet(s) = " + this.sommets +
                             ", \n\tMatrice : " + this.affichageMatrice() +
                             "\n]"
         );
@@ -140,13 +188,24 @@ public class Matrice {
         return res;
     }
 
+    public Sommet getSommetListe(int indentifiant){
+        for(Sommet sommet : this.sommets){
+            if(sommet.getIndex().equals(indentifiant)){
+                return sommet;
+            }
+        }
+        return null;
+    }
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
     public Integer[][] getMatrice() {return this.matrice;}
+    public List<Sommet> getListeSommets() {return this.sommets;}
 
     public void setType(Integer type) {this.type = type;}
     public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
     public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
     public void setMatrice(Integer[][] matrice) {this.matrice = matrice;}
+    public void setListeSommets(List<Sommet> sommets) {this.sommets = sommets;}
 }

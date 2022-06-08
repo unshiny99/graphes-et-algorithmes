@@ -260,7 +260,7 @@ public class Main {
                 case 13:
                     if(matrice != null) {
                         try{
-                            System.out.println("Liste identifiants : " + matrice);
+                            System.out.println("Liste identifiants : " + matrice.getListeSommets());
                             System.out.println("Choisir identifiant source :");
                             identifiant_a = scan.nextInt();
                             System.out.println("Choisir identifiant cible :");
@@ -276,7 +276,20 @@ public class Main {
                     }
                     break;
                 case 14:
-                    System.out.println("cas 14");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                            System.out.println("Choisir identifiant du sommet : ");
+                            identifiant_a = scan.nextInt();
+                            
+                            matrice.addSommet(identifiant_a);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié !");
+                    }
                     break;
                 case 15:
                     System.out.println("cas 15");
