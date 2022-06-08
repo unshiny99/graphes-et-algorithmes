@@ -1,6 +1,7 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src.classes_tp2;
 
+import java.security.Identity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -114,6 +115,25 @@ public class Matrice {
     }
 
     /**
+     * vérifie si un sommet est adjacent à un autre
+     * pour un graphe orienté, le sens est pris en compte
+     * @param s1 Sommet
+     * @param s2 Sommet
+     * @return vrai si adjacent direct, faux sinon
+     */
+    public boolean estAdjacentDirect(int s1, int s2) {
+        Sommet start = this.getSommetListe(s1);
+        Sommet stop = this.getSommetListe(s2);
+
+        if(this.matrice[this.sommets.indexOf(start)][this.sommets.indexOf(stop)].equals(1)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    /**
      * Affichage du graphe
      */
     public void affichage(){
@@ -135,6 +155,15 @@ public class Matrice {
             res += "\n\t";
         }
         return res;
+    }
+
+    public Sommet getSommetListe(int indentifiant){
+        for(Sommet sommet : this.sommets){
+            if(sommet.getIndex().equals(indentifiant)){
+                return sommet;
+            }
+        }
+        return null;
     }
 
     public Integer getType() {return type;}
