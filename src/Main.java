@@ -260,12 +260,12 @@ public class Main {
                 case 13:
                     if(matrice != null) {
                         try{
-                            System.out.println("Liste identifiants : " + matrice.getListeSommets());
+                            System.out.println("Liste identifiants : " + matrice.getIdentifiantAll());
                             System.out.println("Choisir identifiant source :");
                             identifiant_a = scan.nextInt();
                             System.out.println("Choisir identifiant cible :");
                             identifiant_b = scan.nextInt();
-
+                            
                             matrice.addConnexion(identifiant_a, identifiant_b);
                         } catch(Exception e) {
                             e.printStackTrace();

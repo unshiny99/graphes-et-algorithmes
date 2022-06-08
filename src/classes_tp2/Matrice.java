@@ -82,7 +82,7 @@ public class Matrice {
                 indexSommetSource = this.sommets.indexOf(sommet);
                 System.out.println(indexSommetSource); 
             }
-            if(sommet.getIndex().equals(identifiant_a)) {
+            if(sommet.getIndex().equals(identifiant_b)) {
                 indexSommetDest = this.sommets.indexOf(sommet);
                 System.out.println(indexSommetDest);
             }
@@ -112,7 +112,7 @@ public class Matrice {
         this.matrice = new Integer[nbSommets][nbSommets];
 
         for(int x = 0; x < nbSommets; x++){
-            this.sommets.add(new Sommet(x));
+            this.sommets.add(new Sommet(x+1));
             for (int i = 0; i < nbSommets; i++) {
                 this.matrice[x][i] = 0;
             }
