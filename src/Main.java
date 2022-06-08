@@ -271,7 +271,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe instancié !");
+                        System.out.println("Aucun graphe(tp2) instancié !");
                     }
                     break;
                 case 14:
@@ -287,7 +287,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe instancié !");
+                        System.out.println("Aucun graphe(tp2) instancié !");
                     }
                     break;
                 case 15:
@@ -307,10 +307,27 @@ public class Main {
                     System.out.println("cas 16");
                     break;
                 case 17:
-                    System.out.println("cas 17");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + matrice.getIdentifiantAll());
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
+                        
+                            matrice.suppConnexion(identifiant_a, identifiant_b);  
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }  
+                    }
                     break;
                 case 18:
-                    System.out.println("cas 18");
+                    if(matrice == null) {
+                        System.out.println("Instance du graphe(tp2) déjà nulle");
+                    } else {
+                        matrice = null;
+                    }
                     break;
                 case 19:
                     if(matrice != null) {
@@ -332,7 +349,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe(matrice) instancié !");
+                        System.out.println("Aucun graphe(tp2) instancié !");
                     }
                     break;
                 case 20:
