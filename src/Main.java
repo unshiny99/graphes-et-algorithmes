@@ -272,7 +272,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe instancié !");
+                        System.out.println("Aucun graphe(tp2) instancié !");
                     }
                     break;
                 case 14:
@@ -288,7 +288,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe instancié !");
+                        System.out.println("Aucun graphe(tp2) instancié !");
                     }
                     break;
                 case 15:
@@ -314,7 +314,11 @@ public class Main {
                     }
                     break;
                 case 18:
-                    System.out.println("cas 18");
+                    if(matrice == null) {
+                        System.out.println("Instance du graphe(tp2) déjà nulle");
+                    } else {
+                        matrice = null;
+                    }
                     break;
                 case 19:
                     if(matrice != null) {
@@ -336,7 +340,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe(matrice) instancié !");
+                        System.out.println("Aucun graphe(tp2) instancié !");
                     }
                     break;
                 case 20:
