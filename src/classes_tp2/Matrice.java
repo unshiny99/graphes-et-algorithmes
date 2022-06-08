@@ -15,7 +15,6 @@ public class Matrice {
     private Integer nbSommets;
     private Integer nbConnexion;
     private List<Sommet> sommets;
-    private Random random;
 
     private Integer[][] matrice;
 
@@ -32,7 +31,6 @@ public class Matrice {
         this.nbConnexion = nbConnexion;
         this.matrice = matrice;
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
 
     /**
@@ -46,7 +44,6 @@ public class Matrice {
         this.nbConnexion = 0;
         this.matrice = new Integer[nbSommets][nbSommets];
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
     
     /**
@@ -58,7 +55,6 @@ public class Matrice {
         this.type = type;
         this.nbConnexion = 0;
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
 
     /**
@@ -68,7 +64,6 @@ public class Matrice {
         this.type = null;
         this.nbConnexion = 0;
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
 
     /**
