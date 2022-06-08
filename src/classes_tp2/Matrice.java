@@ -166,6 +166,20 @@ public class Matrice {
         return null;
     }
 
+    /**
+     * Retourne la liste des identifiants depuis la liste des sucesseurs
+     * @return String
+     */
+    public String getIdentifiantAll(){
+        String res = "[";
+        for(Sommet sommet : this.sommets){
+            res += sommet.getIndex() + " | ";
+        }
+        res += "]";
+        return res.replace(" | ]", "]");
+    }
+
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
