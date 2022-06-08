@@ -6,34 +6,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import src.Sommet;
+
 public class FichierMatrice {
     /**
      * charger un fichier txt pour générer la matrice d'adjacence correspondante
      * @param cheminFic String
      */
-    public static Graphe chargerGraphe(String cheminFic) {
+    public static Matrice chargerGraphe(String cheminFic) {
         try {
             Scanner in = new Scanner(new File("data/" + cheminFic));
             int i = 0;
-            Graphe graphe = new Graphe();
+            Matrice graphe = new Matrice();
 
             while (in.hasNextLine()) {
                 if (i == 0) {
                     int type = in.nextInt();
                     int nbSommets = in.nextInt();
+                    /*
                     if (type == 1) {
                         graphe.creerGraphe(1, nbSommets);
                     } else { // cas par défaut
                         graphe.creerGraphe(0, nbSommets);
                     }
+                    */
                 } else {
                     int sommetSource = in.nextInt();
                     int sommetDest = in.nextInt();
-
+                    /*
                     Sommet sommet = graphe.getSommet(sommetSource);
                     if(!(sommet.voisinExiste(sommetDest))){
                         graphe.addConnexion(sommetSource, sommetDest);
                     }
+                    */
                 }
                 i++;
                 if (in.hasNextLine())
