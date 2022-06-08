@@ -145,12 +145,40 @@ public class Matrice {
         }   
     }
 
+    private void sizeIncrease(){
+        Integer pos_x = 0;
+        Integer pos_y = 0;
+        Integer[][] new_matrice = new Integer[this.nbSommets+1][this.nbSommets+1];
+
+        for(int x = 0; x < this.nbSommets; x++){
+            for (int i = 0; i < this.nbSommets; i++) {
+                new_matrice[x][i] = this.matrice[x][i] = 0;
+                pos_x =+ 1;
+            }
+            new_matrice[x][pos_x] = 0;
+            pos_y += 1;
+        }
+
+        this.nbSommets++;
+
+        for(int x = 0; x < this.nbSommets; ++x){
+            new_matrice[pos_y][x] = 0;
+        }
+        this.matrice = new_matrice;
+    }   
+
     /**
      * Ajout un sommet
      * @param identifiant Integer
      */
     public void addSommet(Integer identifiant){
         if(!(checkIdentifiantExiste(identifiant))){
+            this.sizeIncrease();
+            for(int x = 0; x < nbSommets; x++){
+                for (int i = 0; i < nbSommets; i++) {
+                    this.matrice[x][i] = 0;
+                }
+            }
             this.sommets.add(new Sommet(identifiant, new ArrayList<>()));   
         }else{
             System.out.println("Sommet : " + identifiant + " existe déjà !");
