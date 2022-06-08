@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import src.Sommet;
+
 public class Graphe {
     private Integer type;
     private Integer nbSommets;

@@ -35,6 +35,7 @@ public class Matrice {
         this.type = type;
         this.nbSommets = nbSommets;
         this.nbConnexion = 0;
+        this.matrice = new Integer[nbSommets][nbSommets];
         this.random = new Random();
     }
     

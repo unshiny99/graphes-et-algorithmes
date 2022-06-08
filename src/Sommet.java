@@ -1,6 +1,6 @@
 // Geoffrey Auzou, Maxime Frémeaux
 
-package src.classes_tp1;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;

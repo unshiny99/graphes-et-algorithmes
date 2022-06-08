@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import src.Sommet;
+
 public class Fichier {
     /**
      * charger un fichier txt pour générer un graphe correspondant
