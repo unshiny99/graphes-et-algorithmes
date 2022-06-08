@@ -1,12 +1,17 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src.classes_tp2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import src.Sommet;
 
 public class Matrice {
     private Integer type;
     private Integer nbSommets;
     private Integer nbConnexion;
+    private List<Sommet> sommets;
     private Random random;
 
     private Integer[][] matrice;
@@ -23,6 +28,7 @@ public class Matrice {
         this.nbSommets = nbSommets;
         this.nbConnexion = nbConnexion;
         this.matrice = matrice;
+        this.sommets = new ArrayList<>();
         this.random = new Random();
     }
 
@@ -36,6 +42,7 @@ public class Matrice {
         this.nbSommets = nbSommets;
         this.nbConnexion = 0;
         this.matrice = new Integer[nbSommets][nbSommets];
+        this.sommets = new ArrayList<>();
         this.random = new Random();
     }
     
@@ -47,6 +54,7 @@ public class Matrice {
     public Matrice(Integer type) {
         this.type = type;
         this.nbConnexion = 0;
+        this.sommets = new ArrayList<>();
         this.random = new Random();
     }
 
@@ -56,6 +64,7 @@ public class Matrice {
     public Matrice() {
         this.type = null;
         this.nbConnexion = 0;
+        this.sommets = new ArrayList<>();
         this.random = new Random();
     }
 
