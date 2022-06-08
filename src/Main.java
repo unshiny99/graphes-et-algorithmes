@@ -261,7 +261,20 @@ public class Main {
                     System.out.println("cas 13");
                     break;
                 case 14:
-                    System.out.println("cas 14");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                            System.out.println("Choisir identifiant du sommet : ");
+                            identifiant_a = scan.nextInt();
+                            
+                            matrice.addSommet(identifiant_a);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié !");
+                    }
                     break;
                 case 15:
                     System.out.println("cas 15");

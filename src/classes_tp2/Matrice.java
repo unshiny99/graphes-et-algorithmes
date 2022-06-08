@@ -88,6 +88,32 @@ public class Matrice {
     }
 
     /**
+     * Ajout un sommet
+     * @param identifiant Integer
+     */
+    public void addSommet(Integer identifiant){
+        if(!(checkIdentifiantExiste(identifiant))){
+            this.sommets.add(new Sommet(identifiant, new ArrayList<>()));   
+        }else{
+            System.out.println("Sommet : " + identifiant + " existe déjà !");
+        }
+    }
+
+    /**
+     * Vérifie si un identifiant existe dans la liste des sucesseurs
+     * @param identifiant
+     * @return Boolean
+     */
+    private Boolean checkIdentifiantExiste(Integer identifiant){
+        for(Sommet sommet : this.sommets){
+            if(sommet.getIndex().equals(identifiant)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Affichage du graphe
      */
     public void affichage(){
