@@ -1,7 +1,6 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src.classes_tp2;
 
-import java.security.Identity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -77,14 +76,13 @@ public class Matrice {
     public void addConnexion(Integer identifiant_a, Integer identifiant_b){
         Integer indexSommetSource = null;
         Integer indexSommetDest = null;
+
         for(Sommet sommet : this.sommets){
             if(sommet.getIndex().equals(identifiant_a)) {
                 indexSommetSource = this.sommets.indexOf(sommet);
-                System.out.println(indexSommetSource); 
             }
             if(sommet.getIndex().equals(identifiant_b)) {
                 indexSommetDest = this.sommets.indexOf(sommet);
-                System.out.println(indexSommetDest);
             }
         }
         if(indexSommetSource != null && indexSommetDest != null) {
@@ -96,6 +94,36 @@ public class Matrice {
                 // ajout des 2 connexions dans la matrice
                 this.matrice[indexSommetSource][indexSommetDest] = 1;
                 this.matrice[indexSommetDest][indexSommetSource] = 1;
+            }
+        }
+    }
+
+    /**
+     * Suppresion d'une connexion par identifiants de sommets
+     * @param identifiant_a Integer
+     * @param identifiant_b Integer
+     */
+    public void suppConnexion(Integer identifiant_a, Integer identifiant_b){
+        Integer indexSommetSource = null;
+        Integer indexSommetDest = null;
+
+        for(Sommet sommet : this.sommets){
+            if(sommet.getIndex().equals(identifiant_a)) {
+                indexSommetSource = this.sommets.indexOf(sommet);
+            }
+            if(sommet.getIndex().equals(identifiant_b)) {
+                indexSommetDest = this.sommets.indexOf(sommet);
+            }
+        }
+        if(indexSommetSource != null && indexSommetDest != null) {
+            this.nbConnexion += 1;
+            if(this.type.equals(1)) { // orienté
+                // suppresion de la connexion dans la matrice
+                this.matrice[indexSommetSource][indexSommetDest] = 0;
+            } else { // non orienté
+                // suppresion des 2 connexions dans la matrice
+                this.matrice[indexSommetSource][indexSommetDest] = 0;
+                this.matrice[indexSommetDest][indexSommetSource] = 0;
             }
         }
     }
@@ -171,7 +199,6 @@ public class Matrice {
         System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
                             "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
-                            ", \n\tliste sommet(s) = " + this.sommets +
                             ", \n\tMatrice : " + this.affichageMatrice() +
                             "\n]"
         );
