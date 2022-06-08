@@ -90,12 +90,12 @@ public class Matrice {
     }
 
     public String affichageMatrice(){
-        String res = "";
+        String res = "\n\t";
         for (int i = 0; i < this.matrice.length; i++) {
             for (int j = 0; j < this.matrice[0].length; j++) {
                 res += this.matrice[i][j] + " ";
             }
-            res += "\n";
+            res += "\n\t";
         }
         return res;
     }
@@ -107,7 +107,7 @@ public class Matrice {
     public void setType(Integer type) {this.type = type;}
     public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
     public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
-    public void setListeSuccesseurs(Integer[][] matrice) {this.matrice = matrice;}
+    public void setMatrice(Integer[][] matrice) {this.matrice = matrice;}
 
     public Integer[][] getMatrice() {return this.matrice;}
 }
