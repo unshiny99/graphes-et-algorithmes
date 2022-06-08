@@ -305,7 +305,18 @@ public class Main {
                     }
                     break;
                 case 16:
-                    System.out.println("cas 16");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Choisir nom fichier : ");
+                            name_file = scan.next();
+                            matrice.sauvegarderGraphe(name_file);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié !");
+                    }
                     break;
                 case 17:
                     if(matrice != null) {
