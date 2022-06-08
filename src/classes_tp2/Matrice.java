@@ -69,6 +69,37 @@ public class Matrice {
     }
 
     /**
+     * Ajout d'une connexion par identifiants de sommets
+     * @param identifiant_a Integer
+     * @param identifiant_b Integer
+     */
+    public void addConnexion(Integer identifiant_a, Integer identifiant_b){
+        Integer indexSommetSource = null;
+        Integer indexSommetDest = null;
+        for(Sommet sommet : this.sommets){
+            if(sommet.getIndex().equals(identifiant_a)) {
+                indexSommetSource = this.sommets.indexOf(sommet);
+                System.out.println(indexSommetSource); 
+            }
+            if(sommet.getIndex().equals(identifiant_a)) {
+                indexSommetDest = this.sommets.indexOf(sommet);
+                System.out.println(indexSommetDest);
+            }
+        }
+        if(indexSommetSource != null && indexSommetDest != null) {
+            this.nbConnexion += 1;
+            if(this.type.equals(1)) { // orienté
+                // ajout de la connexion dans la matrice
+                this.matrice[indexSommetSource][indexSommetDest] = 1;
+            } else { // non orienté
+                // ajout des 2 connexions dans la matrice
+                this.matrice[indexSommetSource][indexSommetDest] = 1;
+                this.matrice[indexSommetDest][indexSommetSource] = 1;
+            }
+        }
+    }
+
+    /**
      * Création d'un graphe avec un type et un nombre de sommet
      * @param type String
      * @param nbSommets Integer
@@ -112,11 +143,10 @@ public class Matrice {
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
+    public Integer[][] getMatrice() {return this.matrice;}
 
     public void setType(Integer type) {this.type = type;}
     public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
     public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
     public void setMatrice(Integer[][] matrice) {this.matrice = matrice;}
-
-    public Integer[][] getMatrice() {return this.matrice;}
 }

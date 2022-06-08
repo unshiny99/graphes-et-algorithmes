@@ -258,7 +258,22 @@ public class Main {
                     } 
                     break;
                 case 13:
-                    System.out.println("cas 13");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + matrice);
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
+
+                            matrice.addConnexion(identifiant_a, identifiant_b);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié !");
+                    }
                     break;
                 case 14:
                     System.out.println("cas 14");
