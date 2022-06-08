@@ -1,5 +1,5 @@
 // Geoffrey Auzou, Maxime Frémeaux
-package src.classes;
+package src.classes_tp1;
 
 import java.io.File;
 import java.io.FileWriter;

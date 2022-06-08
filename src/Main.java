@@ -2,14 +2,14 @@
 
 package src;
 
-import src.classes.Graphe;
-import src.classes.Fichier;
-
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import src.classes_tp1.Fichier;
+import src.classes_tp1.Graphe;
 
 
 public class Main {
