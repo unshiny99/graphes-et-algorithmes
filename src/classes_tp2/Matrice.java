@@ -80,6 +80,7 @@ public class Matrice {
         this.matrice = new Integer[nbSommets][nbSommets];
 
         for(int x = 0; x < nbSommets; x++){
+            this.sommets.add(new Sommet(x));
             for (int i = 0; i < nbSommets; i++) {
                 this.matrice[x][i] = 0;
             }
@@ -93,6 +94,7 @@ public class Matrice {
         System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
                             "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
+                            ", \n\tliste sommet(s) = " + this.sommets +
                             ", \n\tMatrice : " + this.affichageMatrice() +
                             "\n]"
         );
@@ -119,4 +121,5 @@ public class Matrice {
     public void setMatrice(Integer[][] matrice) {this.matrice = matrice;}
 
     public Integer[][] getMatrice() {return this.matrice;}
+    public List<Sommet> getListeSommet() {return this.sommets;}
 }
