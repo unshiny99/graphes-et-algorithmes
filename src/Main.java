@@ -278,7 +278,7 @@ public class Main {
                 case 14:
                     if(matrice != null) {
                         try{
-                            System.out.println("Liste identifiants : " + graphe.getIdentifiantAll());
+                            System.out.println("Liste identifiants : " + matrice.getIdentifiantAll());
                             System.out.println("Choisir identifiant du sommet : ");
                             identifiant_a = scan.nextInt();
                             
@@ -304,7 +304,27 @@ public class Main {
                     System.out.println("cas 18");
                     break;
                 case 19:
-                    System.out.println("cas 19");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + matrice.getIdentifiantAll());
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
+                            
+                            Boolean estAdjacent = matrice.estAdjacentDirect(identifiant_a, identifiant_b);
+                            if(estAdjacent) {
+                                System.out.println("Les sommets sont adjacents direct.");
+                            } else {
+                                System.out.println("Les sommets ne sont pas adjacents direct.");
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe(matrice) instancié !");
+                    }
                     break;
                 case 20:
                     System.out.println("cas 20");
