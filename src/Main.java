@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import src.classes_tp1.Fichier;
 import src.classes_tp1.Graphe;
+import src.classes_tp2.FichierMatrice;
 import src.classes_tp2.Matrice;
 
 
@@ -297,7 +298,7 @@ public class Main {
                         }
                         System.out.println("Choisir nom fichier : ");
                         name_file = scan.next();
-                        graphe = Fichier.chargerGraphe(name_file);
+                        matrice = FichierMatrice.chargerGraphe(name_file);
                     } catch(Exception e) {
                         e.printStackTrace();
                         scan.next();
