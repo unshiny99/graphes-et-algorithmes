@@ -37,9 +37,12 @@ public class Main {
             }
 
             System.out.println("--------------------------------------------------------\n" +
-                               "|                   MENU TP GRAPHE                      |\n" +
+                               "|                    MENU TP GRAPHE                     |\n" +
                                "---------------------------------------------------------\n" +
                                "|0  : STOP                                              |\n" +
+                               "---------------------------------------------------------\n" +
+                               "|                   LISTE D'ADJACENCE                   |\n" +
+                               "---------------------------------------------------------\n" +
                                "|1  : MODE : Afficher graphe                            |\n" +
                                "|2  : MODE : Création graphe (avec type/nombre sommets) |\n" +
                                "|3  : MODE : Ajout connexion                            |\n" +
@@ -50,7 +53,21 @@ public class Main {
                                "|8  : MODE : Suppression instance graphe                |\n" + 
                                "|9  : MODE : Génération aléatoire graphe                |\n" +
                                "|10 : MODE : Vérification adjacent direct               |\n" +
-                               "--------------------------------------------------------");
+                               "---------------------------------------------------------\n" +
+                               "|                  MATRICE D'ADJACENCE                  |\n" +
+                               "---------------------------------------------------------\n" +
+                               "|11 : MODE : Afficher graphe                            |\n" +
+                               "|12 : MODE : Création graphe (avec type/nombre sommets) |\n" +
+                               "|13 : MODE : Ajout connexion                            |\n" +
+                               "|14 : MODE : Ajout sommet                               |\n" +
+                               "|15 : MODE : Charger graphe                             |\n" +
+                               "|16 : MODE : Sauvegarde du graphe                       |\n" +
+                               "|17 : MODE : Suppression connexion                      |\n" +
+                               "|18 : MODE : Suppression instance graphe                |\n" + 
+                               "|19 : MODE : Vérification adjacent direct               |\n" +
+                               "|20 : MODE : Parcours de mots (exercice 2)              |\n" +
+                               "--------------------------------------------------------"
+                               );
             try {
                 select = scan_menu.nextInt();
             } catch(Exception e) {
@@ -217,6 +234,37 @@ public class Main {
                             System.out.println("Aucun graphe instancié !");
                         }
                     break;
+                case 11:
+                    System.out.println("cas 11");
+                    break;
+                case 12:
+                    System.out.println("cas 12");
+                    break;
+                case 13:
+                    System.out.println("cas 13");
+                    break;
+                case 14:
+                    System.out.println("cas 14");
+                    break;
+                case 15:
+                    System.out.println("cas 15");
+                    break;
+                case 16:
+                    System.out.println("cas 16");
+                    break;
+                case 17:
+                    System.out.println("cas 17");
+                    break;
+                case 18:
+                    System.out.println("cas 18");
+                    break;
+                case 19:
+                    System.out.println("cas 19");
+                    break;
+                case 20:
+                    System.out.println("cas 20");
+                    break;
+
                 default:
                     select = 0;
                     scan_menu.close();
