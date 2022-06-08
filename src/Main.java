@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import src.classes_tp1.Fichier;
 import src.classes_tp1.Graphe;
+import src.classes_tp2.FichierMatrice;
 import src.classes_tp2.Matrice;
 
 
@@ -32,6 +33,7 @@ public class Main {
 
         Graphe graphe = null;
         Matrice matrice = null;
+        Path dir = Paths.get("./data/");
 
         do{
             if(select != null){
@@ -139,8 +141,6 @@ public class Main {
                     }
                     break;
                 case 5:
-                    Path dir = Paths.get("./data/");
-
                     try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.txt")) {
                         for (Path file : stream) {
                             System.out.println(file.getFileName());
@@ -265,7 +265,7 @@ public class Main {
                             identifiant_a = scan.nextInt();
                             System.out.println("Choisir identifiant cible :");
                             identifiant_b = scan.nextInt();
-                            
+
                             matrice.addConnexion(identifiant_a, identifiant_b);
                         } catch(Exception e) {
                             e.printStackTrace();
@@ -292,10 +292,31 @@ public class Main {
                     }
                     break;
                 case 15:
-                    System.out.println("cas 15");
+                    try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.txt")) {
+                        for (Path file : stream) {
+                            System.out.println(file.getFileName());
+                        }
+                        System.out.println("Choisir nom fichier : ");
+                        name_file = scan.next();
+                        matrice = FichierMatrice.chargerGraphe(name_file);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                        scan.next();
+                    }
                     break;
                 case 16:
-                    System.out.println("cas 16");
+                    if(matrice != null) {
+                        try{
+                            System.out.println("Choisir nom fichier : ");
+                            name_file = scan.next();
+                            matrice.sauvegarderGraphe(name_file);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié !");
+                    }
                     break;
                 case 17:
                     if(matrice != null) {

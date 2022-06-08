@@ -1,6 +1,9 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src.classes_tp2;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +15,6 @@ public class Matrice {
     private Integer nbSommets;
     private Integer nbConnexion;
     private List<Sommet> sommets;
-    private Random random;
 
     private Integer[][] matrice;
 
@@ -29,7 +31,6 @@ public class Matrice {
         this.nbConnexion = nbConnexion;
         this.matrice = matrice;
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
 
     /**
@@ -43,7 +44,6 @@ public class Matrice {
         this.nbConnexion = 0;
         this.matrice = new Integer[nbSommets][nbSommets];
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
     
     /**
@@ -55,7 +55,6 @@ public class Matrice {
         this.type = type;
         this.nbConnexion = 0;
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
 
     /**
@@ -65,7 +64,6 @@ public class Matrice {
         this.type = null;
         this.nbConnexion = 0;
         this.sommets = new ArrayList<>();
-        this.random = new Random();
     }
 
     /**
@@ -263,6 +261,43 @@ public class Matrice {
         }
         res += "]";
         return res.replace(" | ]", "]");
+    }
+
+    /**
+     * sauvegarder un graphe dans un fichier texte
+     * @param nomFic String
+     */
+    public void sauvegarderGraphe(String nomFic) {
+        try {
+            String chemin = "data/" + nomFic + ".txt";
+            File fichier = new File(chemin);
+            if(fichier.createNewFile()) {
+                FileWriter myWriter = new FileWriter(chemin);
+                System.out.println("type : " + this.type);
+                System.out.println("nombre sommets : " + this.nbSommets);
+                if(this.type.equals(1)) {
+                    myWriter.write("1 " + this.getNbSommets().toString() + " "  + this.getNbConnexion().toString() + "\n");
+                } else {
+                    myWriter.write("0 " + this.getNbSommets().toString() + " " + this.getNbConnexion().toString() + "\n");
+                }
+                // récupérer les valeurs à 1 dans la matrice et sens coordonnées
+                for(int x = 0; x < this.nbSommets; x++){
+                    // this.sommets.add(new Sommet(x+1));
+                    for (int i = 0; i < this.nbSommets; i++) {
+                        if(this.matrice[x][i] == 1) {
+                            String indexSommetSource = this.sommets.get(x).getIndex().toString();
+                            String indexSommetDest = this.sommets.get(i).getIndex().toString();
+                            myWriter.write(indexSommetSource+ " " + indexSommetDest + "\n");
+                        }
+                    }
+                }   
+                myWriter.close();
+            } else {
+                System.out.println("Le fichier existe déjà !");
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

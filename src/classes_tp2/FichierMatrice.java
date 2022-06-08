@@ -23,22 +23,15 @@ public class FichierMatrice {
                 if (i == 0) {
                     int type = in.nextInt();
                     int nbSommets = in.nextInt();
-                    /*
                     if (type == 1) {
                         graphe.creerGraphe(1, nbSommets);
                     } else { // cas par défaut
                         graphe.creerGraphe(0, nbSommets);
                     }
-                    */
-                } else {
+                } else { // pour les autres lignes, faire les liaisons
                     int sommetSource = in.nextInt();
                     int sommetDest = in.nextInt();
-                    /*
-                    Sommet sommet = graphe.getSommet(sommetSource);
-                    if(!(sommet.voisinExiste(sommetDest))){
-                        graphe.addConnexion(sommetSource, sommetDest);
-                    }
-                    */
+                    graphe.addConnexion(sommetSource, sommetDest);
                 }
                 i++;
                 if (in.hasNextLine())
