@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import src.Sommet;
 
@@ -145,6 +144,9 @@ public class Matrice {
         }   
     }
 
+    /**
+     * Augmente la taille de la matrice suite à l'ajout d'un sommet
+     */
     private void sizeIncrease(){
         Integer pos_x = 0;
         Integer pos_y = 0;
@@ -166,6 +168,36 @@ public class Matrice {
         }
         this.matrice = new_matrice;
     }   
+
+    /**
+     * Réduit la taille de la matrice suite à la suppresion d'un sommet
+     */
+    // private void sizeDecrease(Integer index){
+    //     Integer pos_x = 0;
+    //     Integer pos_y = 0;
+    //     Integer[][] new_matrice = new Integer[this.nbSommets-1][this.nbSommets-1];
+
+    //     for(int x = 0; x < this.nbSommets; x++){
+    //         for (int i = 0; i < this.nbSommets; i++) {
+    //             if(i+1 != index){
+    //                 new_matrice[x][i] = this.matrice[x][i] = 0;
+    //                 pos_x =+ 1;
+    //             }
+    //         }
+    //         if(x+1 != index){
+    //             new_matrice[x][pos_x] = 0;
+    //             pos_y += 1;
+    //         }
+    //     }
+
+    //     this.nbSommets--;
+
+    //     for(int x = 0; x < this.nbSommets; ++x){
+    //         new_matrice[pos_y][x] = 0;
+    //     }
+    //     this.matrice = new_matrice;
+    // }   
+
 
     /**
      * Ajout un sommet
@@ -230,6 +262,10 @@ public class Matrice {
         );
     }
 
+    /**
+     * Retourne un string contenant l'affichage de la matrice
+     * @return
+     */
     public String affichageMatrice(){
         String res = "\n\t";
         for (int i = 0; i < this.matrice.length; i++) {
@@ -241,6 +277,9 @@ public class Matrice {
         return res;
     }
 
+    /**
+     * Retourne une liste de sommet
+     */
     public Sommet getSommetListe(int indentifiant){
         for(Sommet sommet : this.sommets){
             if(sommet.getIndex().equals(indentifiant)){
@@ -299,7 +338,6 @@ public class Matrice {
             e.printStackTrace();
         }
     }
-
 
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
