@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Sommet {
     private Integer index;
+    private String mot;
     private List<Sommet> voisins;
 
     /**
@@ -15,6 +16,16 @@ public class Sommet {
      */
     public Sommet(Integer index){
         this.index = index;
+        this.voisins = new ArrayList<>();
+    }
+
+    /**
+     * Constructeur de sommet avec index(identifiant) et un mots (tp2 exo2)
+     * @param index Integer
+     */
+    public Sommet(Integer index, String mot){
+        this.index = index;
+        this.mot = mot;
         this.voisins = new ArrayList<>();
     }
 
@@ -78,6 +89,7 @@ public class Sommet {
 
     public List<Sommet> getVoisins(){return this.voisins;}
 
+    public String getMot(){return this.mot;}
     public Integer getIndex(){return this.index;}
 
     public void setIndex(Integer index) {this.index = index;}
