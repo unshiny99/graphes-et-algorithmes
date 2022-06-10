@@ -240,7 +240,7 @@ public class Main {
                     if(matrice != null) {
                         matrice.affichage();
                     } else {
-                        System.out.println("Aucun graphe(tp2) instancié !");
+                        System.out.println("Aucun graphe (tp2) instancié !");
                     }
                     break;
                 case 12:
@@ -272,7 +272,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe(tp2) instancié !");
+                        System.out.println("Aucun graphe (tp2) instancié !");
                     }
                     break;
                 case 14:
@@ -288,7 +288,7 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe(tp2) instancié !");
+                        System.out.println("Aucun graphe (tp2) instancié !");
                     }
                     break;
                 case 15:
@@ -336,7 +336,7 @@ public class Main {
                     break;
                 case 18:
                     if(matrice == null) {
-                        System.out.println("Instance du graphe(tp2) déjà nulle");
+                        System.out.println("Instance du graphe (tp2) déjà nulle");
                     } else {
                         matrice = null;
                     }
@@ -361,11 +361,11 @@ public class Main {
                             scan.next();
                         }
                     } else {
-                        System.out.println("Aucun graphe(tp2) instancié !");
+                        System.out.println("Aucun graphe (tp2) instancié !");
                     }
                     break;
                 case 20:
-                    System.out.println("cas 20");
+                    System.out.println("Exercice 2");
                     break;
 
                 default:
