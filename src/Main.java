@@ -70,6 +70,7 @@ public class Main {
                                "|18 : MODE : Suppression instance graphe                |\n" + 
                                "|19 : MODE : Vérification adjacent direct               |\n" +
                                "|20 : MODE : Parcours de mots (exercice 2)              |\n" +
+                               "|21 : MODE : TEST (exercice 2)                          |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -367,6 +368,10 @@ public class Main {
                 case 20:
                     matrice = FichierMatrice.chargerGrapheMots("Mots.txt");
                     break;
+                case 21: // test DEBUG
+                    matrice = new Matrice();
+                    System.out.println("TEST : " + matrice.verificationDiffChar("CLOT", "ILOT"));
+                break;
                 default:
                     select = 0;
                     scan_menu.close();
