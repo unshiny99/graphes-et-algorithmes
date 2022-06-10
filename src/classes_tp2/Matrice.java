@@ -359,6 +359,25 @@ public class Matrice {
         }
     }
 
+    public void parcoursEnLargeurInit(Sommet sommet){
+        List<Integer> c = new ArrayList<>();
+        List<Integer> d = new ArrayList<>();
+        List<Sommet> p = new ArrayList<>();
+        List<Sommet> f = new ArrayList<>();
+
+        for(Sommet s : this.sommets){
+            c.add(0);
+            d.add(-1);
+            p.add(null);
+        }
+        c.remove(0);
+        c.add(0, 1);
+        d.remove(0);
+        d.add(0, 1);
+
+        f.add(sommet);
+    }
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
