@@ -69,7 +69,7 @@ public class Main {
                                "|17 : MODE : Suppression connexion                      |\n" +
                                "|18 : MODE : Suppression instance graphe                |\n" + 
                                "|19 : MODE : Vérification adjacent direct               |\n" +
-                               "|20 : MODE : Parcours de mots (exercice 2)              |\n" +
+                               "|20 : MODE : Parcours de mots (exercice 2)(non fonctionnelle)|\n" +
                                "--------------------------------------------------------"
                                );
             try {
