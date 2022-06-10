@@ -378,6 +378,9 @@ public class Matrice {
         this.d.add(0, 0);
 
         this.f.add(sommet);
+
+        // System.out.println(this.c);
+        // System.out.println(this.d);
     }
 
     /**
@@ -400,13 +403,13 @@ public class Matrice {
             for(int y=0;y<this.getVoisin(x).size();y++) { // pour tout sommet adjacent
                 if(this.c.get(y) == 0) {
                     this.c.add(y,1);
-                    this.d.add(y,this.d.get(x.getIndex())+1);
+                    this.d.add(y,this.d.get(x.getIndex()-1)+1);
                     this.p.add(y,x);
                     this.f.add(this.getVoisin(x).get(y)); // enfiler y
                 }
             }
             System.out.println("file2 : " + this.f);
-            this.c.add(x.getIndex(),2);
+            this.c.add(x.getIndex()-1,2);
         }
         System.out.println("colorations : " + c.toString());
         System.out.println("distance : " + d.toString());
