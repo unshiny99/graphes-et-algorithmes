@@ -349,6 +349,16 @@ public class Matrice {
         }
     }
 
+    public void generationLiaisons() {
+        for(int i=0;i<this.sommets.size(); i++) {
+            for(int j=i+1;j<this.sommets.size();j++) {
+                if(verificationDiffChar(this.sommets.get(i).getMot(), this.sommets.get(j).getMot())) {
+                    this.addConnexion(this.sommets.get(i).getIndex(), this.sommets.get(j).getIndex());
+                }
+            }
+        }
+    }
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}

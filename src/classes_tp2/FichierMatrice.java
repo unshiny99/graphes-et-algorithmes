@@ -81,6 +81,7 @@ public class FichierMatrice {
             }
             // cas non orienté
             graphe.creerGrapheMots(0, nbSommets, sommets);
+            graphe.generationLiaisons();
             if (graphe != null) {
                 graphe.affichage();
             }
