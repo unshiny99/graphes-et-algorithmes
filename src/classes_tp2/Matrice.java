@@ -170,36 +170,6 @@ public class Matrice {
     }   
 
     /**
-     * Réduit la taille de la matrice suite à la suppresion d'un sommet
-     */
-    // private void sizeDecrease(Integer index){
-    //     Integer pos_x = 0;
-    //     Integer pos_y = 0;
-    //     Integer[][] new_matrice = new Integer[this.nbSommets-1][this.nbSommets-1];
-
-    //     for(int x = 0; x < this.nbSommets; x++){
-    //         for (int i = 0; i < this.nbSommets; i++) {
-    //             if(i+1 != index){
-    //                 new_matrice[x][i] = this.matrice[x][i] = 0;
-    //                 pos_x =+ 1;
-    //             }
-    //         }
-    //         if(x+1 != index){
-    //             new_matrice[x][pos_x] = 0;
-    //             pos_y += 1;
-    //         }
-    //     }
-
-    //     this.nbSommets--;
-
-    //     for(int x = 0; x < this.nbSommets; ++x){
-    //         new_matrice[pos_y][x] = 0;
-    //     }
-    //     this.matrice = new_matrice;
-    // }   
-
-
-    /**
      * Ajout un sommet
      * @param identifiant Integer
      */
@@ -336,6 +306,26 @@ public class Matrice {
             }
         } catch(IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Vérifie si il existe un char différent entre 2 mots, si plus de 1 différence, return false
+     * @param a String
+     * @param b String
+     * @return Boolean
+     */
+    public Boolean verificationDiffChar(String a, String b){
+        Integer cpt = 0;
+        for(Integer i = 0; i < a.length(); ++i){
+            if(!(a.charAt(i) == b.charAt(i))){
+                cpt++;
+            }
+        }
+        if(cpt.equals(1)){
+            return true;
+        }else{
+            return false;
         }
     }
 
