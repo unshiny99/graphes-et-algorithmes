@@ -378,6 +378,22 @@ public class Matrice {
         f.add(sommet);
     }
 
+    public void parcoursEnLargeur(List<Integer> c, List<Integer> d, List<Sommet> p, List<Sommet> f) {
+        while(f != null) {
+            Sommet x = f.get(0);
+            f.remove(0); // défiler f
+            for(int y=0;y<??;y++) { // pour tout sommet adjacent
+                if(c.get(y) == 0) {
+                    c.get(y) = 1;
+                    d.get(y) = d.get(x)+1;
+                    p.get(y) = x;
+                    f.add(y); // enfiler y
+                }
+            }
+            c.get(x) = 2;
+        }
+    }
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
