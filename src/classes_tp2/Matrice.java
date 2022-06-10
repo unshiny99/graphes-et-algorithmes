@@ -17,6 +17,11 @@ public class Matrice {
 
     private Integer[][] matrice;
 
+    private List<Integer> c = new ArrayList<>();
+    private List<Integer> d = new ArrayList<>();
+    private List<Sommet> p = new ArrayList<>();
+    private List<Sommet> f = new ArrayList<>();
+
     /**
      * Constructeur d'un Graph avec un type, un nombre de sommet, un nombre de connexion
      * @param type Integer
@@ -268,11 +273,13 @@ public class Matrice {
     }
 
     /**
-     * Retourne une liste de sommet
+     * Retourne un sommet dont l'id est donné
+     * @param int identifiant du sommet
+     * @return Sommet 
      */
-    public Sommet getSommetListe(int indentifiant){
+    public Sommet getSommetListe(int identifiant){
         for(Sommet sommet : this.sommets){
-            if(sommet.getIndex().equals(indentifiant)){
+            if(sommet.getIndex().equals(identifiant)){
                 return sommet;
             }
         }
@@ -360,38 +367,67 @@ public class Matrice {
     }
 
     public void parcoursEnLargeurInit(Sommet sommet){
-        List<Integer> c = new ArrayList<>();
-        List<Integer> d = new ArrayList<>();
-        List<Sommet> p = new ArrayList<>();
-        List<Sommet> f = new ArrayList<>();
-
         for(Sommet s : this.sommets){
-            c.add(0);
-            d.add(-1);
-            p.add(null);
+            this.c.add(0);
+            this.d.add(999999);
+            this.p.add(null);
         }
-        c.remove(0);
-        c.add(0, 1);
-        d.remove(0);
-        d.add(0, 1);
+        this.c.remove(0);
+        this.c.add(0, 0);
+        this.d.remove(0);
+        this.d.add(0, 0);
 
-        f.add(sommet);
+        this.f.add(sommet);
     }
 
-    public void parcoursEnLargeur(List<Integer> c, List<Integer> d, List<Sommet> p, List<Sommet> f) {
-        while(f != null) {
-            Sommet x = f.get(0);
-            f.remove(0); // défiler f
-            for(int y=0;y<??;y++) { // pour tout sommet adjacent
-                if(c.get(y) == 0) {
-                    c.get(y) = 1;
-                    d.get(y) = d.get(x)+1;
-                    p.get(y) = x;
-                    f.add(y); // enfiler y
+    /**
+     * parcours en largeur sur le graphe
+     * @param c liste des colorations
+     * @param d liste des distances
+     * @param p liste des prédécesseurs
+     * @param f file de parcours
+     */
+    public void parcoursEnLargeur(Sommet sommet) {
+        this.parcoursEnLargeurInit(sommet);
+        while(this.f.size() != 0) {
+            System.out.println("file : " + this.f);
+            Sommet x = this.f.get(0);
+            this.f.remove(0); // défiler f
+            System.out.println("voisins : " + this.getVoisin(x));
+            // System.out.println(this.getVoisin(x).get(0));
+            // System.out.println(this.getVoisin(x).get(1));
+            // System.out.println(this.getVoisin(x).get(2));
+            for(int y=0;y<this.getVoisin(x).size();y++) { // pour tout sommet adjacent
+                if(this.c.get(y) == 0) {
+                    this.c.add(y,1);
+                    this.d.add(y,this.d.get(x.getIndex())+1);
+                    this.p.add(y,x);
+                    this.f.add(this.getVoisin(x).get(y)); // enfiler y
                 }
             }
-            c.get(x) = 2;
+            System.out.println("file2 : " + this.f);
+            this.c.add(x.getIndex(),2);
         }
+        System.out.println("colorations : " + c.toString());
+        System.out.println("distance : " + d.toString());
+        System.out.println("prédécesseur : " + p.toString());
+    }
+
+    /**
+     * Retourne la liste des voisins à partir d'un sommet depuis une matrice
+     * @param sommet Sommet
+     * @return List<Sommet>
+     */
+    public List<Sommet> getVoisin(Sommet sommet){
+        List<Sommet> liste = new ArrayList<>();
+        
+        for (int j = 0; j < this.matrice[sommet.getIndex()-1].length; j++){
+            if(this.matrice[sommet.getIndex()-1][j].equals(1)){
+                liste.add(this.sommets.get(j));
+            }
+        }
+
+        return liste;
     }
 
     public Integer getType() {return type;}

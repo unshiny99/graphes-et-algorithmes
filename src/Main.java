@@ -366,6 +366,17 @@ public class Main {
                     break;
                 case 20:
                     matrice = FichierMatrice.chargerGrapheMots("Mots.txt");
+                    try {
+                        System.out.println("Liste identifiants : " + matrice.getIdentifiantAll());
+                        System.out.println("Choisir identifiant sommet départ :");
+                        identifiant_a = scan.nextInt();
+                        if(matrice != null) {
+                            matrice.parcoursEnLargeur(matrice.getSommetListe(identifiant_a));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        scan.next();
+                    }
                     break;
                 default:
                     select = 0;
