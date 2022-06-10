@@ -378,6 +378,23 @@ public class Matrice {
         f.add(sommet);
     }
 
+    /**
+     * Retourne la liste des voisins à partir d'un sommet depuis une matrice
+     * @param sommet Sommet
+     * @return List<Sommet>
+     */
+    public List<Sommet> getVoisin(Sommet sommet){
+        List<Sommet> liste = new ArrayList<>();
+        
+        for (int j = 0; j < this.matrice[sommet.getIndex()-1].length; j++){
+            if(this.matrice[sommet.getIndex()-1][j].equals(1)){
+                liste.add(this.sommets.get(j));
+            }
+        }
+
+        return liste;
+    }
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
