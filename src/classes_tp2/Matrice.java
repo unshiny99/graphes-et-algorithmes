@@ -145,6 +145,25 @@ public class Matrice {
     }
 
     /**
+     * Création d'un graphe avec un type et un nombre de sommet
+     * @param type String
+     * @param nbSommets Integer
+     */
+    public void creerGrapheMots(Integer type, int nbSommets, List<Sommet> sommets) {
+        this.type = type;
+        this.nbSommets = nbSommets;
+
+        this.sommets = sommets;
+        this.matrice = new Integer[nbSommets][nbSommets];
+
+        for(int x = 0; x < nbSommets; x++){
+            for (int i = 0; i < nbSommets; i++) {
+                this.matrice[x][i] = 0;
+            }
+        }   
+    }
+
+    /**
      * Augmente la taille de la matrice suite à l'ajout d'un sommet
      */
     private void sizeIncrease(){
@@ -257,6 +276,7 @@ public class Matrice {
         System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
                             "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
+                            ", \n\tsommet(s) = " + this.sommets +
                             ", \n\tMatrice : " + this.affichageMatrice() +
                             "\n]"
         );

@@ -69,22 +69,9 @@ public class Sommet {
         this.voisins.remove(sommet);
     }
 
-    /**
-     * Mise en forme de l'affichage de chaque voisin 
-     * @return String
-     */
-    private String formaString(){
-        String res = "";
-
-        for(Sommet sommet : this.voisins){
-            res += " => " + sommet.getIndex();
-        }
-        return res;
-    }
-
     @Override
     public String toString(){
-        return "[ Index : " + this.index + ", Voisins" + formaString() + " ]";
+        return "[ Index : " + this.index + ", Nom : " + this.mot + " ]";
     }
 
     public List<Sommet> getVoisins(){return this.voisins;}

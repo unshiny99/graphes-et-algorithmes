@@ -365,9 +365,8 @@ public class Main {
                     }
                     break;
                 case 20:
-                    System.out.println("Exercice 2");
+                    matrice = FichierMatrice.chargerGrapheMots("Mots.txt");
                     break;
-
                 default:
                     select = 0;
                     scan_menu.close();

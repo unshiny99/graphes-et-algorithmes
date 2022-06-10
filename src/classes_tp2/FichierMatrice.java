@@ -4,6 +4,8 @@ package src.classes_tp2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import src.Sommet;
@@ -37,6 +39,48 @@ public class FichierMatrice {
                 if (in.hasNextLine())
                     in.nextLine();
             }
+            if (graphe != null) {
+                graphe.affichage();
+            }
+            in.close();
+            return graphe;
+        } catch (FileNotFoundException e) {
+            System.out.println("\nLe fichier spécifié est introuvable.\n");
+            e.getMessage();
+        }
+        return null;
+    } 
+
+    /**
+     * charger un fichier txt contenant tous ses sommets
+     * pour générer la matrice d'adjacence correspondante
+     * @param cheminFic String
+     */
+    public static Matrice chargerGrapheMots(String cheminFic) {
+        try {
+            Scanner in = new Scanner(new File("data/" + cheminFic));
+            int i = 0;
+            Matrice graphe = new Matrice();
+            int nbSommets = 0;
+            List<Sommet> sommets = new ArrayList<>();
+
+            while (in.hasNextLine()) {
+                if (i == 0) {
+                    //int type = in.nextInt();
+                    nbSommets = in.nextInt();
+                    in.nextLine();
+                } else {
+                    for(int j=0;j<nbSommets;j++) {
+                        if (in.hasNextLine()) {
+                            String sommet = in.nextLine();
+                            sommets.add(new Sommet(j+1,sommet));
+                        }
+                    }
+                }
+                i++;
+            }
+            // cas non orienté
+            graphe.creerGrapheMots(0, nbSommets, sommets);
             if (graphe != null) {
                 graphe.affichage();
             }
