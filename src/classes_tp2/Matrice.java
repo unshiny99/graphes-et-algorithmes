@@ -372,13 +372,9 @@ public class Matrice {
             this.d.add(999999);
             this.p.add(null);
         }
-        this.c.set(0, 0);
-        this.d.set(0, 0);
+        this.d.set(sommet.getIndex()-1, 0);
 
         this.f.add(sommet);
-
-        // System.out.println(this.c);
-        // System.out.println(this.d);
     }
 
     /**
@@ -405,6 +401,14 @@ public class Matrice {
             }
             this.c.set(index,2);
         }
+        System.out.println(this.c);
+        System.out.println(this.d);
+    }
+
+    public void trouverPlusCourtChemin(Sommet source, Sommet dest) {
+        System.out.println(source);
+        System.out.println(dest);
+        System.out.println("Le nombre d'arêtes est de : " + this.d.get(this.sommets.indexOf(dest)));
     }
 
     /**
