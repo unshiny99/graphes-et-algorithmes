@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -358,6 +357,9 @@ public class Matrice {
         }
     }
 
+    /**
+     * Génère les liaisons d'une matrice
+     */
     public void generationLiaisons() {
         for(int i=0;i<this.sommets.size(); i++) {
             for(int j=i+1;j<this.sommets.size();j++) {
@@ -368,6 +370,10 @@ public class Matrice {
         }
     }
 
+    /**
+     * Initialise le parcours en largeur
+     * @param sommet Sommet
+     */
     public void parcoursEnLargeurInit(Sommet sommet){
         for(Sommet s : this.sommets){
             this.c.add(0);
@@ -405,6 +411,11 @@ public class Matrice {
         }
     }
 
+    /**
+     * Trouve le plus court chemin depuis la source vers la destination
+     * @param source Sommet
+     * @param dest Sommet
+     */
     public void trouverPlusCourtChemin(Sommet source, Sommet dest) {
         System.out.println("Le nombre d'arêtes est de : " + this.d.get(this.sommets.indexOf(dest)));
         Sommet sommetCourant = dest;
