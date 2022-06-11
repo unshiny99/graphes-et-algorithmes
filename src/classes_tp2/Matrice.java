@@ -372,10 +372,8 @@ public class Matrice {
             this.d.add(999999);
             this.p.add(null);
         }
-        this.c.remove(0);
-        this.c.add(0, 0);
-        this.d.remove(0);
-        this.d.add(0, 0);
+        this.c.set(0, 0);
+        this.d.set(0, 0);
 
         this.f.add(sommet);
 
@@ -393,28 +391,20 @@ public class Matrice {
     public void parcoursEnLargeur(Sommet sommet) {
         this.parcoursEnLargeurInit(sommet);
         while(this.f.size() != 0) {
-            System.out.println("file : " + this.f);
             Sommet x = this.f.get(0);
             this.f.remove(0); // défiler f
-            System.out.println("voisins : " + this.getVoisin(x));
             int index = this.sommets.indexOf(x);
-            // System.out.println(this.getVoisin(x).get(0));
-            // System.out.println(this.getVoisin(x).get(1));
-            // System.out.println(this.getVoisin(x).get(2));
             for(int y=0;y<this.getVoisin(x).size();y++) { // pour tout sommet adjacent
-                if(this.c.get(y) == 0) {
-                    this.c.set(y,1);
-                    this.d.set(y,this.d.get(index)+1);
-                    this.p.set(y,x);
+                int indexTest = this.getVoisin(x).get(y).getIndex()-1;
+                if(this.c.get(indexTest) == 0) {
+                    this.c.set(indexTest,1);
+                    this.d.set(indexTest,this.d.get(index)+1);
+                    this.p.set(indexTest,x);
                     this.f.add(this.getVoisin(x).get(y)); // enfiler y
                 }
             }
-            System.out.println("file2 : " + this.f);
             this.c.set(index,2);
         }
-        System.out.println("colorations : " + c.toString());
-        System.out.println("distance : " + d.toString());
-        System.out.println("prédécesseur : " + p.toString());
     }
 
     /**

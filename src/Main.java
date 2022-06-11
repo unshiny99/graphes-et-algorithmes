@@ -373,6 +373,9 @@ public class Main {
                         if(matrice != null) {
                             matrice.parcoursEnLargeur(matrice.getSommetListe(identifiant_a));
                         }
+                        System.out.println("Choisir identifiant sommet arrivée :");
+                        identifiant_b = scan.nextInt();
+                        // TODO : ajouter ICI appel méthode qui retourne la plus courte distance entre sommet départ & arrivée
                     } catch (Exception e) {
                         e.printStackTrace();
                         scan.next();
