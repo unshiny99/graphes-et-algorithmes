@@ -8,6 +8,7 @@ import java.util.List;
 public class Sommet {
     private Integer index;
     private String mot;
+    private Boolean marquer = false;
     private List<Sommet> voisins;
 
     /**
@@ -78,7 +79,9 @@ public class Sommet {
 
     public String getMot(){return this.mot;}
     public Integer getIndex(){return this.index;}
+    public Boolean getMarquer(){return this.marquer;}
 
+    public void setMarquer(Boolean marquer){this.marquer = marquer;}
     public void setIndex(Integer index) {this.index = index;}
     public void setVoisins(List<Sommet> voisins) {this.voisins = voisins;}
 }
