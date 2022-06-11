@@ -69,7 +69,7 @@ public class Main {
                                "|17 : MODE : Suppression connexion                      |\n" +
                                "|18 : MODE : Suppression instance graphe                |\n" + 
                                "|19 : MODE : Vérification adjacent direct               |\n" +
-                               "|20 : MODE : Parcours de mots (exercice 2)(non fonctionnelle)|\n" +
+                               "|20 : MODE : Parcours de mots                           |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -371,11 +371,11 @@ public class Main {
                         System.out.println("Choisir identifiant sommet départ :");
                         identifiant_a = scan.nextInt();
                         if(matrice != null) {
-                            matrice.parcoursEnLargeur(matrice.getSommetListe(identifiant_a));
+                            matrice.parcoursEnLargeur(matrice.getSommet(identifiant_a));
                         }
                         System.out.println("Choisir identifiant sommet arrivée :");
                         identifiant_b = scan.nextInt();
-                        matrice.trouverPlusCourtChemin(matrice.getSommetListe(identifiant_a), matrice.getSommetListe(identifiant_b));
+                        matrice.trouverPlusCourtChemin(matrice.getSommet(identifiant_a), matrice.getSommet(identifiant_b));
                     } catch (Exception e) {
                         e.printStackTrace();
                         scan.next();

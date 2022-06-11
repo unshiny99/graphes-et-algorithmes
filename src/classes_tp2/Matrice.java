@@ -235,8 +235,8 @@ public class Matrice {
      * @return vrai si adjacent direct, faux sinon
      */
     public boolean estAdjacentDirect(int s1, int s2) {
-        Sommet start = this.getSommetListe(s1);
-        Sommet stop = this.getSommetListe(s2);
+        Sommet start = this.getSommet(s1);
+        Sommet stop = this.getSommet(s2);
 
         if(this.matrice[this.sommets.indexOf(start)][this.sommets.indexOf(stop)].equals(1)){
             return true;
@@ -279,7 +279,7 @@ public class Matrice {
      * @param int identifiant du sommet
      * @return Sommet 
      */
-    public Sommet getSommetListe(int identifiant){
+    public Sommet getSommet(int identifiant){
         for(Sommet sommet : this.sommets){
             if(sommet.getIndex().equals(identifiant)){
                 return sommet;
