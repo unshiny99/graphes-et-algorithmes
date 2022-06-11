@@ -408,28 +408,6 @@ public class Matrice {
     }
 
     /**
-     * Parcrous en largeurs (version test 11/06/2022 21h29)
-     * @param sommet Sommet
-     */
-    public void parcoursEnLargeurs(Sommet sommet){
-        List<Sommet> file = new ArrayList<>();
-        file.add(sommet);
-        sommet.setMarquer(true);
-        
-        while(!(file.isEmpty())){
-            Sommet s = file.get(0);
-            file.remove(0);
-            System.out.println(s);
-            for(Sommet som : this.getVoisin(s)){
-                if(!(som.getMarquer())){
-                    file.add(som);
-                    som.setMarquer(true);
-                }
-            }
-        }
-    }
-
-    /**
      * Retourne la liste des voisins à partir d'un sommet depuis une matrice
      * @param sommet Sommet
      * @return List<Sommet>
