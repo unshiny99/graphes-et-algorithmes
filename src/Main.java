@@ -375,7 +375,7 @@ public class Main {
                         }
                         System.out.println("Choisir identifiant sommet arrivée :");
                         identifiant_b = scan.nextInt();
-                        // TODO : ajouter ICI appel méthode qui retourne la plus courte distance entre sommet départ & arrivée
+                        matrice.trouverPlusCourtChemin(matrice.getSommetListe(identifiant_a), matrice.getSommetListe(identifiant_b));
                     } catch (Exception e) {
                         e.printStackTrace();
                         scan.next();
