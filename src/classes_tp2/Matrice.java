@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import src.Sommet;
@@ -401,14 +403,22 @@ public class Matrice {
             }
             this.c.set(index,2);
         }
-        System.out.println(this.c);
-        System.out.println(this.d);
     }
 
     public void trouverPlusCourtChemin(Sommet source, Sommet dest) {
-        System.out.println(source);
-        System.out.println(dest);
         System.out.println("Le nombre d'arêtes est de : " + this.d.get(this.sommets.indexOf(dest)));
+        Sommet sommetCourant = dest;
+        List<String> res = new ArrayList<>();
+        while(sommetCourant != source) {
+            res.add(sommetCourant.getMot());
+            sommetCourant = this.p.get(this.sommets.indexOf(sommetCourant));
+        }
+        res.add(source.getMot());
+        Collections.reverse(res);
+        System.out.print("Le chemin est : ");
+        for(String mot : res) {
+            System.out.print(mot + " - ");
+        }
     }
 
     /**
