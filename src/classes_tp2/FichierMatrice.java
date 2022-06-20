@@ -93,5 +93,48 @@ public class FichierMatrice {
         }
         return null;
     } 
+
+    /**
+     * charger un fichier txt contenant différents mots
+     * pour générer ses sommets et arêtes correspondantes
+     * @param cheminFic String
+     */
+    public static Matrice chargerGrapheLettres(String cheminFic) {
+        try {
+            Scanner in = new Scanner(new File("data/" + cheminFic));
+            int i = 0;
+            Matrice graphe = new Matrice();
+            int nbSommets = 0;
+            List<Sommet> sommets = new ArrayList<>();
+
+            while (in.hasNextLine()) {
+                if (i == 0) {
+                    //int type = in.nextInt();
+                    nbSommets = in.nextInt();
+                    in.nextLine();
+                } else {
+                    for(int j=0;j<nbSommets;j++) {
+                        if (in.hasNextLine()) {
+                            String sommet = in.nextLine();
+                            sommets.add(new Sommet(j+1,sommet));
+                        }
+                    }
+                }
+                i++;
+            }
+            // cas orienté
+            graphe.creerGrapheMots(0, nbSommets, sommets);
+            graphe.generationLiaisonsTopo();
+            if (graphe != null) {
+                graphe.affichage();
+            }
+            in.close();
+            return graphe;
+        } catch (FileNotFoundException e) {
+            System.out.println("\nLe fichier spécifié est introuvable.\n");
+            e.getMessage();
+        }
+        return null;
+    } 
 }
 

@@ -70,6 +70,9 @@ public class Main {
                                "|18 : MODE : Suppression instance graphe                |\n" + 
                                "|19 : MODE : Vérification adjacent direct               |\n" +
                                "|20 : MODE : Parcours de mots                           |\n" +
+                               "---------------------------------------------------------\n" +
+                               "|21 : MODE : Inverser graphe                            |\n" +
+                               "|22 : MODE : Charger graphe (TP3)                       |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -365,7 +368,7 @@ public class Main {
                     }
                     break;
                 case 20:
-                    matrice = FichierMatrice.chargerGrapheMots("Mots.txt");
+                    matrice = FichierMatrice.chargerGrapheLettres("Mots.txt");
                     try {
                         System.out.println("Liste identifiants : " + matrice.getIdentifiantAll());
                         System.out.println("Choisir identifiant sommet départ :");
@@ -377,6 +380,23 @@ public class Main {
                         identifiant_b = scan.nextInt();
                         matrice.trouverPlusCourtChemin(matrice.getSommet(identifiant_a), matrice.getSommet(identifiant_b));
                     } catch (Exception e) {
+                        e.printStackTrace();
+                        scan.next();
+                    }
+                    break;
+                case 21:
+                    
+                    break;
+                case 22:
+                    
+                    try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.txt")) {
+                        for (Path file : stream) {
+                            System.out.println(file.getFileName());
+                        }
+                        System.out.println("Choisir nom fichier : ");
+                        name_file = scan.next();
+                        matrice = FichierMatrice.chargerGrapheLettres(name_file);
+                    } catch(Exception e) {
                         e.printStackTrace();
                         scan.next();
                     }

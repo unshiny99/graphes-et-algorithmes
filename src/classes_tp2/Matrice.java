@@ -358,7 +358,7 @@ public class Matrice {
     }
 
     /**
-     * Génère les liaisons d'une matrice
+     * Génère les liaisons d'une matrice (TP2)
      */
     public void generationLiaisons() {
         for(int i=0;i<this.sommets.size(); i++) {
@@ -367,6 +367,20 @@ public class Matrice {
                     this.addConnexion(this.sommets.get(i).getIndex(), this.sommets.get(j).getIndex());
                 }
             }
+        }
+    }
+
+    /**
+     * Génère les liaisons d'une matrice (TP3)
+     */
+    public void generationLiaisonsTopo() {
+        for(int i=0;i<this.sommets.size(); i++) {
+            // for(int j=i+1;j<this.sommets.size();j++) {
+            //     if(verificationDiffChar(this.sommets.get(i).getMot(), this.sommets.get(j).getMot())) {
+            //         this.addConnexion(this.sommets.get(i).getIndex(), this.sommets.get(j).getIndex());
+            //     }
+            // }
+            System.out.println(this.sommets.get(i));
         }
     }
 
