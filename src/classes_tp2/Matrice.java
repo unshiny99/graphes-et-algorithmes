@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import src.Sommet;
@@ -233,8 +234,8 @@ public class Matrice {
      * @return vrai si adjacent direct, faux sinon
      */
     public boolean estAdjacentDirect(int s1, int s2) {
-        Sommet start = this.getSommetListe(s1);
-        Sommet stop = this.getSommetListe(s2);
+        Sommet start = this.getSommet(s1);
+        Sommet stop = this.getSommet(s2);
 
         if(this.matrice[this.sommets.indexOf(start)][this.sommets.indexOf(stop)].equals(1)){
             return true;
@@ -277,7 +278,7 @@ public class Matrice {
      * @param int identifiant du sommet
      * @return Sommet 
      */
-    public Sommet getSommetListe(int identifiant){
+    public Sommet getSommet(int identifiant){
         for(Sommet sommet : this.sommets){
             if(sommet.getIndex().equals(identifiant)){
                 return sommet;
@@ -356,6 +357,9 @@ public class Matrice {
         }
     }
 
+    /**
+     * Génère les liaisons d'une matrice
+     */
     public void generationLiaisons() {
         for(int i=0;i<this.sommets.size(); i++) {
             for(int j=i+1;j<this.sommets.size();j++) {
@@ -366,21 +370,19 @@ public class Matrice {
         }
     }
 
+    /**
+     * Initialise le parcours en largeur
+     * @param sommet Sommet
+     */
     public void parcoursEnLargeurInit(Sommet sommet){
         for(Sommet s : this.sommets){
             this.c.add(0);
             this.d.add(999999);
             this.p.add(null);
         }
-        this.c.remove(0);
-        this.c.add(0, 0);
-        this.d.remove(0);
-        this.d.add(0, 0);
+        this.d.set(sommet.getIndex()-1, 0);
 
         this.f.add(sommet);
-
-        // System.out.println(this.c);
-        // System.out.println(this.d);
     }
 
     /**
@@ -393,27 +395,41 @@ public class Matrice {
     public void parcoursEnLargeur(Sommet sommet) {
         this.parcoursEnLargeurInit(sommet);
         while(this.f.size() != 0) {
-            System.out.println("file : " + this.f);
             Sommet x = this.f.get(0);
             this.f.remove(0); // défiler f
-            System.out.println("voisins : " + this.getVoisin(x));
-            // System.out.println(this.getVoisin(x).get(0));
-            // System.out.println(this.getVoisin(x).get(1));
-            // System.out.println(this.getVoisin(x).get(2));
+            int index = this.sommets.indexOf(x);
             for(int y=0;y<this.getVoisin(x).size();y++) { // pour tout sommet adjacent
-                if(this.c.get(y) == 0) {
-                    this.c.add(y,1);
-                    this.d.add(y,this.d.get(x.getIndex()-1)+1);
-                    this.p.add(y,x);
+                int indexTest = this.getVoisin(x).get(y).getIndex()-1;
+                if(this.c.get(indexTest) == 0) {
+                    this.c.set(indexTest,1);
+                    this.d.set(indexTest,this.d.get(index)+1);
+                    this.p.set(indexTest,x);
                     this.f.add(this.getVoisin(x).get(y)); // enfiler y
                 }
             }
-            System.out.println("file2 : " + this.f);
-            this.c.add(x.getIndex()-1,2);
+            this.c.set(index,2);
         }
-        System.out.println("colorations : " + c.toString());
-        System.out.println("distance : " + d.toString());
-        System.out.println("prédécesseur : " + p.toString());
+    }
+
+    /**
+     * Trouve le plus court chemin depuis la source vers la destination
+     * @param source Sommet
+     * @param dest Sommet
+     */
+    public void trouverPlusCourtChemin(Sommet source, Sommet dest) {
+        System.out.println("Le nombre d'arêtes est de : " + this.d.get(this.sommets.indexOf(dest)));
+        Sommet sommetCourant = dest;
+        List<String> res = new ArrayList<>();
+        while(sommetCourant != source) {
+            res.add(sommetCourant.getMot());
+            sommetCourant = this.p.get(this.sommets.indexOf(sommetCourant));
+        }
+        res.add(source.getMot());
+        Collections.reverse(res);
+        System.out.print("Le chemin est : ");
+        for(String mot : res) {
+            System.out.print(mot + " - ");
+        }
     }
 
     /**
