@@ -416,21 +416,6 @@ public class Matrice {
         System.out.println("prédécesseur : " + p.toString());
     }
 
-    public void testParcourEnLargeur(Sommet sommet){
-        List<Sommet> file = new ArrayList<>();
-        sommet.setMarquer();
-        file.add(sommet);
-        while(!(file.isEmpty())){
-            Sommet s = f.remove(0);
-            for(Sommet sommetG : sommet.getVoisins()){
-                if(sommetG.getMarquer() != 1){
-                    sommetG.setMarquer();
-                    file.add(sommetG);
-                }
-            }
-        }
-    }
-
     /**
      * Retourne la liste des voisins à partir d'un sommet depuis une matrice
      * @param sommet Sommet
