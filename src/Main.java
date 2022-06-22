@@ -73,6 +73,7 @@ public class Main {
                                "---------------------------------------------------------\n" +
                                "|21 : MODE : Inverser graphe                            |\n" +
                                "|22 : MODE : Charger graphe (TP3)                       |\n" +
+                               "|23 : MODE : Parcours en Profondeur (TP3)               |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -392,7 +393,6 @@ public class Main {
                     }
                     break;
                 case 22:
-                    
                     try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.txt")) {
                         for (Path file : stream) {
                             System.out.println(file.getFileName());
@@ -403,6 +403,13 @@ public class Main {
                     } catch(Exception e) {
                         e.printStackTrace();
                         scan.next();
+                    }
+                    break;
+                case 23:
+                    if(graphe != null) {
+                        graphe.parcoursEnProfondeur();
+                    } else {
+                        System.out.println("Aucun graphe (tp1) instancié !");
                     }
                     break;
                 default:

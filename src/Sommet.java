@@ -10,6 +10,8 @@ public class Sommet {
     private String mot;
     private Boolean marquer = false;
     private List<Sommet> voisins;
+    private Integer time_now = 0;
+    private Integer time = 0;
 
     /**
      * Constructeur de sommet avec index(identifiant)
@@ -97,8 +99,12 @@ public class Sommet {
     public String getMot(){return this.mot;}
     public Integer getIndex(){return this.index;}
     public Boolean getMarquer(){return this.marquer;}
+    public Integer getTimeNow(){return this.time_now;}
+    public Integer getTime(){return this.time;}
 
     public void setMarquer(Boolean marquer){this.marquer = marquer;}
     public void setIndex(Integer index) {this.index = index;}
     public void setVoisins(List<Sommet> voisins) {this.voisins = voisins;}
+    public void setTimeNow(Integer time) {this.time_now = time;}
+    public void setTime(Integer time) {this.time = time;}
 }

@@ -16,6 +16,7 @@ public class Graphe {
     private Integer nbSommets;
     private Integer nbConnexion;
     private Random random;
+    private Integer time;
 
     private List<Sommet> listeSuccesseurs;
     private List<Sommet> new_listeSuccesseurs;
@@ -378,6 +379,50 @@ public class Graphe {
         }
 
         this.listeSuccesseurs = this.new_listeSuccesseurs;
+    }
+
+    // [ Index : 1, Voisins => 2 => 3 ]
+    // [ Index : 2, Voisins ]
+    // [ Index : 3, Voisins => 4 ]
+    // [ Index : 4, Voisins => 7 ]
+    // [ Index : 5, Voisins => 1 => 6 ]
+    // [ Index : 6, Voisins ]
+    // [ Index : 7, Voisins ]
+    
+    /*
+     * Exploration d'un graphe (parcoursEnProfondeur)
+     */
+    public void explorer(Sommet source){
+        source.setMarquer(true);
+        source.setTimeNow(this.time);
+        this.time++;
+        
+        System.out.println("index : " + source.getIndex() + " Marquer : " +
+                            source.getMarquer());
+
+        for(Sommet sommet : source.getVoisins()){
+            if(sommet.getMarquer().equals(false)){
+                sommet.setTimeNow(this.time);
+                this.explorer(sommet);
+            }
+        }
+        source.setTime(this.time);
+        this.time++;
+    }
+
+    /*
+     * Parcours en Pronfondeur
+     */
+    public void parcoursEnProfondeur(){
+        this.time = 1;
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(sommet.getMarquer().equals(false)){
+                this.explorer(sommet);
+            }
+            // System.out.println("index : " + sommet.getIndex() + " Marquer : " +
+            //     sommet.getMarquer() + " TimeNow:Time : " +
+            //     sommet.getTimeNow() + ":" + sommet.getTime());
+        }
     }
 
     public Integer getType() {return type;}
