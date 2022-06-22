@@ -385,7 +385,11 @@ public class Main {
                     }
                     break;
                 case 21:
-                    
+                    if(graphe != null) {
+                        graphe.Inverse();
+                    } else {
+                        System.out.println("Aucun graphe (tp1) instancié !");
+                    }
                     break;
                 case 22:
                     

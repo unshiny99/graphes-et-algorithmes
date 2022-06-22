@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class Graphe {
     private Random random;
 
     private List<Sommet> listeSuccesseurs;
+    private List<Sommet> new_listeSuccesseurs;
 
     /**
      * Constructeur d'un Graph avec un type, un nombre de sommet, un nombre de connexion
@@ -267,7 +269,7 @@ public class Graphe {
     public String afficherListeSuccesseurs() {
         StringBuilder s = new StringBuilder();
         for (Sommet sommet : listeSuccesseurs) {
-            s.append("\n\t\t").append(sommet);
+            s.append("\n\t\t").append(sommet.AffichageFormatListe());
         }
         return s.toString();
     }
@@ -310,6 +312,72 @@ public class Graphe {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Ajout d'une connexion par identifiants de sommets pour une nouvelle liste
+     * @param identifiant_a Integer
+     * @param identifiant_b Integer
+     */
+    public void addConnexionNew(Integer identifiant_a, Integer identifiant_b){
+        if(this.type.equals(1)) {
+            for(Sommet sommet : this.new_listeSuccesseurs){
+                if(sommet.getIndex().equals(identifiant_a)) {
+                    if(!(sommet.voisinExiste(identifiant_b))){
+                        sommet.addVoisin(new Sommet(identifiant_b));
+                    }
+                }
+            }
+        } else {
+            for(Sommet sommet : this.new_listeSuccesseurs) {
+                if(sommet.getIndex().equals(identifiant_a)) {
+                    sommet.addVoisin(new Sommet(identifiant_b));
+                    this.getSommet(identifiant_b).addVoisin(sommet);
+                }
+            }
+        }
+    }
+
+    /*
+     * Créer une nouvelle liste avec la mise à jour des connexions
+     */
+    private void newListe(){
+        this.new_listeSuccesseurs = new ArrayList<>();
+        for(Sommet sommet : this.listeSuccesseurs){
+            this.new_listeSuccesseurs.add(new Sommet(sommet.getIndex()));
+        }
+    }
+
+    /*
+     * Inversion des connexions
+     */
+    private void ReverseConnexion(Sommet source, List<Sommet> voisins){        
+        Collections.reverse(voisins);
+        for(int i = 0; i < voisins.size(); ++i){
+            if(i != voisins.size() - 1){
+                this.addConnexionNew(voisins.get(i).getIndex(), source.getIndex());
+            }else{
+                this.addConnexionNew(voisins.get(i).getIndex(), source.getIndex());
+            }
+        }
+    }
+
+    /*
+     * Inversion du graphe
+     */
+    public void Inverse(){
+        List<Sommet> voisins = new ArrayList<>();
+        this.newListe();
+
+        for(Sommet sommet : this.listeSuccesseurs){
+            if(!(sommet.getVoisins().isEmpty())){
+                voisins.addAll(sommet.getVoisins());
+                this.ReverseConnexion(sommet, voisins);
+                voisins.clear();
+            }
+        }
+
+        this.listeSuccesseurs = this.new_listeSuccesseurs;
     }
 
     public Integer getType() {return type;}
