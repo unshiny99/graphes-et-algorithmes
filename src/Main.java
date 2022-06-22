@@ -400,6 +400,11 @@ public class Main {
                         System.out.println("Choisir nom fichier : ");
                         name_file = scan.next();
                         matrice = FichierMatrice.chargerGrapheLettres(name_file);
+                        System.out.println("Choisir identifiant sommet départ :");
+                        identifiant_a = scan.nextInt();
+                        if(matrice != null) {
+                            matrice.parcoursEnProfondeur(matrice.getSommet(identifiant_a));
+                        }
                     } catch(Exception e) {
                         e.printStackTrace();
                         scan.next();
