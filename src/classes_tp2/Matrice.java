@@ -22,6 +22,8 @@ public class Matrice {
     private List<Integer> d = new ArrayList<>();
     private List<Sommet> p = new ArrayList<>();
     private List<Sommet> f = new ArrayList<>();
+    private List<Integer> f2 = new ArrayList<>();
+    private Integer temps = 1;
 
     /**
      * Constructeur d'un Graph avec un type, un nombre de sommet, un nombre de connexion
@@ -461,6 +463,60 @@ public class Matrice {
                 }
             }
             this.c.set(index,2);
+        }
+    }
+
+    /**
+     * Initialise le parcours en profondeur
+     * @param sommet Sommet
+     */
+    public void parcoursEnProfondeurInit(Sommet sommet){
+        for(Sommet s : this.sommets){
+            this.c.add(0);
+            this.p.add(null);
+            this.d.add(-1);
+            this.f2.add(-1);
+        }
+    }
+
+    /**
+     * Ifait la visite complète d'un sommet
+     * @param index int
+     */
+    public void visiter(int index){
+        this.c.set(index, 1);
+        this.d.set(index, this.temps);
+        this.temps++;
+        Sommet x = this.sommets.get(index);
+        for(int y = 0 ; y < this.getVoisin(x).size(); y++) {
+            int indexT = this.getVoisin(x).get(y).getIndex()-1;
+            if(this.c.get(indexT) == 0) {
+                p.set(indexT, x);
+                visiter(indexT);
+            }
+        }
+        c.set(index, 2); // c[x]=Noir
+        f2.set(index, this.temps);
+        this.temps++;
+    }
+
+    /**
+     * parcours en profondeur sur le graphe
+     * @param c liste des colorations
+     * @param d liste des distances
+     * @param p liste des prédécesseurs
+     * @param f file de parcours
+     */
+    public void parcoursEnProfondeur(Sommet sommet) {
+        this.parcoursEnProfondeurInit(sommet);
+        this.temps = 1;
+        for(Sommet x : this.sommets) {
+            int index = this.sommets.indexOf(x);
+            if(this.c.get(index) == 0) {
+                visiter(index);
+            }
+            System.out.println("index : " + sommet.getIndex() 
+            + " TimeNow:Time : " + this.d.get(index) + ":" + this.f2.get(index));
         }
     }
 
