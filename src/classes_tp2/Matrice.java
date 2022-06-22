@@ -246,13 +246,25 @@ public class Matrice {
 
 
     /**
+     * Mise en forme des sommets pour la matrice
+     * @return String
+     */
+    private String sommetMatrice(){
+        String liste = "\n";
+        for(Sommet sommet : this.sommets){
+            liste += "\t" + sommet.AffichageFormatMartice();
+        }
+        return liste;
+    }
+
+    /**
      * Affichage du graphe
      */
     public void affichage(){
         System.out.println("Type : 0 = Non Orienté, 1 = Orienté \n" +
                             "[\n\ttype = " + this.type +
                             ", \n\tnb sommet(s) = " + this.nbSommets +
-                            ", \n\tsommet(s) = " + this.sommets +
+                            ", \n\tsommet(s) = " + this.sommetMatrice() +
                             ", \n\tMatrice : " + this.affichageMatrice() +
                             "\n]"
         );
