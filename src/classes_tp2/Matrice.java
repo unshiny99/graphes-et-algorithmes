@@ -23,6 +23,7 @@ public class Matrice {
     private List<Sommet> p = new ArrayList<>();
     private List<Sommet> f = new ArrayList<>();
     private List<Integer> f2 = new ArrayList<>();
+    private List<Sommet> topologique;
     private Integer temps = 1;
 
     /**
@@ -497,6 +498,7 @@ public class Matrice {
         }
         c.set(index, 2); // c[x]=Noir
         f2.set(index, this.temps);
+        this.topologique.add(0, x);;
         this.temps++;
     }
 
@@ -508,6 +510,7 @@ public class Matrice {
      * @param f file de parcours
      */
     public void parcoursEnProfondeur(Sommet sommet) {
+        this.topologique = new ArrayList<>();
         this.parcoursEnProfondeurInit(sommet);
         this.temps = 1;
         for(Sommet x : this.sommets) {
@@ -518,6 +521,12 @@ public class Matrice {
             System.out.println("index : " + sommet.getIndex() 
             + " TimeNow:Time : " + this.d.get(index) + ":" + this.f2.get(index));
         }
+
+        System.out.print("Topologique : ");
+        for(Sommet s : this.topologique){
+            System.out.print(s.getIndex());
+        }
+        System.out.println();
     }
 
     /**
