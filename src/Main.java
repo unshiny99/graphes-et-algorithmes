@@ -73,7 +73,6 @@ public class Main {
                                "---------------------------------------------------------\n" +
                                "|21 : MODE : Inverser graphe                            |\n" +
                                "|22 : MODE : Charger graphe (TP3)                       |\n" +
-                               "|23 : MODE : Parcours en Profondeur (TP3)               |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -406,13 +405,6 @@ public class Main {
                     } catch(Exception e) {
                         e.printStackTrace();
                         scan.next();
-                    }
-                    break;
-                case 23:
-                    if(matrice != null) {
-                        matrice.parcoursEnProfondeur();
-                    } else {
-                        System.out.println("Aucun graphe (tp3) instancié !");
                     }
                     break;
                 default:
