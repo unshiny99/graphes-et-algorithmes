@@ -508,7 +508,7 @@ public class Matrice {
      * @param p liste des prédécesseurs
      * @param f file de parcours
      */
-    public void parcoursEnProfondeur(Sommet sommet) {
+    public void parcoursEnProfondeur() {
         this.topologique = new ArrayList<>();
         this.parcoursEnProfondeurInit();
         this.temps = 1;
