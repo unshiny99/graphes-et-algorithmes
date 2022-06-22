@@ -213,7 +213,7 @@ public class Matrice {
     }
 
     /**
-     * Vérifie si un identifiant existe dans la liste des sucesseurs
+     * Vérifie si un identifiant existe dans la liste des successeurs
      * @param identifiant
      * @return Boolean
      */
@@ -338,23 +338,64 @@ public class Matrice {
     }
 
     /**
-     * Vérifie si il existe un char différent entre 2 mots, si plus de 1 différence, return false
+     * Vérifie si il existe un char différent entre 2 mots
+     * Si plus de 1 différence, retourne faux
      * @param a String
      * @param b String
-     * @return Boolean
+     * @return Integer
      */
-    public Boolean verificationDiffChar(String a, String b){
+    public Boolean verificationDiffChar(String a, String b) {
         Integer cpt = 0;
-        for(Integer i = 0; i < a.length(); ++i){
-            if(!(a.charAt(i) == b.charAt(i))){
+        for(Integer i = 0; i < a.length(); ++i) {
+            if(!(a.charAt(i) == b.charAt(i))) {
                 cpt++;
             }
         }
-        if(cpt.equals(1)){
+        if(cpt.equals(1)) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    /**
+     * Vérifie si il existe un char différent entre 2 mots
+     * Si plus de 1 différence, retourne faux
+     * @param a String
+     * @param b String
+     * @return Integer
+     */
+    public Integer verificationDiffCharIndex(String a, String b) {
+        Integer cpt = 0;
+        Integer index = -1;
+        for(Integer i = 0; i < a.length(); i++) {
+            if(!(a.charAt(i) == b.charAt(i))) {
+                cpt++;
+                index = i;
+            }
+        }
+        if(cpt.equals(1)) {
+            return index;
+        } else {
+            return -2;
+        }
+    }
+
+    /**
+     * Vérifie si il existe au moins un char différent entre 2 mots
+     * retourne l'index si c'est le cas
+     * @param a String
+     * @param b String
+     * @return Integer
+     */
+    public Integer verifDiffCharIndex(String a, String b) {
+        Integer index = -1;
+        for(Integer i = 0; i < a.length(); i++) {
+            if((a.charAt(i) != b.charAt(i))) {
+                return i;
+            }
+        }
+        return index;
     }
 
     /**
@@ -367,20 +408,6 @@ public class Matrice {
                     this.addConnexion(this.sommets.get(i).getIndex(), this.sommets.get(j).getIndex());
                 }
             }
-        }
-    }
-
-    /**
-     * Génère les liaisons d'une matrice (TP3)
-     */
-    public void generationLiaisonsTopo() {
-        for(int i=0;i<this.sommets.size(); i++) {
-            // for(int j=i+1;j<this.sommets.size();j++) {
-            //     if(verificationDiffChar(this.sommets.get(i).getMot(), this.sommets.get(j).getMot())) {
-            //         this.addConnexion(this.sommets.get(i).getIndex(), this.sommets.get(j).getIndex());
-            //     }
-            // }
-            System.out.println(this.sommets.get(i));
         }
     }
 

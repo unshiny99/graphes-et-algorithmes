@@ -95,6 +95,20 @@ public class FichierMatrice {
     } 
 
     /**
+     * Vérifie si une lettre existe dans la liste des sommets
+     * @param identifiant
+     * @return Boolean
+     */
+    public static Boolean checkLettreExiste(String lettre, List<Sommet> sommets) {
+        for(Sommet sommet : sommets) {
+            if(sommet.getMot().equals(lettre)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * charger un fichier txt contenant différents mots
      * pour générer ses sommets et arêtes correspondantes
      * @param cheminFic String
@@ -106,25 +120,67 @@ public class FichierMatrice {
             Matrice graphe = new Matrice();
             int nbSommets = 0;
             List<Sommet> sommets = new ArrayList<>();
+            List<String> mots = new ArrayList<>();
 
             while (in.hasNextLine()) {
-                if (i == 0) {
-                    //int type = in.nextInt();
-                    nbSommets = in.nextInt();
+                if (i == 0) { 
+                    // ignore here
                     in.nextLine();
                 } else {
-                    for(int j=0;j<nbSommets;j++) {
-                        if (in.hasNextLine()) {
-                            String sommet = in.nextLine();
-                            sommets.add(new Sommet(j+1,sommet));
+                    String ensSommets = in.nextLine();
+                    mots.add(ensSommets);
+                    if (in.hasNextLine()) {
+                        for(Integer k = 0; k < ensSommets.length(); k++) {
+                            if(!checkLettreExiste(String.valueOf(ensSommets.charAt(k)), sommets)) {
+                                sommets.add(new Sommet(k+1,String.valueOf(ensSommets.charAt(k))));
+                                nbSommets++;
+                            }
                         }
                     }
                 }
                 i++;
             }
             // cas orienté
-            graphe.creerGrapheMots(0, nbSommets, sommets);
-            graphe.generationLiaisonsTopo();
+            graphe.creerGrapheMots(1, nbSommets, sommets);
+            // génération des liaisons
+            Integer index = null;
+            for(int j=0;j<mots.size()-1;j++) {
+                index = null;
+                //System.out.println(mots.get(j));
+                // vérifie si une seule lettre est différente, pour une même taille de liste
+                if(mots.get(j).length() == mots.get(j+1).length()) {
+                    index = graphe.verificationDiffCharIndex(mots.get(j), mots.get(j+1)); 
+                } else if(mots.get(j).length() < mots.get(j+1).length()) {
+                    index = graphe.verifDiffCharIndex(mots.get(j), mots.get(j+1));
+                } else { // mots.get(j).length() > mots.get(j+1).length()
+                    index = graphe.verifDiffCharIndex(mots.get(j+1), mots.get(j));
+                }
+                if(index != null && index >= 0) {
+                    //System.out.println("index lettre : " + index);
+                    // créer une connexion entre les 2 lettres
+                    String lettreSource = String.valueOf(mots.get(j).charAt(index));
+                    String lettreDest = String.valueOf(mots.get(j+1).charAt(index));
+                    Integer indexSource = null;
+                    Integer indexDest = null;
+                    //System.out.println("lettreSource : " + lettreSource);
+                    //System.out.println("lettreDest : " + lettreDest);
+                    for(int k=0; k<graphe.getListeSommets().size();k++) {
+                        //System.out.println("mot courant : " + graphe.getListeSommets().get(k).getMot());
+                        if(graphe.getListeSommets().get(k).getMot().equals(lettreSource)) {
+                            indexSource = graphe.getListeSommets().get(k).getIndex();
+                            //System.out.println("indexSource : " + indexSource);
+                        }
+                        if(graphe.getListeSommets().get(k).getMot().equals(lettreDest)) {
+                            indexDest = graphe.getListeSommets().get(k).getIndex();
+                            //System.out.println("indexDest : " + indexDest);
+                        }
+                    }
+                    if(indexSource != null && indexDest != null) {
+                        //System.out.println("indexSource : " + indexSource + " ; indexDest : " + indexDest);
+                        graphe.addConnexion(indexSource,indexDest);
+                    }
+                }
+            }
             if (graphe != null) {
                 graphe.affichage();
             }
