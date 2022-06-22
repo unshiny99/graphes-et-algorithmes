@@ -388,7 +388,7 @@ public class Main {
                     if(graphe != null) {
                         graphe.Inverse();
                     } else {
-                        System.out.println("Aucun graphe (tp1) instancié !");
+                        System.out.println("Aucun graphe (tp3) instancié !");
                     }
                     break;
                 case 22:
@@ -399,10 +399,8 @@ public class Main {
                         System.out.println("Choisir nom fichier : ");
                         name_file = scan.next();
                         matrice = FichierMatrice.chargerGrapheLettres(name_file);
-                        System.out.println("Choisir identifiant sommet départ :");
-                        identifiant_a = scan.nextInt();
                         if(matrice != null) {
-                            matrice.parcoursEnProfondeur(matrice.getSommet(identifiant_a));
+                            matrice.parcoursEnProfondeur();
                         }
                     } catch(Exception e) {
                         e.printStackTrace();
