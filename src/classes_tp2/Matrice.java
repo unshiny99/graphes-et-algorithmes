@@ -468,9 +468,8 @@ public class Matrice {
 
     /**
      * Initialise le parcours en profondeur
-     * @param sommet Sommet
      */
-    public void parcoursEnProfondeurInit(Sommet sommet){
+    public void parcoursEnProfondeurInit(){
         for(Sommet s : this.sommets){
             this.c.add(0);
             this.p.add(null);
@@ -507,15 +506,15 @@ public class Matrice {
      * @param p liste des prédécesseurs
      * @param f file de parcours
      */
-    public void parcoursEnProfondeur(Sommet sommet) {
-        this.parcoursEnProfondeurInit(sommet);
+    public void parcoursEnProfondeur() {
+        this.parcoursEnProfondeurInit();
         this.temps = 1;
         for(Sommet x : this.sommets) {
             int index = this.sommets.indexOf(x);
             if(this.c.get(index) == 0) {
                 visiter(index);
             }
-            System.out.println("index : " + sommet.getIndex() 
+            System.out.println("index : " + x.getIndex() 
             + " TimeNow:Time : " + this.d.get(index) + ":" + this.f2.get(index));
         }
     }
