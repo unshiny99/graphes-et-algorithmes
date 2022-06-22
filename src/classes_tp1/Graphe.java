@@ -352,7 +352,7 @@ public class Graphe {
     /*
      * Inversion des connexions
      */
-    private void ReverseConnexion(Sommet source, List<Sommet> voisins){        
+    private void reverseConnexion(Sommet source, List<Sommet> voisins){        
         Collections.reverse(voisins);
         for(int i = 0; i < voisins.size(); ++i){
             if(i != voisins.size() - 1){
@@ -366,14 +366,14 @@ public class Graphe {
     /*
      * Inversion du graphe
      */
-    public void Inverse(){
+    public void inverse(){
         List<Sommet> voisins = new ArrayList<>();
         this.newListe();
 
         for(Sommet sommet : this.listeSuccesseurs){
             if(!(sommet.getVoisins().isEmpty())){
                 voisins.addAll(sommet.getVoisins());
-                this.ReverseConnexion(sommet, voisins);
+                this.reverseConnexion(sommet, voisins);
                 voisins.clear();
             }
         }
