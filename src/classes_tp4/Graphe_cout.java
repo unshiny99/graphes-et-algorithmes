@@ -86,7 +86,7 @@ public class Graphe_cout {
         this.nbSommets = nbSommets;
 
         for (int i = 0; i < nbSommets; i++) {
-            this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<Sommet>()));
+            this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<Sommet>(), this.randomCout.nextInt(10) + 1));
         }
     }
 
@@ -99,14 +99,14 @@ public class Graphe_cout {
         this.nbSommets = n;
         for(int i = 0; i<n; ++i){
             if(!(checkIdentifiantExiste(i+1))){
-                this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<Sommet>()));
+                this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<Sommet>(), this.randomCout.nextInt(10) + 1));
             }
         }
 
         for(int i = 0; i < this.listeSuccesseurs.size(); ++i){
             Double double1 = random.nextDouble();
 
-            if(double1 < p && i < this.listeSuccesseurs.size() - 1){
+            if(double1 <= p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
                                 this.listeSuccesseurs.get(i+1).getIndex(), this.randomCout.nextInt(10) + 1);
                 this.nbConnexion += 1;
@@ -183,7 +183,7 @@ public class Graphe_cout {
      */
     public void addSommet(Integer identifiant){
         if(!(checkIdentifiantExiste(identifiant))){
-            this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>()));   
+            this.listeSuccesseurs.add(new Sommet(identifiant, new ArrayList<>(), this.randomCout.nextInt(10) + 1));   
         }else{
             System.out.println("Sommet : " + identifiant + " existe déjà !");
         }
@@ -196,7 +196,7 @@ public class Graphe_cout {
     public void addNbSommet(Integer nbSommet){
         for(int i = 0; i < nbSommet; ++i){
             if(!(checkIdentifiantExiste(i+1))){
-                this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<>()));   
+                this.listeSuccesseurs.add(new Sommet(i+1, new ArrayList<>(),this.randomCout.nextInt(10) + 1));   
             }
         }
         
