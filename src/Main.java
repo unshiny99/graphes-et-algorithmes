@@ -12,6 +12,7 @@ import src.classes_tp1.Fichier;
 import src.classes_tp1.Graphe;
 import src.classes_tp2.FichierMatrice;
 import src.classes_tp2.Matrice;
+import src.classes_tp4.Graphe_cout;
 
 
 public class Main {
@@ -32,6 +33,7 @@ public class Main {
         String name_file = null;
 
         Graphe graphe = null;
+        Graphe_cout graphe_cout = null;
         Matrice matrice = null;
         Path dir = Paths.get("./data/");
 
@@ -73,6 +75,9 @@ public class Main {
                                "---------------------------------------------------------\n" +
                                "|21 : MODE : Inverser graphe                            |\n" +
                                "|22 : MODE : Charger graphe (TP3)                       |\n" +
+                               "---------------------------------------------------------\n" +
+                               "|23 : MODE : affichaeg graphe (TP4)                     |\n" +
+                               "|24 : MODE : Charger graphe (TP4)                       |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -406,6 +411,25 @@ public class Main {
                         e.printStackTrace();
                         scan.next();
                     }
+                    break;
+                case 23:
+                    if(graphe_cout != null) {
+                        graphe_cout.affichage();
+                    } else {
+                        System.out.println("Aucun graphe instancié(tp4) !");
+                    }
+                    break;
+                case 24:
+                    try{
+                        System.out.println("Choisir nombre sommet(s) : ");
+                        nbSommet = scan.nextInt();
+
+                        graphe_cout = new Graphe_cout(0, nbSommet);
+                        graphe_cout.addNbSommet(nbSommet);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                        scan.next();
+                    } 
                     break;
                 default:
                     select = 0;

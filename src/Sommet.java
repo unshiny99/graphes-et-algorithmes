@@ -12,6 +12,7 @@ public class Sommet {
     private List<Sommet> voisins;
     private Integer time_now = 0;
     private Integer time = 0;
+    private Integer cout = 0;
 
     /**
      * Constructeur de sommet avec index(identifiant)
@@ -19,6 +20,16 @@ public class Sommet {
      */
     public Sommet(Integer index){
         this.index = index;
+        this.voisins = new ArrayList<>();
+    }
+
+    /**
+     * Constructeur de sommet avec index(identifiant) et un coût
+     * @param index Integer
+     */
+    public Sommet(Integer index, Integer cout){
+        this.index = index;
+        this.cout = cout;
         this.voisins = new ArrayList<>();
     }
 
@@ -80,7 +91,7 @@ public class Sommet {
         String res = "";
 
         for(Sommet sommet : this.voisins){
-            res += " => " + sommet.getIndex();
+            res += " <=> (" + sommet.getIndex() + ", cout = " + sommet.getCout() + ")";
         }
         return res;
     }
@@ -96,12 +107,14 @@ public class Sommet {
 
     public List<Sommet> getVoisins(){return this.voisins;}
 
+    public Integer getCout() {return this.cout;}
     public String getMot(){return this.mot;}
     public Integer getIndex(){return this.index;}
     public Boolean getMarquer(){return this.marquer;}
     public Integer getTimeNow(){return this.time_now;}
     public Integer getTime(){return this.time;}
 
+    public void setCout(Integer cout) {this.cout = cout;}
     public void setMarquer(Boolean marquer){this.marquer = marquer;}
     public void setIndex(Integer index) {this.index = index;}
     public void setVoisins(List<Sommet> voisins) {this.voisins = voisins;}
