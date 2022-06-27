@@ -27,6 +27,7 @@ public class Main {
 
         Integer identifiant_a = null;
         Integer identifiant_b = null;
+        Integer cout = null;
         
         Double proba = null;
 
@@ -76,8 +77,12 @@ public class Main {
                                "|21 : MODE : Inverser graphe                            |\n" +
                                "|22 : MODE : Charger graphe (TP3)                       |\n" +
                                "---------------------------------------------------------\n" +
-                               "|23 : MODE : affichaeg graphe (TP4)                     |\n" +
-                               "|24 : MODE : Charger graphe (TP4)                       |\n" +
+                               "|23 : MODE : affichage graphe (TP4)                     |\n" +
+                               "|24 : MODE : Création graphe (TP4)                      |\n" +
+                               "|25 : MODE : Ajout connexion                            |\n" +
+                               "|26 : MODE : Ajout sommet                               |\n" +
+                               "|27 : MODE : Suppression connexion                      |\n" +
+                               "|28 : MODE : Suppression instance graphe                |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -431,11 +436,72 @@ public class Main {
                         scan.next();
                     } 
                     break;
+                case 25:
+                    if(graphe_cout != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + graphe_cout.getIdentifiantAll());
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
+                            System.out.println("Choisir cout connexion : ");
+                            cout = scan.nextInt();
+
+                            graphe_cout.addConnexion(identifiant_a, identifiant_b, cout);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié(tp4) !");
+                    }
+                    break;
+                case 26:
+                    if(graphe_cout != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + graphe_cout.getIdentifiantAll());
+                            System.out.println("Choisir identifiant du sommet : ");
+                            identifiant_a = scan.nextInt();
+                            
+                            graphe_cout.addSommet(identifiant_a);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            scan.next();
+                        }
+                    } else {
+                        System.out.println("Aucun graphe instancié(tp4) !");
+                    }
+                    break;
+                case 27:
+                    if(graphe_cout != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + graphe_cout.getIdentifiantAll());
+                            System.out.println("Choisir identifiant source :");
+                            identifiant_a = scan.nextInt();
+                            System.out.println("Choisir identifiant cible :");
+                            identifiant_b = scan.nextInt();
+                        
+                            graphe_cout.suppConnexion(identifiant_a, identifiant_b);  
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }   
+                    } else {
+                        System.out.println("Aucun graphe instancié(tp4) !");
+                    }
+                    break;
+                case 28:
+                    if(graphe_cout == null) {
+                        System.out.println("Instance du graphe déjà nulle(tp4)");
+                    } else {
+                        graphe_cout = null;
+                    }
+                    break;
                 default:
                     select = 0;
                     scan_menu.close();
                     scan.close();
-                    break;
+                break;
             }
         } while(select != 0);
 

@@ -103,7 +103,7 @@ public class Graphe_cout {
 
             if(double1 < p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
-                                this.listeSuccesseurs.get(i+1).getIndex());
+                                this.listeSuccesseurs.get(i+1).getIndex(), 0);
                 this.nbConnexion += 1;
             }
         }
@@ -116,21 +116,21 @@ public class Graphe_cout {
     public void generationAleatoireConnexion(Integer nbConnexion){       
         this.nbConnexion += nbConnexion;
         for(int i = 0; i < nbConnexion; ++i){
-            this.addConnexion(random.nextInt(this.listeSuccesseurs.size())+1, random.nextInt(this.listeSuccesseurs.size())+1);
+            this.addConnexion(random.nextInt(this.listeSuccesseurs.size())+1, random.nextInt(this.listeSuccesseurs.size())+1, 0);
         }
     }
 
     /**
-     * Ajout d'une connexion par identifiants de sommets
+     * Ajout d'une connexion par identifiants de sommets et son cout
      * @param identifiant_a Integer
      * @param identifiant_b Integer
      */
-    public void addConnexion(Integer identifiant_a, Integer identifiant_b){
+    public void addConnexion(Integer identifiant_a, Integer identifiant_b, Integer cout){
         if(this.type.equals(1)) {
             for(Sommet sommet : this.listeSuccesseurs){
                 if(sommet.getIndex().equals(identifiant_a)) {
                     if(!(sommet.voisinExiste(identifiant_b))){
-                        sommet.addVoisin(new Sommet(identifiant_b));
+                        sommet.addVoisin(new Sommet(identifiant_b, cout));
                         this.nbConnexion += 1;
                     }
                 }
@@ -138,7 +138,7 @@ public class Graphe_cout {
         } else {
             for(Sommet sommet : this.listeSuccesseurs) {
                 if(sommet.getIndex().equals(identifiant_a)) {
-                    sommet.addVoisin(new Sommet(identifiant_b));
+                    sommet.addVoisin(new Sommet(identifiant_b, cout));
                     // insertion autre sens
                     this.getSommet(identifiant_b).addVoisin(sommet);
                     this.nbConnexion += 1;
