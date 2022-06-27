@@ -402,7 +402,9 @@ public class Graphe_cout {
             // trouver le sommet avec le plus faible coût avec le sommet courant
             Sommet min = null;
             for(int i=0;i<sommetsAjoutes.size();i++) {
-                min = sommetsAjoutes.get(0);
+                if(sommetsAjoutes.get(i).getVoisins().size()>0) {
+                    min = sommetsAjoutes.get(i).getVoisins().get(0);
+                }
                 for(int j=0;j<sommetsAjoutes.get(i).getVoisins().size();j++) {
                     System.out.println(sommetsAjoutes.get(i).getVoisins().get(j).AffichageFormatListe());
                     if(sommetsAjoutes.get(i).getVoisins().get(j).getCout() < min.getCout() 

@@ -86,7 +86,7 @@ public class Main {
                                "|27 : MODE : Suppression connexion                      |\n" +
                                "|28 : MODE : Suppression instance graphe                |\n" +
                                "|29 : MODE : Génération aléatoire graphe                |\n" +
-                               "|30 : MODE : Algorithme de Prim                         |\n" +
+                               "|30 : MODE : Algorithme de Prim (non fonctionnel)       |\n" +
                                "--------------------------------------------------------"
                                );
             try {
