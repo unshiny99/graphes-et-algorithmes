@@ -404,10 +404,12 @@ public class Graphe_cout {
             for(int i=0;i<sommetsAjoutes.size();i++) {
                 min = sommetsAjoutes.get(0);
                 for(int j=0;j<sommetsAjoutes.get(i).getVoisins().size();j++) {
-                    if(sommetsAjoutes.contains(this.getListeSuccesseurs().get(i)) 
-                        && sommetsAjoutes.get(i).getVoisins().get(j).getCout() < min.getCout() 
-                        && !sommetsAjoutes.contains(this.getListeSuccesseurs().get(i))) 
+                    System.out.println(sommetsAjoutes.get(i).getVoisins().get(j).AffichageFormatListe());
+                    if(sommetsAjoutes.get(i).getVoisins().get(j).getCout() < min.getCout() 
+                        && !sommetsAjoutes.contains(sommetsAjoutes.get(i).getVoisins().get(j))
+                        ) 
                     {
+                        System.out.println("nouveau minimum : " + min);
                         min = this.getListeSuccesseurs().get(i);
                     }
                 }
