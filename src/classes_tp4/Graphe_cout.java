@@ -16,6 +16,7 @@ public class Graphe_cout {
     private Integer nbSommets;
     private Integer nbConnexion;
     private Random random;
+    private Random randomCout;
     private Integer time;
 
     private List<Sommet> listeSuccesseurs;
@@ -33,6 +34,7 @@ public class Graphe_cout {
         this.nbConnexion = nbConnexion;
         this.listeSuccesseurs = new ArrayList<>();
         this.random = new Random();
+        this.randomCout = new Random();
     }
 
     /**
@@ -46,6 +48,7 @@ public class Graphe_cout {
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
         this.random = new Random();
+        this.randomCout = new Random();
     }
     
     /**
@@ -58,6 +61,7 @@ public class Graphe_cout {
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
         this.random = new Random();
+        this.randomCout = new Random();
     }
 
     /**
@@ -68,6 +72,7 @@ public class Graphe_cout {
         this.nbConnexion = 0;
         this.listeSuccesseurs = new ArrayList<>();
         this.random = new Random();
+        this.randomCout = new Random();
     }
 
 
@@ -86,7 +91,7 @@ public class Graphe_cout {
     }
 
     /**
-     * Generation aléatoire d'un graphe avec n nombre de sommet, p proba de génération d'une connexion
+     * Generation aléatoire d'un graphe avec n nombre de sommet, p proba de génération d'une connexion, aléatoire coût entre 1 et 10
      * @param n Integer
      * @param p Double
      */
@@ -103,20 +108,20 @@ public class Graphe_cout {
 
             if(double1 < p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
-                                this.listeSuccesseurs.get(i+1).getIndex(), 0);
+                                this.listeSuccesseurs.get(i+1).getIndex(), this.randomCout.nextInt(10) + 1);
                 this.nbConnexion += 1;
             }
         }
     }
 
     /**
-     * Génération aléatoire de création de connexion
+     * Génération aléatoire de création de connexion avec un coût aléatoire de 1 à 10
      * @param nbConnexion Integer
      */
     public void generationAleatoireConnexion(Integer nbConnexion){       
         this.nbConnexion += nbConnexion;
         for(int i = 0; i < nbConnexion; ++i){
-            this.addConnexion(random.nextInt(this.listeSuccesseurs.size())+1, random.nextInt(this.listeSuccesseurs.size())+1, 0);
+            this.addConnexion(random.nextInt(this.listeSuccesseurs.size())+1, random.nextInt(this.listeSuccesseurs.size())+1, this.randomCout.nextInt(10) + 1);
         }
     }
 

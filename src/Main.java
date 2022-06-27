@@ -77,12 +77,15 @@ public class Main {
                                "|21 : MODE : Inverser graphe                            |\n" +
                                "|22 : MODE : Charger graphe (TP3)                       |\n" +
                                "---------------------------------------------------------\n" +
+                               "|                   LISTE D'ADJACENCE                   |\n" +
+                               "---------------------------------------------------------\n" +
                                "|23 : MODE : affichage graphe (TP4)                     |\n" +
                                "|24 : MODE : Création graphe (TP4)                      |\n" +
                                "|25 : MODE : Ajout connexion                            |\n" +
                                "|26 : MODE : Ajout sommet                               |\n" +
                                "|27 : MODE : Suppression connexion                      |\n" +
                                "|28 : MODE : Suppression instance graphe                |\n" +
+                               "|29 : MODE : Génération aléatoire graphe                |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -495,6 +498,24 @@ public class Main {
                         System.out.println("Instance du graphe déjà nulle(tp4)");
                     } else {
                         graphe_cout = null;
+                    }
+                    break;
+                case 29:
+                    try{
+                        if(graphe_cout == null) {
+                        System.out.println("Choisir nombre sommets : ");
+                        nbSommet = scan.nextInt();
+                        System.out.println("Choisir une probabilité 0,0 <= p <= 1,0 : p = (nombre de connexions) (Exemple : 0,4 et non 0.4)");
+                        proba = scan.nextDouble();
+
+                        graphe_cout = new Graphe_cout(0);
+                        graphe_cout.generationAleatoire(nbSommet, proba);
+                        } else {
+                            System.out.println("Le graphe est déjà instancié(tp4) !");
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        scan.next();
                     }
                     break;
                 default:
