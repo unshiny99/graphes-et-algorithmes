@@ -400,8 +400,8 @@ public class Graphe_cout {
 
         while(sommetsAjoutes.size() != this.getNbSommets()) {
             // trouver le sommet avec le plus faible coût avec le sommet courant
-            Sommet min = null;
             for(int i=0;i<sommetsAjoutes.size();i++) {
+                Sommet min = null;
                 if(sommetsAjoutes.get(i).getVoisins().size()>0) {
                     min = sommetsAjoutes.get(i).getVoisins().get(0);
                 }
@@ -415,11 +415,9 @@ public class Graphe_cout {
                         min = this.getListeSuccesseurs().get(i);
                     }
                 }
-            }
-            if(min != null) {
-                arbre.addSommet(min.getIndex());
-                arbre.addConnexion(sommetSource.getIndex(),min.getIndex(),min.getCout());
-                if(!sommetsAjoutes.contains(min)) {
+                if(min != null) {
+                    arbre.addSommet(min.getIndex());
+                    arbre.addConnexion(sommetSource.getIndex(),min.getIndex(),min.getCout());
                     sommetsAjoutes.add(min);
                 }
             }
