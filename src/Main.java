@@ -86,6 +86,7 @@ public class Main {
                                "|27 : MODE : Suppression connexion                      |\n" +
                                "|28 : MODE : Suppression instance graphe                |\n" +
                                "|29 : MODE : Génération aléatoire graphe                |\n" +
+                               "|30 : MODE : Algorithme de Prim                         |\n" +
                                "--------------------------------------------------------"
                                );
             try {
@@ -516,6 +517,23 @@ public class Main {
                     }catch(Exception e){
                         e.printStackTrace();
                         scan.next();
+                    }
+                    break;
+                case 30:
+                    if(graphe_cout != null) {
+                        try{
+                            System.out.println("Liste identifiants : " + graphe_cout.getIdentifiantAll());
+                            System.out.println("Choisir sommet source :");
+                            identifiant_a = scan.nextInt();
+                            Sommet sommet = graphe_cout.getSommet(identifiant_a);
+                            Graphe_cout arbre = graphe_cout.algoPrim(sommet);
+                            arbre.affichage();
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            scan.next();
+                        }   
+                    } else {
+                        System.out.println("Aucun graphe instancié(tp4) !");
                     }
                     break;
                 default:
