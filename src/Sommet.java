@@ -48,6 +48,17 @@ public class Sommet {
      * @param index Integer
      * @param voisins List<Sommet>
      */
+    public Sommet(Integer index, List<Sommet> voisins){
+        this.index = index;
+        this.voisins = voisins;
+        this.cout = cout;
+    }
+
+    /**
+     * Constructeur de sommet avec un index(identifiant) et une liste des ses voisins
+     * @param index Integer
+     * @param voisins List<Sommet>
+     */
     public Sommet(Integer index, List<Sommet> voisins, Integer cout){
         this.index = index;
         this.voisins = voisins;

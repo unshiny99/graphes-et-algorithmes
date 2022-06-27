@@ -106,7 +106,7 @@ public class Graphe_cout {
         for(int i = 0; i < this.listeSuccesseurs.size(); ++i){
             Double double1 = random.nextDouble();
 
-            if(double1 < p && i < this.listeSuccesseurs.size() - 1){
+            if(double1 <= p && i < this.listeSuccesseurs.size() - 1){
                 addConnexion(this.listeSuccesseurs.get(i).getIndex(),
                                 this.listeSuccesseurs.get(i+1).getIndex(), this.randomCout.nextInt(10) + 1);
                 this.nbConnexion += 1;
