@@ -381,14 +381,34 @@ public class Graphe {
         this.listeSuccesseurs = this.new_listeSuccesseurs;
     }
 
+    public void algoPrim(Sommet sommetSource) {
+        //List<Sommet> arbre = new ArrayList<>();
+        Graphe arbre = new Graphe(0,this.nbSommets);
+        List<Sommet> sommetsAjoutes = new ArrayList<>();
+        sommetsAjoutes.add(sommetSource); // S barre
+
+        while(sommetsAjoutes.size() != this.getNbSommets()) {
+            Sommet min = this.getListeSuccesseurs().get(0);
+            // trouver le sommet avec le plus faible coût avec le sommet courant
+            for(int i=1;i<this.getListeSuccesseurs().size();i++) {
+                if(!sommetsAjoutes.contains(this.getListeSuccesseurs().get(i)) && this.getListeSuccesseurs().get(i).getCout() < min.getCout()) {
+                    min = this.getListeSuccesseurs().get(i);
+                }
+            }
+            //Sommet sommetBis = sommetSource;
+            //sommetBis.addVoisin(min);
+            arbre.addConnexion(sommetSource.getIndex(),min.getIndex());
+            sommetsAjoutes.add(min);
+        }
+    }
+
     public Integer getType() {return type;}
     public Integer getNbSommets() {return nbSommets;}
     public Integer getNbConnexion() {return nbConnexion;}
+    public List<Sommet> getListeSuccesseurs() {return listeSuccesseurs;}
 
     public void setType(Integer type) {this.type = type;}
     public void setNbSommets(Integer nbSommets) {this.nbSommets = nbSommets;}
     public void setNbConnexion(Integer nbConnexion) {this.nbConnexion = nbConnexion;}
     public void setListeSuccesseurs(List<Sommet> listeSuccesseurs) {this.listeSuccesseurs = listeSuccesseurs;}
-
-    public List<Sommet> getListeSuccesseurs() {return listeSuccesseurs;}
 }
