@@ -392,21 +392,32 @@ public class Graphe_cout {
      */
     public Graphe_cout algoPrim(Sommet sommetSource) {
         Graphe_cout arbre = new Graphe_cout(0,this.nbSommets);
+        arbre.addSommet(sommetSource.getIndex());
+
         List<Sommet> sommetsAjoutes = new ArrayList<>();
         sommetsAjoutes.add(sommetSource); // S barre
 
         while(sommetsAjoutes.size() != this.getNbSommets()) {
-            Sommet min = this.getListeSuccesseurs().get(0);
             // trouver le sommet avec le plus faible coût avec le sommet courant
-            for(int i=1;i<this.getListeSuccesseurs().size();i++) {
-                if(!sommetsAjoutes.contains(this.getListeSuccesseurs().get(i)) && this.getListeSuccesseurs().get(i).getCout() < min.getCout()) {
-                    min = this.getListeSuccesseurs().get(i);
+            Sommet min = null;
+            for(int i=0;i<sommetsAjoutes.size();i++) {
+                min = sommetsAjoutes.get(0);
+                for(int j=0;j<sommetsAjoutes.get(i).getVoisins().size();j++) {
+                    if(sommetsAjoutes.contains(this.getListeSuccesseurs().get(i)) 
+                        && sommetsAjoutes.get(i).getVoisins().get(j).getCout() < min.getCout() 
+                        && !sommetsAjoutes.contains(this.getListeSuccesseurs().get(i))) 
+                    {
+                        min = this.getListeSuccesseurs().get(i);
+                    }
                 }
             }
-            //Sommet sommetBis = sommetSource;
-            //sommetBis.addVoisin(min);
-            arbre.addConnexion(sommetSource.getIndex(),min.getIndex(),min.getCout());
-            sommetsAjoutes.add(min);
+            if(min != null) {
+                arbre.addSommet(min.getIndex());
+                arbre.addConnexion(sommetSource.getIndex(),min.getIndex(),min.getCout());
+                if(!sommetsAjoutes.contains(min)) {
+                    sommetsAjoutes.add(min);
+                }
+            }
         }
         return arbre;
     }
