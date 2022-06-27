@@ -131,6 +131,7 @@ public class Graphe_cout {
      * @param identifiant_b Integer
      */
     public void addConnexion(Integer identifiant_a, Integer identifiant_b, Integer cout){
+        this.getSommet(identifiant_a).setCout(cout);
         if(this.type.equals(1)) {
             for(Sommet sommet : this.listeSuccesseurs){
                 if(sommet.getIndex().equals(identifiant_a)) {
