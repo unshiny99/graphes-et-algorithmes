@@ -24,6 +24,7 @@ public class Main {
                     "|5  : MODE : Sont adjacents ?                           |\n" +
                     "|6  : MODE : Charger un graphe                          |\n" +
                     "|7  : MODE : Sauvegarde du graphe                       |\n" +
+                    "|0  : QUITTER                                           |\n" +
                     "--------------------------------------------------------");
             try {
                 select = scan_menu.nextInt();
@@ -38,7 +39,27 @@ public class Main {
                     scan_menu.close();
                     scan.close();
                     break;
-
+                case 1:
+                    // afficher graphe
+                    break;
+                case 2:
+                    // créer graphe
+                    break;
+                case 3:
+                    // ajouter sommet
+                    break;
+                case 4:
+                    // ajouter arc
+                    break;
+                case 5:
+                    // savoir si 2 sommets sont adjacents
+                    break;
+                case 6:
+                    // charger un graphe
+                    break;
+                case 7:
+                    // sauvegarder uhn graphe
+                    break;
                 default:
                     select = 0;
                     scan_menu.close();
