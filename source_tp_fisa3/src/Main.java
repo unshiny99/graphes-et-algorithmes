@@ -1,5 +1,4 @@
 // Geoffrey Auzou, Maxime Frémeaux
-
 package src;
 
 import java.nio.file.DirectoryStream;
