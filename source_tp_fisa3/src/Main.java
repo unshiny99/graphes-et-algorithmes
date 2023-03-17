@@ -1,10 +1,6 @@
 // Geoffrey Auzou, Maxime Frémeaux
 package src;
 
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 
@@ -14,24 +10,6 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         
         Integer select = null;
-        Integer type = null;
-        Integer nbSommet = null;
-        Integer nbConnexion = null;
-
-        Integer identifiant_a = null;
-        Integer identifiant_b = null;
-        Integer cout = null;
-        
-        Double proba = null;
-
-        String name_file = null;
-
-        // Graphe graphe = null;
-        // Graphe_cout graphe_cout = null;
-        // Matrice matrice = null;
-
-        // lire les données depuis le dossier data
-        Path dir = Paths.get("./data/");
 
         do{
             if(select != null){
