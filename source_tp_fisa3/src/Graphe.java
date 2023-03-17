@@ -1,4 +1,5 @@
 package src;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,77 +12,81 @@ import java.util.Random;
 
 // Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
 public class Graphe {
-	private Integer type; //0 si non orienté 1 si orienté
-	private Integer n; //nombre de sommets
-	private Integer m; //nombre de connexions
-	private Map<Integer,Map<Integer,Integer>> listes; //liste d'adjacence avec poid
-	
+	private Integer type; // 0 si non orienté 1 si orienté
+	private Integer n; // nombre de sommets
+	private Integer m; // nombre de connexions
+	private Map<Integer, Map<Integer, Integer>> listes; // liste d'adjacence avec poid
+
 	public Graphe(Integer type) {
-		this.type=type;
-		this.n=0;
-		this.m=0;
-		this.listes = new HashMap<Integer,Map<Integer,Integer>>();
+		this.type = type;
+		this.n = 0;
+		this.m = 0;
+		this.listes = new HashMap<Integer, Map<Integer, Integer>>();
 	}
-	
+
 	public Graphe(Integer type, Integer n) {
-		this.type=type;
-		this.n=n;
-		this.m=0;
-		
-		this.listes = new HashMap<Integer,Map<Integer,Integer>>();
-		for(int i=1;i<=n;i++) {
-			Map<Integer,Integer> tempL = new HashMap<Integer,Integer>();
-		
+		this.type = type;
+		this.n = n;
+		this.m = 0;
+
+		this.listes = new HashMap<Integer, Map<Integer, Integer>>();
+		for (int i = 1; i <= n; i++) {
+			Map<Integer, Integer> tempL = new HashMap<Integer, Integer>();
+
 			this.listes.put(i, tempL);
 		}
-		
+
 	}
-	
+
 	/**
 	 * ajoute une connexion entre les deux sommets donné (arc ou arête)
+	 * 
 	 * @param i : identifiant du premier sommet
 	 * @param j : identifiant du deuxième sommet
 	 */
 	public void addConnexion(Integer i, Integer j, Integer poid) {
-		if(this.type == 0) {
-			this.listes.get(i).put(j,poid);
-			this.listes.get(j).put(i,poid);
-		}else if(this.type == 1){
-			this.listes.get(i).put(j,poid);
+		if (this.type == 0) {
+			this.listes.get(i).put(j, poid);
+			this.listes.get(j).put(i, poid);
+		} else if (this.type == 1) {
+			this.listes.get(i).put(j, poid);
 		}
-		this.m+=1;
+		this.m += 1;
 	}
-	
+
 	/**
 	 * supprime une connexion entre les deux sommets donné (arc ou arête)
+	 * 
 	 * @param i : identifiant du premier sommet
 	 * @param j : identifiant du deuxième sommet
 	 */
 	public void delConnexion(Integer i, Integer j) {
-		if(this.type == 0) {
+		if (this.type == 0) {
 			this.listes.get(i).remove(j);
 			this.listes.get(j).remove(i);
-		}else if(this.type == 1){
+		} else if (this.type == 1) {
 			this.listes.get(i).remove(j);
 		}
-		this.m-=1;
+		this.m -= 1;
 	}
 
 	/**
 	 * ajoute un sommet au graphe, si le sommet existe déjà il ne l'ajoutera pas
+	 * 
 	 * @param i : identifiant du sommet
 	 */
 	public void addSommet(Integer i) {
-		if(this.listes.containsKey(i)) {
-			//System.out.println("Le sommet existe déjà");
-		}else {
-			this.listes.put(i, new HashMap<Integer,Integer>());
-			this.n+=1;
+		if (this.listes.containsKey(i)) {
+			// System.out.println("Le sommet existe déjà");
+		} else {
+			this.listes.put(i, new HashMap<Integer, Integer>());
+			this.n += 1;
 		}
 	}
-	
+
 	/**
 	 * Vérifie si les sommets donnés sont adjacent ou non
+	 * 
 	 * @param i : identifiant du premier sommet
 	 * @param j : identifiant du deuxième sommet
 	 * @return true si les sommets sont adjacent false s'ils ne le sont pas
@@ -89,29 +94,30 @@ public class Graphe {
 	public boolean isDirect(Integer i, Integer j) {
 		return this.listes.get(i).containsKey(j);
 	}
-	
+
 	/**
 	 * affiche le graphe
 	 */
 	public void showGraph() {
 		String type = "";
-		if(this.type == 0) {
+		if (this.type == 0) {
 			type = "Non orienté";
-		}else if(this.type == 1) {
+		} else if (this.type == 1) {
 			type = "orienté";
 		}
-		
-		System.out.println("type = "+type);
-		System.out.println("n = "+this.n);
+
+		System.out.println("type = " + type);
+		System.out.println("n = " + this.n);
 		System.out.println("Liste d'adjacence : ");
-		this.listes.forEach((key,value)->{
-			System.out.println(key+" = "+value);
+		this.listes.forEach((key, value) -> {
+			System.out.println(key + " = " + value);
 		});
 
 	}
-	
+
 	/**
 	 * Charge un graphe depuis un fichier texte
+	 * 
 	 * @param path
 	 * @return
 	 * @throws Exception
@@ -120,47 +126,49 @@ public class Graphe {
 		File file = new File(path);
 
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		
+
 		String line = br.readLine();
-		
+
 		String[] data = line.split("[\s]+");
-		
-		Graphe g = new Graphe(Integer.valueOf(data[0]));
-				
+
+		Graphe g = new Graphe(1);
+
 		line = br.readLine();
-		
-		while(line != null || line == "") {
+
+		while (line != null || line == "") {
 			String[] sommets = line.split("[\s]+");
-			
+
 			Integer i = Integer.valueOf(sommets[0]);
 			Integer j = Integer.valueOf(sommets[1]);
 			Integer poid = Integer.valueOf(sommets[2]);
-			
-			//ajoute les deux sommets (s'ils existe ça ne les ajoutera pas)
+
+			// ajoute les deux sommets (s'ils existe ça ne les ajoutera pas)
 			g.addSommet(i);
 			g.addSommet(j);
-			
-			//ajoute la connexion
-			g.addConnexion(i, j,poid);
-			
+
+			// ajoute la connexion
+			g.addConnexion(i, j, poid);
+
 			line = br.readLine();
 		}
-		
+
 		br.close();
-		
-		if(g.getN() != Integer.valueOf(data[1])) {
-			g.setN(Integer.valueOf(data[1]));
-			throw new Exception("Le nombre de sommet dans les connexions n'est pas le même que le nombre de sommet au début du fichier");
-		}else if(g.getM() != Integer.valueOf(data[2])) {
+
+		if (g.getN() != Integer.valueOf(data[0])) {
+			g.setN(Integer.valueOf(data[0]));
+			throw new Exception(
+					"Le nombre de sommet dans les connexions n'est pas le même que le nombre de sommet au début du fichier");
+		} else if (g.getM() != Integer.valueOf(data[1])) {
 			throw new Exception("Le nombre de connexion ne correspond pas au nombre de connexion au début du fichier");
 		}
-		
+
 		return g;
 
 	}
-	
+
 	/**
 	 * Sauvegarde un graphe dans un fichier texte
+	 * 
 	 * @param path
 	 * @throws IOException
 	 */
@@ -168,58 +176,60 @@ public class Graphe {
 		File file = new File(path);
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-		
-		bw.write(this.type+" "+this.n+" "+this.m);
+
+		bw.write(this.n + " " + this.m);
 		bw.newLine();
-		
-		this.listes.forEach((i,adj)->{
-			//pour chaque adjacent
-			adj.forEach((j,poid)->{
+
+		this.listes.forEach((i, adj) -> {
+			// pour chaque adjacent
+			adj.forEach((j, poid) -> {
 				try {
-					if(this.type==0 && j>i) { //écrit la connexion si elle est non orienté et que la connexion n'a pas déjà été pris en compte
-						bw.write(i+" "+j +" "+poid);
+					if (this.type == 0 && j > i) { // écrit la connexion si elle est non orienté et que la connexion n'a
+													// pas déjà été pris en compte
+						bw.write(i + " " + j + " " + poid);
 						bw.newLine();
-					}else if(this.type==1){ //sinon si il est orienté, on écrit la connexion
-						bw.write(i+" "+j+" "+poid);
+					} else if (this.type == 1) { // sinon si il est orienté, on écrit la connexion
+						bw.write(i + " " + j + " " + poid);
 						bw.newLine();
 					}
-				}catch(IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			});
 		});
-		
+
 		bw.close();
 	}
-	
+
 	/**
 	 * Génére un graphe par la méthode de Erdös-Rényi
+	 * 
 	 * @param type : type du graphe à générer
-	 * @param n : nombre de sommets à générer
-	 * @param p : probabilité de présence des connexions
+	 * @param n    : nombre de sommets à générer
+	 * @param p    : probabilité de présence des connexions
 	 * @throws IOException
 	 */
 	public static void genGraph(Integer type, Integer n, Double p) throws IOException {
 		Random r = new Random();
-		
-		Graphe g = new Graphe(type,n);
-		
-		//passe par tout les couples possibles et regarde si on ajoute cette connexion
-		g.listes.forEach((key,value)->{
-			g.listes.forEach((key2,value2)->{
-				if(key != key2 && !g.isDirect(key, key2)) {
+
+		Graphe g = new Graphe(type, n);
+
+		// passe par tout les couples possibles et regarde si on ajoute cette connexion
+		g.listes.forEach((key, value) -> {
+			g.listes.forEach((key2, value2) -> {
+				if (key != key2 && !g.isDirect(key, key2)) {
 					Double d = r.nextDouble();
-					if(d<=p) {
+					if (d <= p) {
 						Integer poid = r.nextInt(10) + 1;
-						g.addConnexion(key, key2,poid);
+						g.addConnexion(key, key2, poid);
 					}
 				}
 			});
 		});
-		
+
 		g.saveGraph("./src/tp4_graphe/gen_graphe.txt");
 	}
-	
+
 	public Integer getType() {
 		return type;
 	}
@@ -232,7 +242,7 @@ public class Graphe {
 		return m;
 	}
 
-	public Map<Integer, Map<Integer,Integer>> getListes() {
+	public Map<Integer, Map<Integer, Integer>> getListes() {
 		return listes;
 	}
 
@@ -248,7 +258,7 @@ public class Graphe {
 		this.m = m;
 	}
 
-	public void setListes(Map<Integer, Map<Integer,Integer>> listes) {
+	public void setListes(Map<Integer, Map<Integer, Integer>> listes) {
 		this.listes = listes;
 	}
 }
