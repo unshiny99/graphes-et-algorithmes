@@ -1,6 +1,4 @@
 package src;
-
-//BRYAN MOREAU
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+// Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
 public class Graphe {
 	private Integer type; //0 si non orienté 1 si orienté
 	private Integer n; //nombre de sommets

@@ -1,9 +1,8 @@
-// Geoffrey Auzou, Maxime Frémeaux
 package src;
 
 import java.util.Scanner;
 
-
+// Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
 public class Main {
     public static void main(String[] args) {
         Scanner scan_menu = new Scanner(System.in);
