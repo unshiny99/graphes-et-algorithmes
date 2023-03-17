@@ -77,7 +77,7 @@ public class Graphe {
 	 */
 	public void addSommet(Integer i) {
 		if (this.listes.containsKey(i)) {
-			// System.out.println("Le sommet existe déjà");
+			System.out.println("Le sommet existe déjà");
 		} else {
 			this.listes.put(i, new HashMap<Integer, Double>());
 			this.n += 1;

@@ -8,6 +8,7 @@ public class Main {
         Scanner scan_menu = new Scanner(System.in);
         Scanner scan = new Scanner(System.in);
         Integer select = null;
+        Graphe graphe = null;
 
         do {
             if (select != null) {
@@ -41,12 +42,30 @@ public class Main {
                     break;
                 case 1:
                     // afficher graphe
+                    if(graphe != null) {
+                        graphe.showGraph();
+                    } else {
+                        System.out.println("Pas de graphe instancié");
+                    }
                     break;
                 case 2:
                     // créer graphe
+                    Integer nbSommmets = -1;
+                    do {
+                        System.out.println("Entrez le nombre de sommets souhaités (0 pour graphe vide)");
+                        nbSommmets = scan.nextInt();
+                        graphe = new Graphe(1,nbSommmets);
+                    } while(nbSommmets < 0);
                     break;
                 case 3:
                     // ajouter sommet
+                    if(graphe != null) {
+                        graphe.showGraph();
+                        Integer indexSommet = 0;
+                        System.out.println("Index du nouveau sommet :");
+                        indexSommet = scan.nextInt();
+                        graphe.addSommet(indexSommet);
+                    }
                     break;
                 case 4:
                     // ajouter arc
@@ -67,7 +86,6 @@ public class Main {
                     break;
             }
         } while (select != 0);
-
         scan_menu.close();
         scan.close();
     }
