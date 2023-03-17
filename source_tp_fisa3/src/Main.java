@@ -7,11 +7,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan_menu = new Scanner(System.in);
         Scanner scan = new Scanner(System.in);
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> main
         Integer select = null;
 
         do {
@@ -20,7 +15,6 @@ public class Main {
             }
 
             System.out.println("--------------------------------------------------------\n" +
-<<<<<<< HEAD
                     "|                     MENU TP GRAPHES                   |\n" +
                     "---------------------------------------------------------\n" +
                     "|1  : MODE : Afficher graphe                            |\n" +
@@ -31,19 +25,6 @@ public class Main {
                     "|6  : MODE : Charger un graphe                          |\n" +
                     "|7  : MODE : Sauvegarde du graphe                       |\n" +
                     "--------------------------------------------------------");
-=======
-                               "|                     MENU TP GRAPHES                   |\n" +
-                               "---------------------------------------------------------\n" +
-                               "|1  : MODE : Afficher graphe                            |\n" +
-                               "|2  : MODE : Création graphe (avec nombre sommets)      |\n" +
-                               "|3  : MODE : Ajout sommet                               |\n" +
-                               "|4  : MODE : Ajout arc                                  |\n" +
-                               "|5  : MODE : Adjacents ?                                |\n" +
-                               "|6  : MODE : Charger un graphe                          |\n" +
-                               "|7  : MODE : Sauvegarde du graphe                       |\n" +
-                               "--------------------------------------------------------"
-                               );
->>>>>>> main
             try {
                 select = scan_menu.nextInt();
             } catch (Exception e) {
