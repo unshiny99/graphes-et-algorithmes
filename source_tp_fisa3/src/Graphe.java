@@ -75,9 +75,11 @@ public class Graphe {
 	 * 
 	 * @param i : identifiant du sommet
 	 */
-	public void addSommet(Integer i) {
+	public void addSommet(Integer i, Boolean manual) {
 		if (this.listes.containsKey(i)) {
-			System.out.println("Le sommet existe déjà");
+			if(manual) {
+				System.out.println("Le sommet existe déjà");
+			}
 		} else {
 			this.listes.put(i, new HashMap<Integer, Double>());
 			this.n += 1;
@@ -143,8 +145,8 @@ public class Graphe {
 			Double poid = Double.valueOf(sommets[2]);
 
 			// ajoute les deux sommets (s'ils existe ça ne les ajoutera pas)
-			g.addSommet(i);
-			g.addSommet(j);
+			g.addSommet(i, false);
+			g.addSommet(j, false);
 
 			// ajoute la connexion
 			g.addConnexion(i, j, poid);

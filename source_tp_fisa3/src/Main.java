@@ -1,5 +1,6 @@
 package src;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 // Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
@@ -64,20 +65,53 @@ public class Main {
                         Integer indexSommet = 0;
                         System.out.println("Index du nouveau sommet :");
                         indexSommet = scan.nextInt();
-                        graphe.addSommet(indexSommet);
+                        graphe.addSommet(indexSommet, true);
                     }
                     break;
                 case 4:
                     // ajouter arc
+                    if(graphe != null) {
+                        graphe.showGraph();
+                        System.out.println("Index du premier sommet (origine) :");
+                        Integer indexSommet1 = scan.nextInt();
+                        System.out.println("Index du second sommet (destination) :");
+                        Integer indexSommet2 = scan.nextInt();
+                        System.out.println("Poids de l'arc");
+                        Double poids = scan.nextDouble();
+                        graphe.addConnexion(indexSommet1, indexSommet2, poids);
+                    }
                     break;
                 case 5:
                     // savoir si 2 sommets sont adjacents
+                    if(graphe != null) {
+                        graphe.showGraph();
+                        System.out.println("Index du premier sommet (origine) :");
+                        Integer indexSommet1 = scan.nextInt();
+                        System.out.println("Index du second sommet (destination) :");
+                        Integer indexSommet2 = scan.nextInt();
+                        Boolean estAdjacent = graphe.isDirect(indexSommet1, indexSommet2);
+                        if(estAdjacent) {
+                            System.out.println("Les sommets sont adjacents");
+                        } else {
+                            System.out.println("Les sommets ne sont pas adjacents");
+                        }
+                    }
                     break;
                 case 6:
                     // charger un graphe
+                    try {
+                        graphe = Graphe.loadGraph("source_tp_fisa3/data/mon_graphe.txt");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 7:
-                    // sauvegarder uhn graphe
+                    // sauvegarder un graphe
+                    try {
+                        graphe.saveGraph("source_tp_fisa3/data/saved_graph.txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     select = 0;
