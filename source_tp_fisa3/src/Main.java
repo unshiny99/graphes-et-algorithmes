@@ -10,8 +10,8 @@ public class Main {
         
         Integer select = null;
 
-        do{
-            if(select != null){
+        do {
+            if (select != null) {
                 System.out.println("[Terminé]");
             }
 
@@ -22,32 +22,32 @@ public class Main {
                                "|2  : MODE : Création graphe (avec nombre sommets)      |\n" +
                                "|3  : MODE : Ajout sommet                               |\n" +
                                "|4  : MODE : Ajout arc                                  |\n" +
-                               "|5  : MODE : Adjacents ?                                |\n" +
+                               "|5  : MODE : Sont adjacents ?                           |\n" +
                                "|6  : MODE : Charger un graphe                          |\n" +
                                "|7  : MODE : Sauvegarde du graphe                       |\n" +
                                "--------------------------------------------------------"
                                );
             try {
                 select = scan_menu.nextInt();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println("Erreur de paramètre d'entrée.");
                 scan_menu.close();
                 scan.close();
                 break;
             }
-            switch(select){
+            switch (select) {
                 case 0:
                     scan_menu.close();
                     scan.close();
                     break;
-                
+
                 default:
                     select = 0;
                     scan_menu.close();
                     scan.close();
-                break;
+                    break;
             }
-        } while(select != 0);
+        } while (select != 0);
 
         scan_menu.close();
         scan.close();
