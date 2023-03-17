@@ -1,4 +1,4 @@
-package Bryan;
+package src;
 
 //BRYAN MOREAU
 import java.io.BufferedReader;
