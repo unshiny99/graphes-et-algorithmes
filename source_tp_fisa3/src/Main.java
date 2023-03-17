@@ -30,7 +30,7 @@ public class Main {
         // Graphe graphe = null;
         // Graphe_cout graphe_cout = null;
         // Matrice matrice = null;
-        
+
         // lire les données depuis le dossier data
         Path dir = Paths.get("./data/");
 
@@ -43,10 +43,10 @@ public class Main {
                                "|                     MENU TP GRAPHES                   |\n" +
                                "---------------------------------------------------------\n" +
                                "|1  : MODE : Afficher graphe                            |\n" +
-                               "|2  : MODE : Création graphe (avec type/nombre sommets) |\n" +
+                               "|2  : MODE : Création graphe (avec nombre sommets)      |\n" +
                                "|3  : MODE : Ajout sommet                               |\n" +
                                "|4  : MODE : Ajout arc                                  |\n" +
-                               "|5  : MODE : Adjdacent ?                                |\n" +
+                               "|5  : MODE : Adjacents ?                                |\n" +
                                "|6  : MODE : Charger un graphe                          |\n" +
                                "|7  : MODE : Sauvegarde du graphe                       |\n" +
                                "--------------------------------------------------------"
