@@ -210,32 +210,77 @@ public class Graphe {
 	}
 
 	/**
-	 * Génére un graphe par la méthode de Erdös-Rényi
+	 * Génère un graphe par la méthode de Erdös-Rényi
 	 * 
 	 * @param type : type du graphe à générer
 	 * @param n    : nombre de sommets à générer
 	 * @param p    : probabilité de présence des connexions
 	 * @throws IOException
 	 */
-	public static void genGraph(Integer type, Integer n, Double p) throws IOException {
+	public static Graphe genGraph(Integer type, Integer n, Double p) throws IOException {
 		Random r = new Random();
 
 		Graphe g = new Graphe(type, n);
 
 		// passe par tout les couples possibles et regarde si on ajoute cette connexion
-		g.listes.forEach((key, value) -> {
-			g.listes.forEach((key2, value2) -> {
-				if (key != key2 && !g.isDirect(key, key2)) {
+		g.listes.forEach((key, value) -> { // sommet 1
+			g.listes.forEach((key2, value2) -> { // sommet
+				if (key != key2 && !g.isDirect(key, key2)) { // si sommets différents et non connectés
 					Double d = r.nextDouble();
 					if (d <= p) {
-						Double poid = r.nextDouble(10) + 1;
-						g.addConnexion(key, key2, poid);
+						// générer un poids entre 1.0 et 10.0
+						Double poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+						System.out.println(poids);
+						g.addConnexion(key, key2, poids);
 					}
 				}
 			});
 		});
 
-		g.saveGraph("./data/gen_graphe.txt");
+		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
+		return g;
+	}
+
+	public List<Object> methodeBellmanFord() {
+		List<Double> longeurChemin = new ArrayList<>();
+		Map<Integer, Integer> predecesseurs = new HashMap<>();
+		// initialisation
+		for (Integer u=0; u<n; u++) {
+			longeurChemin.add(Double.MAX_VALUE);
+			predecesseurs.put(u, null);
+		}
+		Integer sommetDepart = 0;
+		for(Integer k=1; k<n; k++) {
+			for(Integer u : this.listes.keySet()) {
+				for(Integer v : this.listes.get(u).keySet()){
+					Double poids = this.listes.get(u).get(v);
+					if(longeurChemin.get(u) + poids < longeurChemin.get(v)) {
+						longeurChemin.set(v, longeurChemin.get(u)+ poids);
+						predecesseurs.replace(v, u);
+					}
+				}
+			}
+		}
+		List<Object> returnedList = new ArrayList<>();
+		returnedList.add(longeurChemin);
+		returnedList.add(predecesseurs);
+		return returnedList;
+	}
+
+	/**
+	 * Implémentation de l'algorithme de Ford-Fulkerson
+	 * @param graph : graphe
+	 * @param a : liste des arêtes
+	 * @param c : liste des capacités entre chaque vertex
+	 * @param s : source
+	 * @param t : puit de s
+	 */
+	public Integer algoFordFullkerson(Graphe graph, Map<Integer, Integer> a, Integer c, Integer s, Integer t){
+		Integer flow = null;
+		
+		// explication + pseudo code ici : https://fr.wikipedia.org/wiki/Algorithme_de_Ford-Fulkerson
+
+		return flow;
 	}
 
 	/**

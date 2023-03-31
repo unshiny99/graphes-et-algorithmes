@@ -1,6 +1,7 @@
 package src;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 // Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
@@ -26,6 +27,8 @@ public class Main {
                     "|5  : MODE : Sont adjacents ?                           |\n" +
                     "|6  : MODE : Charger un graphe                          |\n" +
                     "|7  : MODE : Sauvegarde du graphe                       |\n" +
+                    "|8  : MODE : Plus court chemin (Bellman-Ford)           |\n" +
+                    "|9  : MODE : Générer un graphe (Erdös-Rényi)            |\n" +
                     "|0  : QUITTER                                           |\n" +
                     "--------------------------------------------------------");
             try {
@@ -38,6 +41,7 @@ public class Main {
             }
             switch (select) {
                 case 0:
+                    // quitter programme
                     scan_menu.close();
                     scan.close();
                     break;
@@ -109,6 +113,28 @@ public class Main {
                     // sauvegarder un graphe
                     try {
                         graphe.saveGraph("source_tp_fisa3/data/saved_graph.txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 8:
+                    if(graphe != null) {
+                        List<Object> result = graphe.methodeBellmanFord();
+                        System.out.println("Longueur plus court chemin : " + result.get(0));
+                        System.out.println("Liste de prédecesseurs : " + result.get(1));
+                    } else {
+                        System.out.println("Merci d'instancier un graphe");
+                    }
+                    break;
+                case 9:
+                    do {
+                        System.out.println("Nombre de sommets :");
+                        nbSommmets = scan.nextInt();
+                    } while(nbSommmets < 0);
+                    System.out.println("Probabilité de connexion :");
+                    Double proba = scan.nextDouble();
+                    try {
+                        graphe = Graphe.genGraph(1,nbSommmets,proba);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
