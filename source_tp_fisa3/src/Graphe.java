@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -81,7 +83,7 @@ public class Graphe {
 	 */
 	public void addSommet(Integer i, Boolean manual) {
 		if (this.listes.containsKey(i)) {
-			if(manual) {
+			if (manual) {
 				System.out.println("Le sommet existe déjà");
 			}
 		} else {
@@ -234,6 +236,41 @@ public class Graphe {
 		});
 
 		g.saveGraph("./data/gen_graphe.txt");
+	}
+
+	/**
+	 * Exporte le graphe dans un .dat pour l'utiliser dans CPLEX
+	 * 
+	 * @throws IOException
+	 */
+	public void exportCPLEX(Integer source, Integer target) throws IOException {
+		File file = new File("source_tp_fisa3/data/donnee.dat");
+		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+		bw.write("n = " + this.n + ";");
+		bw.newLine();
+		bw.write("s = " + source + ";");
+		bw.newLine();
+		bw.write("t = " + target + ";");
+		bw.newLine();
+
+		// Mise en forme des poids
+		List<List<Double>> poids = new ArrayList<List<Double>>();
+
+		for (int i = 0; i < this.n; i++) {
+			poids.add(new ArrayList<Double>());
+			for (int j = 0; j < this.n; j++) {
+				if (this.listes.containsKey(i) && this.listes.get(i).containsKey(j)) {
+					poids.get(i).add(this.listes.get(i).get(j));
+				} else {
+					poids.get(i).add(10000.0);
+				}
+			}
+		}
+
+		bw.write("poids = " + poids + ";");
+
+		bw.close();
 	}
 
 	public Integer getType() {
