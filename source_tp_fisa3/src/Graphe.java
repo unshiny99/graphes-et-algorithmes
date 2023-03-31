@@ -251,7 +251,7 @@ public class Graphe {
 	public Integer algoFordFullkerson(Graphe graph, Map<Integer, Integer> a, Integer c, Integer s, Integer t){
 		Integer flow = null;
 		
-		// explication + pseudo code
+		// explication + pseudo code ici : https://fr.wikipedia.org/wiki/Algorithme_de_Ford-Fulkerson
 
 		return flow;
 	}
