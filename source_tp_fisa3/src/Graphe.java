@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -237,6 +239,32 @@ public class Graphe {
 
 		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
 		return g;
+	}
+
+	public List<Object> methodeBellmanFord() {
+		List<Double> longeurChemin = new ArrayList<>();
+		Map<Integer, Integer> predecesseurs = new HashMap<>();
+		// initialisation
+		for (Integer u=0; u<n; u++) {
+			longeurChemin.add(Double.MAX_VALUE);
+			predecesseurs.put(u, null);
+		}
+		Integer sommetDepart = 0;
+		for(Integer k=1; k<n; k++) {
+			for(Integer u : this.listes.keySet()) {
+				for(Integer v : this.listes.get(u).keySet()){
+					Double poids = this.listes.get(u).get(v);
+					if(longeurChemin.get(u) + poids < longeurChemin.get(v)) {
+						longeurChemin.set(v, longeurChemin.get(u)+ poids);
+						predecesseurs.replace(v, u);
+					}
+				}
+			}
+		}
+		List<Object> returnedList = new ArrayList<>();
+		returnedList.add(longeurChemin);
+		returnedList.add(predecesseurs);
+		return returnedList;
 	}
 
 	public Integer getType() {
