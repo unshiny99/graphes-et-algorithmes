@@ -45,13 +45,17 @@ public class Graphe {
 	 * @param j : identifiant du deuxième sommet
 	 */
 	public void addConnexion(Integer i, Integer j, Double poid) {
-		if (this.type == 0) {
-			this.listes.get(i).put(j, poid);
-			this.listes.get(j).put(i, poid);
-		} else if (this.type == 1) {
-			this.listes.get(i).put(j, poid);
+		if (this.listes.get(i).containsKey(j)) {
+			System.out.println("La connexion existe déjà");
+		} else {
+			if (this.type == 0) {
+				this.listes.get(i).put(j, poid);
+				this.listes.get(j).put(i, poid);
+			} else if (this.type == 1) {
+				this.listes.get(i).put(j, poid);
+			}
+			this.m += 1;
 		}
-		this.m += 1;
 	}
 
 	/**
