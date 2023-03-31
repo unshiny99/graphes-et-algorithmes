@@ -230,6 +230,23 @@ public class Graphe {
 		g.saveGraph("./src/tp4_graphe/gen_graphe.txt");
 	}
 
+
+	/**
+	 * Implémentation de l'algorithme de Ford-Fulkerson
+	 * @param graph : graphe
+	 * @param a : liste des arêtes
+	 * @param c : liste des capacités entre chaque vertex
+	 * @param s : source
+	 * @param t : puit de s
+	 */
+	public Integer algoFordFullkerson(Graphe graph, Map<Integer, Integer> a, Integer c, Integer s, Integer t){
+		Integer flow = null;
+		
+		// explication + pseudo code
+
+		return flow;
+	}
+
 	public Integer getType() {
 		return type;
 	}
