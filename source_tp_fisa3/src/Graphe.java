@@ -204,32 +204,35 @@ public class Graphe {
 	}
 
 	/**
-	 * Génére un graphe par la méthode de Erdös-Rényi
+	 * Génère un graphe par la méthode de Erdös-Rényi
 	 * 
 	 * @param type : type du graphe à générer
 	 * @param n    : nombre de sommets à générer
 	 * @param p    : probabilité de présence des connexions
 	 * @throws IOException
 	 */
-	public static void genGraph(Integer type, Integer n, Double p) throws IOException {
+	public static Graphe genGraph(Integer type, Integer n, Double p) throws IOException {
 		Random r = new Random();
 
 		Graphe g = new Graphe(type, n);
 
 		// passe par tout les couples possibles et regarde si on ajoute cette connexion
-		g.listes.forEach((key, value) -> {
-			g.listes.forEach((key2, value2) -> {
-				if (key != key2 && !g.isDirect(key, key2)) {
+		g.listes.forEach((key, value) -> { // sommet 1
+			g.listes.forEach((key2, value2) -> { // sommet
+				if (key != key2 && !g.isDirect(key, key2)) { // si sommets différents et non connectés
 					Double d = r.nextDouble();
 					if (d <= p) {
-						Double poid = r.nextDouble(10) + 1;
-						g.addConnexion(key, key2, poid);
+						// générer un poids entre 1.0 et 10.0
+						Double poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+						System.out.println(poids);
+						g.addConnexion(key, key2, poids);
 					}
 				}
 			});
 		});
 
-		g.saveGraph("./data/gen_graphe.txt");
+		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
+		return g;
 	}
 
 	public Integer getType() {

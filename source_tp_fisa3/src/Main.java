@@ -26,6 +26,7 @@ public class Main {
                     "|5  : MODE : Sont adjacents ?                           |\n" +
                     "|6  : MODE : Charger un graphe                          |\n" +
                     "|7  : MODE : Sauvegarde du graphe                       |\n" +
+                    "|8  : MODE : Générer un graphe (Erdös-Rényi)            |\n" +
                     "|0  : QUITTER                                           |\n" +
                     "--------------------------------------------------------");
             try {
@@ -38,6 +39,7 @@ public class Main {
             }
             switch (select) {
                 case 0:
+                    // quitter programme
                     scan_menu.close();
                     scan.close();
                     break;
@@ -109,6 +111,19 @@ public class Main {
                     // sauvegarder un graphe
                     try {
                         graphe.saveGraph("source_tp_fisa3/data/saved_graph.txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 8:
+                    do {
+                        System.out.println("Nombre de sommets :");
+                        nbSommmets = scan.nextInt();
+                    } while(nbSommmets < 0);
+                    System.out.println("Probabilité de connexion :");
+                    Double proba = scan.nextDouble();
+                    try {
+                        graphe = Graphe.genGraph(1,nbSommmets,proba);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
