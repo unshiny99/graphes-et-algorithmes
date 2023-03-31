@@ -15,13 +15,13 @@ public class Graphe {
 	private Integer type; // 0 si non orienté 1 si orienté
 	private Integer n; // nombre de sommets
 	private Integer m; // nombre de connexions
-	private Map<Integer, Map<Integer, Integer>> listes; // liste d'adjacence avec poid
+	private Map<Integer, Map<Integer, Double>> listes; // liste d'adjacence avec poid
 
 	public Graphe(Integer type) {
 		this.type = type;
 		this.n = 0;
 		this.m = 0;
-		this.listes = new HashMap<Integer, Map<Integer, Integer>>();
+		this.listes = new HashMap<Integer, Map<Integer, Double>>();
 	}
 
 	public Graphe(Integer type, Integer n) {
@@ -29,9 +29,9 @@ public class Graphe {
 		this.n = n;
 		this.m = 0;
 
-		this.listes = new HashMap<Integer, Map<Integer, Integer>>();
+		this.listes = new HashMap<Integer, Map<Integer, Double>>();
 		for (int i = 1; i <= n; i++) {
-			Map<Integer, Integer> tempL = new HashMap<Integer, Integer>();
+			Map<Integer, Double> tempL = new HashMap<Integer, Double>();
 
 			this.listes.put(i, tempL);
 		}
@@ -44,14 +44,18 @@ public class Graphe {
 	 * @param i : identifiant du premier sommet
 	 * @param j : identifiant du deuxième sommet
 	 */
-	public void addConnexion(Integer i, Integer j, Integer poid) {
-		if (this.type == 0) {
-			this.listes.get(i).put(j, poid);
-			this.listes.get(j).put(i, poid);
-		} else if (this.type == 1) {
-			this.listes.get(i).put(j, poid);
+	public void addConnexion(Integer i, Integer j, Double poid) {
+		if (this.listes.get(i).containsKey(j)) {
+			System.out.println("La connexion existe déjà");
+		} else {
+			if (this.type == 0) {
+				this.listes.get(i).put(j, poid);
+				this.listes.get(j).put(i, poid);
+			} else if (this.type == 1) {
+				this.listes.get(i).put(j, poid);
+			}
+			this.m += 1;
 		}
-		this.m += 1;
 	}
 
 	/**
@@ -75,11 +79,13 @@ public class Graphe {
 	 * 
 	 * @param i : identifiant du sommet
 	 */
-	public void addSommet(Integer i) {
+	public void addSommet(Integer i, Boolean manual) {
 		if (this.listes.containsKey(i)) {
-			// System.out.println("Le sommet existe déjà");
+			if(manual) {
+				System.out.println("Le sommet existe déjà");
+			}
 		} else {
-			this.listes.put(i, new HashMap<Integer, Integer>());
+			this.listes.put(i, new HashMap<Integer, Double>());
 			this.n += 1;
 		}
 	}
@@ -140,11 +146,11 @@ public class Graphe {
 
 			Integer i = Integer.valueOf(sommets[0]);
 			Integer j = Integer.valueOf(sommets[1]);
-			Integer poid = Integer.valueOf(sommets[2]);
+			Double poid = Double.valueOf(sommets[2]);
 
 			// ajoute les deux sommets (s'ils existe ça ne les ajoutera pas)
-			g.addSommet(i);
-			g.addSommet(j);
+			g.addSommet(i, false);
+			g.addSommet(j, false);
 
 			// ajoute la connexion
 			g.addConnexion(i, j, poid);
@@ -202,32 +208,35 @@ public class Graphe {
 	}
 
 	/**
-	 * Génére un graphe par la méthode de Erdös-Rényi
+	 * Génère un graphe par la méthode de Erdös-Rényi
 	 * 
 	 * @param type : type du graphe à générer
 	 * @param n    : nombre de sommets à générer
 	 * @param p    : probabilité de présence des connexions
 	 * @throws IOException
 	 */
-	public static void genGraph(Integer type, Integer n, Double p) throws IOException {
+	public static Graphe genGraph(Integer type, Integer n, Double p) throws IOException {
 		Random r = new Random();
 
 		Graphe g = new Graphe(type, n);
 
 		// passe par tout les couples possibles et regarde si on ajoute cette connexion
-		g.listes.forEach((key, value) -> {
-			g.listes.forEach((key2, value2) -> {
-				if (key != key2 && !g.isDirect(key, key2)) {
+		g.listes.forEach((key, value) -> { // sommet 1
+			g.listes.forEach((key2, value2) -> { // sommet
+				if (key != key2 && !g.isDirect(key, key2)) { // si sommets différents et non connectés
 					Double d = r.nextDouble();
 					if (d <= p) {
-						Integer poid = r.nextInt(10) + 1;
-						g.addConnexion(key, key2, poid);
+						// générer un poids entre 1.0 et 10.0
+						Double poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+						System.out.println(poids);
+						g.addConnexion(key, key2, poids);
 					}
 				}
 			});
 		});
 
-		g.saveGraph("./src/tp4_graphe/gen_graphe.txt");
+		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
+		return g;
 	}
 
 
@@ -259,7 +268,7 @@ public class Graphe {
 		return m;
 	}
 
-	public Map<Integer, Map<Integer, Integer>> getListes() {
+	public Map<Integer, Map<Integer, Double>> getListes() {
 		return listes;
 	}
 
@@ -275,7 +284,7 @@ public class Graphe {
 		this.m = m;
 	}
 
-	public void setListes(Map<Integer, Map<Integer, Integer>> listes) {
+	public void setListes(Map<Integer, Map<Integer, Double>> listes) {
 		this.listes = listes;
 	}
 }
