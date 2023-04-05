@@ -245,17 +245,17 @@ public class Graphe {
 		List<Double> longeurChemin = new ArrayList<>();
 		Map<Integer, Integer> predecesseurs = new HashMap<>();
 		// initialisation
-		for (Integer u=0; u<n; u++) {
+		for (Integer u = 0; u < n; u++) {
 			longeurChemin.add(Double.MAX_VALUE);
 			predecesseurs.put(u, null);
 		}
 		Integer sommetDepart = 0;
-		for(Integer k=1; k<n; k++) {
-			for(Integer u : this.listes.keySet()) {
-				for(Integer v : this.listes.get(u).keySet()){
+		for (Integer k = 1; k < n; k++) {
+			for (Integer u : this.listes.keySet()) {
+				for (Integer v : this.listes.get(u).keySet()) {
 					Double poids = this.listes.get(u).get(v);
-					if(longeurChemin.get(u) + poids < longeurChemin.get(v)) {
-						longeurChemin.set(v, longeurChemin.get(u)+ poids);
+					if (longeurChemin.get(u) + poids < longeurChemin.get(v)) {
+						longeurChemin.set(v, longeurChemin.get(u) + poids);
 						predecesseurs.replace(v, u);
 					}
 				}
@@ -269,16 +269,18 @@ public class Graphe {
 
 	/**
 	 * Implémentation de l'algorithme de Ford-Fulkerson
+	 * 
 	 * @param graph : graphe
-	 * @param a : liste des arêtes
-	 * @param c : liste des capacités entre chaque vertex
-	 * @param s : source
-	 * @param t : puit de s
+	 * @param a     : liste des arêtes
+	 * @param c     : liste des capacités entre chaque vertex
+	 * @param s     : source
+	 * @param t     : puit de s
 	 */
-	public Integer algoFordFullkerson(Graphe graph, Map<Integer, Integer> a, Integer c, Integer s, Integer t){
+	public Integer algoFordFullkerson(Graphe graph, Map<Integer, Integer> a, Integer c, Integer s, Integer t) {
 		Integer flow = null;
-		
-		// explication + pseudo code ici : https://fr.wikipedia.org/wiki/Algorithme_de_Ford-Fulkerson
+
+		// explication + pseudo code ici :
+		// https://fr.wikipedia.org/wiki/Algorithme_de_Ford-Fulkerson
 
 		return flow;
 	}
@@ -305,8 +307,8 @@ public class Graphe {
 		for (int i = 0; i < this.n; i++) {
 			poids.add(new ArrayList<Double>());
 			for (int j = 0; j < this.n; j++) {
-				if (this.listes.containsKey(i) && this.listes.get(i).containsKey(j)) {
-					poids.get(i).add(this.listes.get(i).get(j));
+				if (this.listes.containsKey(i + 1) && this.listes.get(i + 1).containsKey(j + 1)) {
+					poids.get(i).add(this.listes.get(i + 1).get(j + 1));
 				} else {
 					poids.get(i).add(10000.0);
 				}

@@ -29,6 +29,7 @@ public class Main {
                     "|7  : MODE : Sauvegarde du graphe                       |\n" +
                     "|8  : MODE : Plus court chemin (Bellman-Ford)           |\n" +
                     "|9  : MODE : Générer un graphe (Erdös-Rényi)            |\n" +
+                    "|10 : MODE : Exporter le graphe pour CPLEX              |\n" +
                     "|0  : QUITTER                                           |\n" +
                     "--------------------------------------------------------");
             try {
@@ -47,7 +48,7 @@ public class Main {
                     break;
                 case 1:
                     // afficher graphe
-                    if(graphe != null) {
+                    if (graphe != null) {
                         graphe.showGraph();
                     } else {
                         System.out.println("Pas de graphe instancié");
@@ -59,12 +60,12 @@ public class Main {
                     do {
                         System.out.println("Entrez le nombre de sommets souhaités (0 pour graphe vide)");
                         nbSommmets = scan.nextInt();
-                        graphe = new Graphe(1,nbSommmets);
-                    } while(nbSommmets < 0);
+                        graphe = new Graphe(1, nbSommmets);
+                    } while (nbSommmets < 0);
                     break;
                 case 3:
                     // ajouter sommet
-                    if(graphe != null) {
+                    if (graphe != null) {
                         graphe.showGraph();
                         Integer indexSommet = 0;
                         System.out.println("Index du nouveau sommet :");
@@ -74,7 +75,7 @@ public class Main {
                     break;
                 case 4:
                     // ajouter arc
-                    if(graphe != null) {
+                    if (graphe != null) {
                         graphe.showGraph();
                         System.out.println("Index du premier sommet (origine) :");
                         Integer indexSommet1 = scan.nextInt();
@@ -87,14 +88,14 @@ public class Main {
                     break;
                 case 5:
                     // savoir si 2 sommets sont adjacents
-                    if(graphe != null) {
+                    if (graphe != null) {
                         graphe.showGraph();
                         System.out.println("Index du premier sommet (origine) :");
                         Integer indexSommet1 = scan.nextInt();
                         System.out.println("Index du second sommet (destination) :");
                         Integer indexSommet2 = scan.nextInt();
                         Boolean estAdjacent = graphe.isDirect(indexSommet1, indexSommet2);
-                        if(estAdjacent) {
+                        if (estAdjacent) {
                             System.out.println("Les sommets sont adjacents");
                         } else {
                             System.out.println("Les sommets ne sont pas adjacents");
@@ -118,7 +119,7 @@ public class Main {
                     }
                     break;
                 case 8:
-                    if(graphe != null) {
+                    if (graphe != null) {
                         List<Object> result = graphe.methodeBellmanFord();
                         System.out.println("Longueur plus court chemin : " + result.get(0));
                         System.out.println("Liste de prédecesseurs : " + result.get(1));
@@ -130,11 +131,30 @@ public class Main {
                     do {
                         System.out.println("Nombre de sommets :");
                         nbSommmets = scan.nextInt();
-                    } while(nbSommmets < 0);
+                    } while (nbSommmets < 0);
                     System.out.println("Probabilité de connexion :");
                     Double proba = scan.nextDouble();
                     try {
-                        graphe = Graphe.genGraph(1,nbSommmets,proba);
+                        graphe = Graphe.genGraph(1, nbSommmets, proba);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 10:
+                    Integer destination = -1;
+                    Integer source = -1;
+                    do {
+                        System.out.println("Sommet source :");
+                        source = scan.nextInt();
+                    } while (source < 0);
+
+                    do {
+                        System.out.println("Sommet de destination :");
+                        destination = scan.nextInt();
+                    } while (destination < 0);
+
+                    try {
+                        graphe.exportCPLEX(source, destination);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
