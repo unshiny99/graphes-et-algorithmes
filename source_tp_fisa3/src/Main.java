@@ -1,7 +1,13 @@
 package src;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 // Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
@@ -120,9 +126,52 @@ public class Main {
                     break;
                 case 8:
                     if (graphe != null) {
-                        List<Object> result = graphe.methodeBellmanFord();
-                        System.out.println("Longueur plus court chemin : " + result.get(0));
-                        System.out.println("Liste de prédecesseurs : " + result.get(1));
+                        Integer destination = -1;
+                        Integer source = -1;
+                        do {
+                            System.out.println("Sommet source :");
+                            source = scan.nextInt();
+                        } while (source < 0);
+
+                        do {
+                            System.out.println("Sommet de destination :");
+                            destination = scan.nextInt();
+                        } while (destination < 0);
+
+                        List<Object> result = graphe.methodeBellmanFord(source);
+                        
+                        //Prise en compte du résultat
+                        List<Double> longeurChemin = (List<Double>) result.get(0);
+		                Map<Integer, Integer> predecesseurs = (Map<Integer, Integer>) result.get(1);
+
+                        System.out.println("Longueur plus court chemin : " + longeurChemin);
+                        System.out.println("Liste de prédecesseurs : " + predecesseurs);
+
+                        if(longeurChemin.get(destination-1) == Double.MAX_VALUE){
+                            System.out.println("Il n'y a pas de solution valide pour s="+source+" et t="+destination);
+                        }else{
+                            //Sauvegarde de la solution
+                            try{
+                                File file = new File("source_tp_fisa3/data/sol_reseau.txt");
+                                BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+                                Integer u = destination;
+                                String parcours = "";
+                                while(u != null){
+                                    parcours = u +" "+ parcours;
+                                    u=predecesseurs.get(u);
+                                }
+
+                                bw.write(parcours);
+                                bw.newLine();
+
+                                bw.write(longeurChemin.get(destination-1)+"");
+                                bw.close();
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                            
+                        }
                     } else {
                         System.out.println("Merci d'instancier un graphe");
                     }
@@ -141,23 +190,28 @@ public class Main {
                     }
                     break;
                 case 10:
-                    Integer destination = -1;
-                    Integer source = -1;
-                    do {
-                        System.out.println("Sommet source :");
-                        source = scan.nextInt();
-                    } while (source < 0);
+                    if (graphe != null) {
+                        Integer destination = -1;
+                        Integer source = -1;
+                        do {
+                            System.out.println("Sommet source :");
+                            source = scan.nextInt();
+                        } while (source < 0);
 
-                    do {
-                        System.out.println("Sommet de destination :");
-                        destination = scan.nextInt();
-                    } while (destination < 0);
+                        do {
+                            System.out.println("Sommet de destination :");
+                            destination = scan.nextInt();
+                        } while (destination < 0);
 
-                    try {
-                        graphe.exportCPLEX(source, destination);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        try {
+                            graphe.exportCPLEX(source, destination);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("Merci d'instancier un graphe");
                     }
+                    
                     break;
                 default:
                     select = 0;

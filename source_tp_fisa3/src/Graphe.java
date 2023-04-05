@@ -241,21 +241,26 @@ public class Graphe {
 		return g;
 	}
 
-	public List<Object> methodeBellmanFord() {
+	/**
+	 * Implémentation de l'algorithme de Ford-Fulkerson
+	 * 
+	 * @param source     : source
+	 */
+	public List<Object> methodeBellmanFord(Integer source) {
 		List<Double> longeurChemin = new ArrayList<>();
 		Map<Integer, Integer> predecesseurs = new HashMap<>();
 		// initialisation
 		for (Integer u = 0; u < n; u++) {
 			longeurChemin.add(Double.MAX_VALUE);
-			predecesseurs.put(u, null);
+			predecesseurs.put(u+1, null);
 		}
-		Integer sommetDepart = 0;
+		longeurChemin.set(source-1,0.0);
 		for (Integer k = 1; k < n; k++) {
 			for (Integer u : this.listes.keySet()) {
 				for (Integer v : this.listes.get(u).keySet()) {
 					Double poids = this.listes.get(u).get(v);
-					if (longeurChemin.get(u) + poids < longeurChemin.get(v)) {
-						longeurChemin.set(v, longeurChemin.get(u) + poids);
+					if (longeurChemin.get(u-1) + poids < longeurChemin.get(v-1)) {
+						longeurChemin.set(v-1, longeurChemin.get(u-1) + poids);
 						predecesseurs.replace(v, u);
 					}
 				}
