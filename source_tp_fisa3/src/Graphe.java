@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,23 @@ public class Graphe {
 			Map<Integer, Double> tempL = new HashMap<Integer, Double>();
 
 			this.listes.put(i, tempL);
+		}
+
+	}
+
+	public Graphe(Graphe graphe) {
+		this.type = graphe.getType();
+		this.n = graphe.getN();
+		this.m = graphe.getM();
+
+		this.listes = new HashMap<Integer, Map<Integer, Double>>();
+
+		for (int i : graphe.getListes().keySet()) {
+			this.listes.put(i,new HashMap<>());
+
+			for(int j : graphe.getListes().get(i).keySet()){
+				this.listes.get(i).put(j,graphe.getListes().get(i).get(j));
+			}
 		}
 
 	}
@@ -281,13 +299,91 @@ public class Graphe {
 	 * @param s     : source
 	 * @param t     : puit de s
 	 */
-	public Integer algoFordFullkerson(Graphe graph, Map<Integer, Integer> a, Integer c, Integer s, Integer t) {
-		Integer flow = null;
+	public Double algoFordFulkerson(Integer s, Integer t) {
+		Double flow = 0.0;
 
 		// explication + pseudo code ici :
 		// https://fr.wikipedia.org/wiki/Algorithme_de_Ford-Fulkerson
+		Graphe g = new Graphe(this);
+
+		//Initialisation
+		Map<Integer, Map<Integer, Double>> flot = new HashMap<Integer, Map<Integer, Double>>();
+		for (int i : g.getListes().keySet()) {
+			flot.put(i,new HashMap<>());
+			for(int j : g.getListes().get(i).keySet()){
+				flot.get(i).put(j, 0.0);
+			}
+		}
+
+		List<Integer> chemin = g.foundCheminRec(s,t);
+
+		System.out.println(chemin);
+
+		while(!chemin.isEmpty()){
+
+			//récupération des coûts
+			List<Double> c = new ArrayList<>();
+			for(int i = 0;i<chemin.size()-1;i++){
+				c.add(g.getListes().get(chemin.get(i)).get(chemin.get(i+1)));
+			}
+
+			Double delta = Collections.min(c);
+
+			for(int i = 0;i<chemin.size()-1;i++){
+				flot.get(chemin.get(i)).replace(chemin.get(i+1), flot.get(chemin.get(i)).get(chemin.get(i+1)) + delta);
+				flot.get(chemin.get(i+1)).replace(chemin.get(i), -flot.get(chemin.get(i)).get(chemin.get(i+1)));
+			}
+
+			g.updateResidual(this,flot);
+
+			chemin = g.foundCheminRec(s,t);
+
+		}
+
+		for(Integer j : flot.get(s).keySet()){
+			flow += flot.get(s).get(j);
+		}
 
 		return flow;
+	}
+
+	private void updateResidual(Graphe original, Map<Integer, Map<Integer, Double>> flot){
+		for(Integer i : flot.keySet()){
+			for(Integer j : flot.get(i).keySet()){
+				if(flot.get(i).get(j).equals(original.getListes().get(i).get(j))){
+					this.delConnexion(i, j);
+				}else{
+					this.getListes().get(i).replace(j,original.getListes().get(i).get(j) - flot.get(i).get(j));
+				}
+			}
+		}
+	}
+
+	private List<Integer> foundCheminRec(Integer s, Integer t){
+		List<Integer> res = this.foundChemin(s, t);
+		Collections.reverse(res);
+		return res;
+	}
+
+	private List<Integer> foundChemin(Integer i, Integer t){
+		List<Integer> l = new ArrayList<>();
+		if(this.getListes().get(i).containsKey(t)){
+			l.add(t);
+			l.add(i);
+			return l;
+		}else if(this.getListes().get(i).isEmpty()){
+			return l;
+		}else{
+			for(Integer u : this.getListes().get(i).keySet()){
+				List<Integer> res = this.foundChemin(u, t);
+				if(!res.isEmpty()){
+					res.add(i);
+					return res;
+				}
+			}
+
+			return l;
+		}
 	}
 
 	/**

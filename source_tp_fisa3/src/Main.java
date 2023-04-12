@@ -36,6 +36,7 @@ public class Main {
                     "|8  : MODE : Plus court chemin (Bellman-Ford)           |\n" +
                     "|9  : MODE : Générer un graphe (Erdös-Rényi)            |\n" +
                     "|10 : MODE : Exporter le graphe pour CPLEX              |\n" +
+                    "|11  : MODE : Calcul du flow maximum (Ford-Fulkerson)   |\n" +
                     "|0  : QUITTER                                           |\n" +
                     "--------------------------------------------------------");
             try {
@@ -212,6 +213,20 @@ public class Main {
                         System.out.println("Merci d'instancier un graphe");
                     }
                     
+                    break;
+                case 11:
+                    Integer destination = -1;
+                    Integer source = -1;
+                    do {
+                        System.out.println("Sommet source :");
+                        source = scan.nextInt();
+                    } while (source < 0);
+
+                    do {
+                        System.out.println("Sommet de destination :");
+                        destination = scan.nextInt();
+                    } while (destination < 0);
+                    System.out.println("Flow maximum : " + graphe.algoFordFulkerson(source, destination));
                     break;
                 default:
                     select = 0;
