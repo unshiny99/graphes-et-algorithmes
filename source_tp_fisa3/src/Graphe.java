@@ -240,7 +240,7 @@ public class Graphe {
 
 		Graphe g = new Graphe(type, n);
 
-		// passe par tout les couples possibles et regarde si on ajoute cette connexion
+		// passe par tous les couples possibles et regarde si on ajoute cette connexion
 		g.listes.forEach((key, value) -> { // sommet 1
 			g.listes.forEach((key2, value2) -> { // sommet
 				if (key != key2 && !g.isDirect(key, key2)) { // si sommets différents et non connectés
@@ -248,12 +248,67 @@ public class Graphe {
 					if (d <= p) {
 						// générer un poids entre 1.0 et 10.0
 						Double poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
-						System.out.println(poids);
 						g.addConnexion(key, key2, poids);
 					}
 				}
 			});
 		});
+
+		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
+		return g;
+	}
+
+	/**
+	 * Génère un graphe par la méthode de Erdös-Rényi
+	 * en prenant en compte un puits et une source
+	 * 
+	 * @param type : type du graphe à générer
+	 * @param n    : nombre de sommets à générer
+	 * @param p    : probabilité de présence des connexions
+	 * @throws IOException
+	 */
+	public static Graphe genGraph2(Integer type, Integer n, Double p) throws IOException {
+		Random r = new Random();
+
+		Graphe g = new Graphe(type, n); // on ne met pas les sommets source ni destination
+		Integer source = r.nextInt(n)+1;
+		Integer puits = -1;
+		do {
+			puits = r.nextInt(n)+1;
+		} while(puits == source); // vérifie que source et puits sont différents
+		final Integer puits2 = puits;
+		// passe par tous les couples possibles et regarde si on ajoute cette connexion
+		g.listes.forEach((key, value) -> { // sommet 1
+			g.listes.forEach((key2, value2) -> { // sommet
+				// si sommets différents et non connectés, et sommets différents de source et puits
+				if (key != key2 && !g.isDirect(key, key2) && key!=source && key2!=source && key!=puits2 && key2!=puits2) {
+					Double d = r.nextDouble();
+					if (d <= p) {
+						// générer un poids entre 1.0 et 10.0
+						Double poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+						g.addConnexion(key, key2, poids);
+					}
+				}
+			});
+		});
+		Integer i;
+		Double poids;
+
+		// créer la source
+		do {
+			i = r.nextInt(n)+1;
+		} while (i == source);
+		// générer un poids entre 1.0 et 10.0
+		poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+		g.addConnexion(source, i, poids);
+
+		// créer le puits
+		do {
+			i = r.nextInt(n)+1;
+		} while (i == source);
+		// générer un poids entre 1.0 et 10.0
+		poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+		g.addConnexion(i, puits, poids);
 
 		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
 		return g;
@@ -297,7 +352,7 @@ public class Graphe {
 	 * @param a     : liste des arêtes
 	 * @param c     : liste des capacités entre chaque vertex
 	 * @param s     : source
-	 * @param t     : puit de s
+	 * @param t     : puits de s
 	 */
 	public Double algoFordFulkerson(Integer s, Integer t) {
 		Double flow = 0.0;

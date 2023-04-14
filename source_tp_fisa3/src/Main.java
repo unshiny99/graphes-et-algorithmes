@@ -18,27 +18,30 @@ public class Main {
         Integer select = null;
         Graphe graphe = null;
 
+        Double proba;
         do {
             if (select != null) {
                 System.out.println("[Terminé]");
             }
-
-            System.out.println("--------------------------------------------------------\n" +
-                    "|                     MENU TP GRAPHES                   |\n" +
-                    "---------------------------------------------------------\n" +
-                    "|1  : MODE : Afficher graphe                            |\n" +
-                    "|2  : MODE : Création graphe (avec nombre sommets)      |\n" +
-                    "|3  : MODE : Ajout sommet                               |\n" +
-                    "|4  : MODE : Ajout arc                                  |\n" +
-                    "|5  : MODE : Sont adjacents ?                           |\n" +
-                    "|6  : MODE : Charger un graphe                          |\n" +
-                    "|7  : MODE : Sauvegarde du graphe                       |\n" +
-                    "|8  : MODE : Plus court chemin (Bellman-Ford)           |\n" +
-                    "|9  : MODE : Générer un graphe (Erdös-Rényi)            |\n" +
-                    "|10 : MODE : Exporter le graphe pour CPLEX              |\n" +
-                    "|11  : MODE : Calcul du flow maximum (Ford-Fulkerson)   |\n" +
-                    "|0  : QUITTER                                           |\n" +
-                    "--------------------------------------------------------");
+            System.out.println(
+                "-----------------------------------------------------------\n" +
+                "|                      MENU TP GRAPHES                     |\n" +
+                "-----------------------------------------------------------\n" +
+                "|1  : MODE : Afficher graphe                               |\n" +
+                "|2  : MODE : Création graphe (avec nombre sommets)         |\n" +
+                "|3  : MODE : Ajout sommet                                  |\n" +
+                "|4  : MODE : Ajout arc                                     |\n" +
+                "|5  : MODE : Sont adjacents ?                              |\n" +
+                "|6  : MODE : Charger un graphe                             |\n" +
+                "|7  : MODE : Sauvegarde du graphe                          |\n" +
+                "|8  : MODE : Plus court chemin (Bellman-Ford)              |\n" +
+                "|9  : MODE : Générer un graphe (Erdös-Rényi)               |\n" +
+                "|10 : MODE : Générer un graphe amélioré (puits et source)  |\n" +
+                "|11 : MODE : Exporter le graphe pour CPLEX                 |\n" +
+                "|12  : MODE : Calcul du flow maximum (Ford-Fulkerson)      |\n" +
+                "|0  : QUITTER                                              |\n" +
+                "-----------------------------------------------------------"
+            );
             try {
                 select = scan_menu.nextInt();
             } catch (Exception e) {
@@ -126,6 +129,7 @@ public class Main {
                     }
                     break;
                 case 8:
+                    // Bellman-Ford
                     if (graphe != null) {
                         Integer destination = -1;
                         Integer source = -1;
@@ -178,12 +182,13 @@ public class Main {
                     }
                     break;
                 case 9:
+                    // Générer un graphe (Erdös-Rényi)
                     do {
                         System.out.println("Nombre de sommets :");
                         nbSommmets = scan.nextInt();
                     } while (nbSommmets < 0);
                     System.out.println("Probabilité de connexion :");
-                    Double proba = scan.nextDouble();
+                    proba = scan.nextDouble();
                     try {
                         graphe = Graphe.genGraph(1, nbSommmets, proba);
                     } catch (IOException e) {
@@ -191,6 +196,21 @@ public class Main {
                     }
                     break;
                 case 10:
+                    // Générer un graphe amélioré (avec puits et source)
+                    do {
+                        System.out.println("Nombre de sommets :");
+                        nbSommmets = scan.nextInt();
+                    } while (nbSommmets < 0);
+                    System.out.println("Probabilité de connexion :");
+                    proba = scan.nextDouble();
+                    try {
+                        graphe = Graphe.genGraph2(1, nbSommmets, proba);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 11:
+                    // exporter le graphe dans un format valide pour CPLEX (.dat)
                     if (graphe != null) {
                         Integer destination = -1;
                         Integer source = -1;
@@ -203,7 +223,6 @@ public class Main {
                             System.out.println("Sommet de destination :");
                             destination = scan.nextInt();
                         } while (destination < 0);
-
                         try {
                             graphe.exportCPLEX(source, destination);
                         } catch (IOException e) {
@@ -212,16 +231,15 @@ public class Main {
                     } else {
                         System.out.println("Merci d'instancier un graphe");
                     }
-                    
                     break;
-                case 11:
+                case 12:
+                    // Ford-Fulkerson
                     Integer destination = -1;
                     Integer source = -1;
                     do {
                         System.out.println("Sommet source :");
                         source = scan.nextInt();
                     } while (source < 0);
-
                     do {
                         System.out.println("Sommet de destination :");
                         destination = scan.nextInt();
