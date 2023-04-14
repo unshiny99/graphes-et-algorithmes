@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.sound.sampled.SourceDataLine;
+
 // Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
 public class Graphe {
 	private Integer type; // 0 si non orienté 1 si orienté
@@ -277,9 +279,12 @@ public class Graphe {
 			puits = r.nextInt(n)+1;
 		} while(puits == source); // vérifie que source et puits sont différents
 		final Integer puits2 = puits;
+		System.out.println("Source : " + source);
+		System.out.println("Puits : " + puits);
+
 		// passe par tous les couples possibles et regarde si on ajoute cette connexion
 		g.listes.forEach((key, value) -> { // sommet 1
-			g.listes.forEach((key2, value2) -> { // sommet
+			g.listes.forEach((key2, value2) -> { // sommet 2
 				// si sommets différents et non connectés, et sommets différents de source et puits
 				if (key != key2 && !g.isDirect(key, key2) && key!=source && key2!=source && key!=puits2 && key2!=puits2) {
 					Double d = r.nextDouble();
@@ -291,24 +296,28 @@ public class Graphe {
 				}
 			});
 		});
-		Integer i;
-		Double poids;
 
-		// créer la source
-		do {
-			i = r.nextInt(n)+1;
-		} while (i == source);
-		// générer un poids entre 1.0 et 10.0
-		poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
-		g.addConnexion(source, i, poids);
+		// ajout des connexions vers puits
+		g.listes.forEach((key, value) -> {
+			// densité
+			Double d = r.nextDouble();
+			if (d <= p && key != source && key != puits2) {
+				// générer un poids entre 1.0 et 10.0
+				final Double poids2 = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+				g.addConnexion(key, puits2, poids2);
+			}
+		});
 
-		// créer le puits
-		do {
-			i = r.nextInt(n)+1;
-		} while (i == source);
-		// générer un poids entre 1.0 et 10.0
-		poids = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
-		g.addConnexion(i, puits, poids);
+		// ajout des connexions depuis source
+		g.listes.forEach((key, value) -> {
+			// densité
+			Double d = r.nextDouble();
+			if (d <= p && key != source) {
+				// générer un poids entre 1.0 et 10.0
+				final Double poids2 = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
+				g.addConnexion(source, key, poids2);
+			}
+		});
 
 		g.saveGraph("source_tp_fisa3/data/gen_graphe.txt");
 		return g;

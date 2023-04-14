@@ -149,8 +149,8 @@ public class Main {
                         List<Double> longeurChemin = (List<Double>) result.get(0);
 		                Map<Integer, Integer> predecesseurs = (Map<Integer, Integer>) result.get(1);
 
-                        System.out.println("Longueur plus court chemin : " + longeurChemin);
-                        System.out.println("Liste de prédecesseurs : " + predecesseurs);
+                        // System.out.println("Longueur plus court chemin : " + longeurChemin);
+                        // System.out.println("Liste de prédecesseurs : " + predecesseurs);
 
                         if(longeurChemin.get(destination-1) == Double.MAX_VALUE){
                             System.out.println("Il n'y a pas de solution valide pour s="+source+" et t="+destination);
