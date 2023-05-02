@@ -51,10 +51,10 @@ public class Graphe {
 		this.listes = new HashMap<Integer, Map<Integer, Double>>();
 
 		for (int i : graphe.getListes().keySet()) {
-			this.listes.put(i,new HashMap<>());
+			this.listes.put(i, new HashMap<>());
 
-			for(int j : graphe.getListes().get(i).keySet()){
-				this.listes.get(i).put(j,graphe.getListes().get(i).get(j));
+			for (int j : graphe.getListes().get(i).keySet()) {
+				this.listes.get(i).put(j, graphe.getListes().get(i).get(j));
 			}
 		}
 
@@ -273,11 +273,11 @@ public class Graphe {
 		Random r = new Random();
 
 		Graphe g = new Graphe(type, n); // on ne met pas les sommets source ni destination
-		Integer source = r.nextInt(n)+1;
+		Integer source = r.nextInt(n) + 1;
 		Integer puits = -1;
 		do {
-			puits = r.nextInt(n)+1;
-		} while(puits == source); // vérifie que source et puits sont différents
+			puits = r.nextInt(n) + 1;
+		} while (puits == source); // vérifie que source et puits sont différents
 		final Integer puits2 = puits;
 		System.out.println("Source : " + source);
 		System.out.println("Puits : " + puits);
@@ -285,8 +285,10 @@ public class Graphe {
 		// passe par tous les couples possibles et regarde si on ajoute cette connexion
 		g.listes.forEach((key, value) -> { // sommet 1
 			g.listes.forEach((key2, value2) -> { // sommet 2
-				// si sommets différents et non connectés, et sommets différents de source et puits
-				if (key != key2 && !g.isDirect(key, key2) && key!=source && key2!=source && key!=puits2 && key2!=puits2) {
+				// si sommets différents et non connectés, et sommets différents de source et
+				// puits
+				if (key != key2 && !g.isDirect(key, key2) && key != source && key2 != source && key != puits2
+						&& key2 != puits2) {
 					Double d = r.nextDouble();
 					if (d <= p) {
 						// générer un poids entre 1.0 et 10.0
@@ -301,7 +303,7 @@ public class Graphe {
 		g.listes.forEach((key, value) -> {
 			// densité
 			Double d = r.nextDouble();
-			if (d <= p && key != source && key != puits2) {
+			if (d <= p && !g.isDirect(key, puits2) && key != source && key != puits2) {
 				// générer un poids entre 1.0 et 10.0
 				final Double poids2 = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
 				g.addConnexion(key, puits2, poids2);
@@ -312,7 +314,7 @@ public class Graphe {
 		g.listes.forEach((key, value) -> {
 			// densité
 			Double d = r.nextDouble();
-			if (d <= p && key != source) {
+			if (d <= p && !g.isDirect(source, key) && key != source) {
 				// générer un poids entre 1.0 et 10.0
 				final Double poids2 = Math.round((r.nextDouble() * 9.0 + 1.0) * 10.0) / 10.0;
 				g.addConnexion(source, key, poids2);
@@ -326,7 +328,7 @@ public class Graphe {
 	/**
 	 * Implémentation de l'algorithme de Ford-Fulkerson
 	 * 
-	 * @param source     : source
+	 * @param source : source
 	 */
 	public List<Object> methodeBellmanFord(Integer source) {
 		List<Double> longeurChemin = new ArrayList<>();
@@ -334,15 +336,15 @@ public class Graphe {
 		// initialisation
 		for (Integer u = 0; u < n; u++) {
 			longeurChemin.add(Double.MAX_VALUE);
-			predecesseurs.put(u+1, null);
+			predecesseurs.put(u + 1, null);
 		}
-		longeurChemin.set(source-1,0.0);
+		longeurChemin.set(source - 1, 0.0);
 		for (Integer k = 1; k < n; k++) {
 			for (Integer u : this.listes.keySet()) {
 				for (Integer v : this.listes.get(u).keySet()) {
 					Double poids = this.listes.get(u).get(v);
-					if (longeurChemin.get(u-1) + poids < longeurChemin.get(v-1)) {
-						longeurChemin.set(v-1, longeurChemin.get(u-1) + poids);
+					if (longeurChemin.get(u - 1) + poids < longeurChemin.get(v - 1)) {
+						longeurChemin.set(v - 1, longeurChemin.get(u - 1) + poids);
 						predecesseurs.replace(v, u);
 					}
 				}
@@ -370,77 +372,78 @@ public class Graphe {
 		// https://fr.wikipedia.org/wiki/Algorithme_de_Ford-Fulkerson
 		Graphe g = new Graphe(this);
 
-		//Initialisation
+		// Initialisation
 		Map<Integer, Map<Integer, Double>> flot = new HashMap<Integer, Map<Integer, Double>>();
 		for (int i : g.getListes().keySet()) {
-			flot.put(i,new HashMap<>());
-			for(int j : g.getListes().get(i).keySet()){
+			flot.put(i, new HashMap<>());
+			for (int j : g.getListes().get(i).keySet()) {
 				flot.get(i).put(j, 0.0);
 			}
 		}
 
-		List<Integer> chemin = g.foundCheminRec(s,t);
+		List<Integer> chemin = g.foundCheminRec(s, t);
 
 		System.out.println(chemin);
 
-		while(!chemin.isEmpty()){
+		while (!chemin.isEmpty()) {
 
-			//récupération des coûts
+			// récupération des coûts
 			List<Double> c = new ArrayList<>();
-			for(int i = 0;i<chemin.size()-1;i++){
-				c.add(g.getListes().get(chemin.get(i)).get(chemin.get(i+1)));
+			for (int i = 0; i < chemin.size() - 1; i++) {
+				c.add(g.getListes().get(chemin.get(i)).get(chemin.get(i + 1)));
 			}
 
 			Double delta = Collections.min(c);
 
-			for(int i = 0;i<chemin.size()-1;i++){
-				flot.get(chemin.get(i)).replace(chemin.get(i+1), flot.get(chemin.get(i)).get(chemin.get(i+1)) + delta);
-				flot.get(chemin.get(i+1)).replace(chemin.get(i), -flot.get(chemin.get(i)).get(chemin.get(i+1)));
+			for (int i = 0; i < chemin.size() - 1; i++) {
+				flot.get(chemin.get(i)).replace(chemin.get(i + 1),
+						flot.get(chemin.get(i)).get(chemin.get(i + 1)) + delta);
+				flot.get(chemin.get(i + 1)).replace(chemin.get(i), -flot.get(chemin.get(i)).get(chemin.get(i + 1)));
 			}
 
-			g.updateResidual(this,flot);
+			g.updateResidual(this, flot);
 
-			chemin = g.foundCheminRec(s,t);
+			chemin = g.foundCheminRec(s, t);
 
 		}
 
-		for(Integer j : flot.get(s).keySet()){
+		for (Integer j : flot.get(s).keySet()) {
 			flow += flot.get(s).get(j);
 		}
 
 		return flow;
 	}
 
-	private void updateResidual(Graphe original, Map<Integer, Map<Integer, Double>> flot){
-		for(Integer i : flot.keySet()){
-			for(Integer j : flot.get(i).keySet()){
-				if(flot.get(i).get(j).equals(original.getListes().get(i).get(j))){
+	private void updateResidual(Graphe original, Map<Integer, Map<Integer, Double>> flot) {
+		for (Integer i : flot.keySet()) {
+			for (Integer j : flot.get(i).keySet()) {
+				if (flot.get(i).get(j).equals(original.getListes().get(i).get(j))) {
 					this.delConnexion(i, j);
-				}else{
-					this.getListes().get(i).replace(j,original.getListes().get(i).get(j) - flot.get(i).get(j));
+				} else {
+					this.getListes().get(i).replace(j, original.getListes().get(i).get(j) - flot.get(i).get(j));
 				}
 			}
 		}
 	}
 
-	private List<Integer> foundCheminRec(Integer s, Integer t){
+	private List<Integer> foundCheminRec(Integer s, Integer t) {
 		List<Integer> res = this.foundChemin(s, t);
 		Collections.reverse(res);
 		return res;
 	}
 
-	private List<Integer> foundChemin(Integer i, Integer t){
+	private List<Integer> foundChemin(Integer i, Integer t) {
 		List<Integer> l = new ArrayList<>();
-		if(this.getListes().get(i).containsKey(t)){
+		if (this.getListes().get(i).containsKey(t)) {
 			l.add(t);
 			l.add(i);
 			return l;
-		}else if(this.getListes().get(i).isEmpty()){
+		} else if (this.getListes().get(i).isEmpty()) {
 			return l;
-		}else{
-			for(Integer u : this.getListes().get(i).keySet()){
+		} else {
+			for (Integer u : this.getListes().get(i).keySet()) {
 				List<Integer> res = this.foundChemin(u, t);
-				if(!res.isEmpty()){
+				if (!res.isEmpty()) {
 					res.add(i);
 					return res;
 				}
