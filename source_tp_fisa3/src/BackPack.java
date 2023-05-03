@@ -9,7 +9,7 @@ public class BackPack {
     private Integer nbSommet;
     private Double poidsMax;
     private List<Sommet> sommets;
-    private Map<Integer, List<Integer>> incompatibilite; // si 0 : pas d'arête, si 1 : arête
+    private Map<Integer, List<Integer>> incompatibilite;
 
     public BackPack(Integer nbSommet, Double poidsMax) {
         this.nbSommet = nbSommet;
@@ -18,6 +18,7 @@ public class BackPack {
 
     /**
 	 * Solve le problème du sac à dos disjonctif
+     * base de l'algo dit "glouton"
 	 */
 	public void sacADosDisjonctif(Graphe graphe) {
         List<Sommet> choixSommets = new ArrayList<>();
@@ -28,10 +29,27 @@ public class BackPack {
 		// itération sur les sommets
 		for(Sommet sommet : this.getSommets()) {
             if(sommet.getPoids() + wConso <= this.getPoidsMax()) {
-                choixSommets.add(sommet);
-                wConso = wConso + sommet.getPoids();
+                // parcours des listes d'adjacence
+                for(Integer key : incompatibilite.keySet()){
+                    if(key != sommet.getIndex()) { // si pas sommet courant et sommet dans le sac
+                        // && choixSommets.contains(sommet)
+                        
+                        // parcourir toutes les values pour vérifier si on a le sommet courant
+                        if(!this.incompatibilite.get(key).contains(sommet.getIndex())) {
+                            choixSommets.add(sommet);
+                            wConso = wConso + sommet.getPoids();
+                        }
+                    }
+                }
             }
         }
+        System.out.println("Poids total dans le sac : " + wConso);
+        // calcul somme des profits
+        Integer totalprofit = 0;
+        for(Sommet sommet : choixSommets) {
+            totalprofit += sommet.getProfit();
+        }
+        System.out.println("Profit total : " + totalprofit);
 	}
 
     public Integer getNbSommet() {
