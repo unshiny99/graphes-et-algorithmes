@@ -6,14 +6,14 @@
  
 //lire dans un fichier le nb d'objet et le poids max
 int nbObjet = ...;
-int poidsMax = ...;
+float poidsMax = ...;
 
 //déclarer un intervalle d'entiers de 1 à nbObjet
 range objets = 1..nbObjet;
 
 //déclarer des tableaux indexés sur les objets,
 //ils seront remplis en lisant le fichier de données
-int poids[objets] = ...;
+float poids[objets] = ...;
 int valeur[objets] = ...;
 
 int incomp[objets][objets]=...;

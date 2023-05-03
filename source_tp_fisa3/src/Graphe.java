@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import javax.sound.sampled.SourceDataLine;
-
 // Bryan Moreau, Maxime Frémeaux, Geoffrey Auzou
 public class Graphe {
 	private Integer type; // 0 si non orienté 1 si orienté
