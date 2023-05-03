@@ -250,7 +250,14 @@ public class Main {
                 case 13:
                     // Problème sac à dos disjonctif
                     if (graphe != null) {
-                        graphe.sacADosDisjonctif();
+                        do {
+                            System.out.println("Nombre de sommets :");
+                            nbSommmets = scan.nextInt();
+                        } while (nbSommmets < 0);
+                        System.out.println("Probabilité de connexion :");
+                        proba = scan.nextDouble();
+                        BackPack backPack = new BackPack(nbSommmets, proba);
+                        backPack.sacADosDisjonctif(graphe);
                     } else {
                         System.out.println("Merci d'instancier un graphe");
                     }

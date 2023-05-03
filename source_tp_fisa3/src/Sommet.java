@@ -12,7 +12,7 @@ public class Sommet implements Comparable<Sommet> {
     }
 
     @Override
-    public int compareTo(Sommet sommet) {
+    public int compareTo(Sommet sommet) { // tri par profit sur les collections de Sommet
         if(this.profit > sommet.getProfit()) {
             return 1;
         } else if(this.profit < sommet.getProfit()) {
