@@ -39,6 +39,7 @@ public class Main {
                 "|10 : MODE : Générer un graphe amélioré (puits et source)  |\n" +
                 "|11 : MODE : Exporter le graphe pour CPLEX                 |\n" +
                 "|12  : MODE : Calcul du flow maximum (Ford-Fulkerson)      |\n" +
+                "|13  : MODE : Problème du sac à dos disjonctif             |\n" +
                 "|0  : QUITTER                                              |\n" +
                 "-----------------------------------------------------------"
             );
@@ -245,6 +246,14 @@ public class Main {
                         destination = scan.nextInt();
                     } while (destination < 0);
                     System.out.println("Flow maximum : " + graphe.algoFordFulkerson(source, destination));
+                    break;
+                case 13:
+                    // Problème sac à dos disjonctif
+                    if (graphe != null) {
+                        graphe.sacADosDisjonctif();
+                    } else {
+                        System.out.println("Merci d'instancier un graphe");
+                    }
                     break;
                 default:
                     select = 0;

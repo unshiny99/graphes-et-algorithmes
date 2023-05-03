@@ -18,7 +18,7 @@ public class Graphe {
 	private Integer type; // 0 si non orienté 1 si orienté
 	private Integer n; // nombre de sommets
 	private Integer m; // nombre de connexions
-	private Map<Integer, Map<Integer, Double>> listes; // liste d'adjacence avec poid
+	private Map<Integer, Map<Integer, Double>> listes; // liste d'adjacence avec poids
 
 	public Graphe(Integer type) {
 		this.type = type;
@@ -402,7 +402,6 @@ public class Graphe {
 			g.updateResidual(this, flot);
 
 			chemin = g.foundCheminRec(s, t);
-
 		}
 
 		for (Integer j : flot.get(s).keySet()) {
@@ -487,19 +486,19 @@ public class Graphe {
 	}
 
 	public Integer getType() {
-		return type;
+		return this.type;
 	}
 
 	public Integer getN() {
-		return n;
+		return this.n;
 	}
 
 	public Integer getM() {
-		return m;
+		return this.m;
 	}
 
 	public Map<Integer, Map<Integer, Double>> getListes() {
-		return listes;
+		return this.listes;
 	}
 
 	public void setType(Integer type) {
