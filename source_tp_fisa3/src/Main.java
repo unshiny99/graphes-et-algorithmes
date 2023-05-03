@@ -17,6 +17,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Integer select = null;
         Graphe graphe = null;
+        BackPack backpack = null;
 
         Double proba;
         do {
@@ -38,8 +39,9 @@ public class Main {
                 "|9  : MODE : Générer un graphe (Erdös-Rényi)               |\n" +
                 "|10 : MODE : Générer un graphe amélioré (puits et source)  |\n" +
                 "|11 : MODE : Exporter le graphe pour CPLEX                 |\n" +
-                "|12  : MODE : Calcul du flow maximum (Ford-Fulkerson)      |\n" +
-                "|13  : MODE : Problème du sac à dos disjonctif             |\n" +
+                "|12 : MODE : Calcul du flow maximum (Ford-Fulkerson)       |\n" +
+                "|13 : MODE : Charger un sac à dos                          |\n" +
+                "|14 : MODE : Problème du sac à dos disjonctif              |\n" +
                 "|0  : QUITTER                                              |\n" +
                 "-----------------------------------------------------------"
             );
@@ -248,18 +250,19 @@ public class Main {
                     System.out.println("Flow maximum : " + graphe.algoFordFulkerson(source, destination));
                     break;
                 case 13:
+                    try {
+                        backpack = BackPack.loadBackPack("source_tp_fisa3/data/mon_backpack.txt");
+                        backpack.showBackPack();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 14:
                     // Problème sac à dos disjonctif
-                    if (graphe != null) {
-                        do {
-                            System.out.println("Nombre de sommets :");
-                            nbSommmets = scan.nextInt();
-                        } while (nbSommmets < 0);
-                        System.out.println("Probabilité de connexion :");
-                        proba = scan.nextDouble();
-                        BackPack backPack = new BackPack(nbSommmets, proba);
-                        backPack.sacADosDisjonctif(graphe);
+                    if (backpack != null) {
+                        backpack.sacADosDisjonctif();
                     } else {
-                        System.out.println("Merci d'instancier un graphe");
+                        System.out.println("Merci d'instancier un sac à dos");
                     }
                     break;
                 default:
