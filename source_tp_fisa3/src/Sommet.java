@@ -45,4 +45,9 @@ public class Sommet implements Comparable<Sommet> {
     public void setProfit(Integer profit) {
         this.profit = profit;
     }
+
+    @Override
+    public String toString() {
+        return "Sommet [index=" + index + ", poids=" + poids + ", profit=" + profit + "]";
+    }
 }

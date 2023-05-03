@@ -75,6 +75,9 @@ public class BackPack {
 	 */
 	public void showBackPack() {
 		System.out.println("nbSommet = " + this.nbSommet);
+        System.out.println("nbIncompatibilité = "+this.nbIncompatibilite);
+        System.out.println("Poids Max = "+this.poidsMax);
+        System.out.println("Sommets = "+this.sommets);
 		System.out.println("Liste d'incompatibilitée : ");
 		this.incompatibilite.forEach((key, value) -> {
 			System.out.println(key + " = " + value);
