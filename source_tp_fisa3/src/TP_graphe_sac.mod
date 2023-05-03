@@ -35,3 +35,20 @@ subject to {
 		}	
 	}	 	
 }
+
+execute DISPLAY{
+
+	var valeurTotal = 0;
+	var poidsTotal = 0.0;
+	writeln("Objet pris :");
+	for(var i in objets){
+		if(x[i] == 1){
+			write(i+" ");
+			poidsTotal += poids[i];
+		}
+	}
+	
+	writeln();
+	writeln("Valeur total : "+cplex.getObjValue());
+	writeln("Poids total : "+poidsTotal);
+}
