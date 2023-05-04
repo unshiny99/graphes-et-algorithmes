@@ -285,7 +285,8 @@ public class Graphe {
 			g.listes.forEach((key2, value2) -> { // sommet 2
 				// si sommets différents et non connectés, et sommets différents de source et
 				// puits
-				if (key != key2 && !g.isDirect(key, key2) && key != source && key2 != source && key != puits2
+				if (key != key2 && !g.isDirect(key, key2) && !g.isDirect(key2, key) && key != source && key2 != source
+						&& key != puits2
 						&& key2 != puits2) {
 					Double d = r.nextDouble();
 					if (d <= p) {
@@ -381,8 +382,6 @@ public class Graphe {
 
 		List<Integer> chemin = g.foundCheminRec(s, t);
 
-		System.out.println(chemin);
-
 		while (!chemin.isEmpty()) {
 
 			// récupération des coûts
@@ -424,13 +423,14 @@ public class Graphe {
 	}
 
 	private List<Integer> foundCheminRec(Integer s, Integer t) {
-		List<Integer> res = this.foundChemin(s, t);
+		List<Integer> res = this.foundChemin(s, t, new ArrayList<Integer>());
 		Collections.reverse(res);
 		return res;
 	}
 
-	private List<Integer> foundChemin(Integer i, Integer t) {
+	private List<Integer> foundChemin(Integer i, Integer t, List<Integer> sommets) {
 		List<Integer> l = new ArrayList<>();
+		sommets.add(i);
 		if (this.getListes().get(i).containsKey(t)) {
 			l.add(t);
 			l.add(i);
@@ -439,11 +439,14 @@ public class Graphe {
 			return l;
 		} else {
 			for (Integer u : this.getListes().get(i).keySet()) {
-				List<Integer> res = this.foundChemin(u, t);
-				if (!res.isEmpty()) {
-					res.add(i);
-					return res;
+				if (!sommets.contains(u)) {
+					List<Integer> res = this.foundChemin(u, t, sommets);
+					if (!res.isEmpty()) {
+						res.add(i);
+						return res;
+					}
 				}
+
 			}
 
 			return l;
