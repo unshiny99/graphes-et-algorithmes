@@ -295,13 +295,14 @@ public class BackPack {
      */
     public void sacADosDisjonctif() {
         List<Integer> choixSommets = new ArrayList<>();
-        // tri décroissant au préalable (sur le profit)
-        Collections.sort(this.sommets, Collections.reverseOrder());
 
+        // tri décroissant au préalable (sur le profit)
+        List<Sommet> sommets = new ArrayList<Sommet>();
+        Collections.sort(sommets, Collections.reverseOrder());
         Double wConso = 0.0; // poids consommé
 
         // itération sur les sommets
-        for (Sommet sommet : this.getSommets()) {
+        for (Sommet sommet : sommets) {
             Boolean compatible = true;
             for (Integer j : this.incompatibilite.get(sommet.getIndex())) {
                 if (choixSommets.contains(j)) {
@@ -317,7 +318,7 @@ public class BackPack {
         System.out.println("Poids total dans le sac : " + wConso);
         // calcul somme des profits
         Integer totalprofit = 0;
-        for (Sommet sommet : this.getSommets()) {
+        for (Sommet sommet : sommets) {
             if (choixSommets.contains(sommet.getIndex())) {
                 totalprofit += sommet.getProfit();
             }
