@@ -269,7 +269,11 @@ public class Main {
                 case 15:
                     // Problème sac à dos disjonctif
                     if (backpack != null) {
+                        long startTime = System.nanoTime();
                         backpack.sacADosDisjonctif();
+                        long endTime = System.nanoTime();
+                        long duration = (endTime - startTime);
+                        System.out.println("Durée : " + duration / 1000000.0 + " s");
                     } else {
                         System.out.println("Merci d'instancier un sac à dos");
                     }
