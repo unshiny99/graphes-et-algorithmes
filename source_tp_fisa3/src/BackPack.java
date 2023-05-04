@@ -302,28 +302,10 @@ public class BackPack {
 
         // itération sur les sommets
         for (Sommet sommet : this.getSommets()) {
-<<<<<<< HEAD
             Boolean compatible = true;
             for (Integer j : this.incompatibilite.get(sommet.getIndex())) {
                 if (choixSommets.contains(j)) {
                     compatible = false;
-=======
-            if ((sommet.getPoids() + wConso) <= this.getPoidsMax()) {
-                // parcours des listes d'adjacence
-                for (Integer key : incompatibilite.keySet()) {
-                    if (key != sommet.getIndex()) { // si pas sommet courant
-                        // && choixSommets.contains(sommet) // vérif si sommet déjà dans le sac
-
-                        // vérifie la compatibilité des sommets
-                        if (!this.incompatibilite.get(key).contains(sommet.getIndex())
-                                && (sommet.getPoids() + wConso) <= this.getPoidsMax()) {
-                            System.out.println("Source : " + key + " , dest : " + sommet);
-                            // ajout du sommet (liste et poids total)
-                            choixSommets.add(sommet);
-                            wConso = wConso + sommet.getPoids();
-                        }
-                    }
->>>>>>> main
                 }
             }
 
