@@ -162,6 +162,7 @@ public class BackPack {
                         
                         // vérifie la compatibilité des sommets 
                         if(!this.incompatibilite.get(key).contains(sommet.getIndex()) && (sommet.getPoids() + wConso) <= this.getPoidsMax()) {
+                            System.out.println("Source : " + key + " , dest : " + sommet);
                             // ajout du sommet (liste et poids total)
                             choixSommets.add(sommet);
                             wConso = wConso + sommet.getPoids();
