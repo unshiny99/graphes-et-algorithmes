@@ -25,26 +25,27 @@ public class Main {
                 System.out.println("[Terminé]");
             }
             System.out.println(
-                "-----------------------------------------------------------\n" +
-                "|                      MENU TP GRAPHES                     |\n" +
-                "-----------------------------------------------------------\n" +
-                "|1  : MODE : Afficher graphe                               |\n" +
-                "|2  : MODE : Création graphe (avec nombre sommets)         |\n" +
-                "|3  : MODE : Ajout sommet                                  |\n" +
-                "|4  : MODE : Ajout arc                                     |\n" +
-                "|5  : MODE : Sont adjacents ?                              |\n" +
-                "|6  : MODE : Charger un graphe                             |\n" +
-                "|7  : MODE : Sauvegarde du graphe                          |\n" +
-                "|8  : MODE : Plus court chemin (Bellman-Ford)              |\n" +
-                "|9  : MODE : Générer un graphe (Erdös-Rényi)               |\n" +
-                "|10 : MODE : Générer un graphe amélioré (puits et source)  |\n" +
-                "|11 : MODE : Exporter le graphe pour CPLEX                 |\n" +
-                "|12 : MODE : Calcul du flow maximum (Ford-Fulkerson)       |\n" +
-                "|13 : MODE : Charger un sac à dos                          |\n" +
-                "|14 : MODE : Problème du sac à dos disjonctif              |\n" +
-                "|0  : QUITTER                                              |\n" +
-                "-----------------------------------------------------------"
-            );
+                    "-----------------------------------------------------------\n" +
+                            "|                      MENU TP GRAPHES                     |\n" +
+                            "-----------------------------------------------------------\n" +
+                            "|1  : MODE : Afficher graphe                               |\n" +
+                            "|2  : MODE : Création graphe (avec nombre sommets)         |\n" +
+                            "|3  : MODE : Ajout sommet                                  |\n" +
+                            "|4  : MODE : Ajout arc                                     |\n" +
+                            "|5  : MODE : Sont adjacents ?                              |\n" +
+                            "|6  : MODE : Charger un graphe                             |\n" +
+                            "|7  : MODE : Sauvegarde du graphe                          |\n" +
+                            "|8  : MODE : Plus court chemin (Bellman-Ford)              |\n" +
+                            "|9  : MODE : Générer un graphe (Erdös-Rényi)               |\n" +
+                            "|10 : MODE : Générer un graphe amélioré (puits et source)  |\n" +
+                            "|11 : MODE : Exporter le graphe pour CPLEX                 |\n" +
+                            "|12 : MODE : Calcul du flow maximum (Ford-Fulkerson)       |\n" +
+                            "|13 : MODE : Charger un sac à dos                          |\n" +
+                            "|14 : MODE : Sauvegarde du sac à dos                       |\n" +
+                            "|15 : MODE : Problème du sac à dos disjonctif              |\n" +
+                            "|16 : MODE : Générer un sac à dos                          |\n" +
+                            "|0  : QUITTER                                              |\n" +
+                            "-----------------------------------------------------------");
             try {
                 select = scan_menu.nextInt();
             } catch (Exception e) {
@@ -147,38 +148,39 @@ public class Main {
                         } while (destination < 0);
 
                         List<Object> result = graphe.methodeBellmanFord(source);
-                        
-                        //Prise en compte du résultat
+
+                        // Prise en compte du résultat
                         List<Double> longeurChemin = (List<Double>) result.get(0);
-		                Map<Integer, Integer> predecesseurs = (Map<Integer, Integer>) result.get(1);
+                        Map<Integer, Integer> predecesseurs = (Map<Integer, Integer>) result.get(1);
 
                         // System.out.println("Longueur plus court chemin : " + longeurChemin);
                         // System.out.println("Liste de prédecesseurs : " + predecesseurs);
 
-                        if(longeurChemin.get(destination-1) == Double.MAX_VALUE){
-                            System.out.println("Il n'y a pas de solution valide pour s="+source+" et t="+destination);
-                        }else{
-                            //Sauvegarde de la solution
-                            try{
+                        if (longeurChemin.get(destination - 1) == Double.MAX_VALUE) {
+                            System.out.println(
+                                    "Il n'y a pas de solution valide pour s=" + source + " et t=" + destination);
+                        } else {
+                            // Sauvegarde de la solution
+                            try {
                                 File file = new File("source_tp_fisa3/data/sol_reseau.txt");
                                 BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
                                 Integer u = destination;
                                 String parcours = "";
-                                while(u != null){
-                                    parcours = u +" "+ parcours;
-                                    u=predecesseurs.get(u);
+                                while (u != null) {
+                                    parcours = u + " " + parcours;
+                                    u = predecesseurs.get(u);
                                 }
 
                                 bw.write(parcours);
                                 bw.newLine();
 
-                                bw.write(longeurChemin.get(destination-1)+"");
+                                bw.write(longeurChemin.get(destination - 1) + "");
                                 bw.close();
-                            }catch(Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            
+
                         }
                     } else {
                         System.out.println("Merci d'instancier un graphe");
@@ -258,11 +260,32 @@ public class Main {
                     }
                     break;
                 case 14:
+                    // sauvegarder un sac à dos
+                    try {
+                        backpack.saveBackpack("source_tp_fisa3/data/saved_backpack.txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 15:
                     // Problème sac à dos disjonctif
                     if (backpack != null) {
                         backpack.sacADosDisjonctif();
                     } else {
                         System.out.println("Merci d'instancier un sac à dos");
+                    }
+                    break;
+                case 16:
+                    do {
+                        System.out.println("Nombre de sommets :");
+                        nbSommmets = scan.nextInt();
+                    } while (nbSommmets < 0);
+                    System.out.println("Capacité maximal du sac :");
+                    Double poidMax = scan.nextDouble();
+                    try {
+                        backpack = BackPack.genBackPack(nbSommmets, poidMax);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                     break;
                 default:

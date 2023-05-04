@@ -161,7 +161,7 @@ public class Graphe {
 
 		line = br.readLine();
 
-		while (line != null || line == "") {
+		while (line != null && line != "") {
 			String[] sommets = line.split("[\s]+");
 
 			Integer i = Integer.valueOf(sommets[0]);
