@@ -237,9 +237,8 @@ public class Main {
                     }
                     break;
                 case 12: // Ford-Fulkerson
-                    if(graphe != null) {
-                        long startTime = System.nanoTime();
-                        
+                    if (graphe != null) {
+
                         Integer destination = -1;
                         Integer source = -1;
                         do {
@@ -250,11 +249,13 @@ public class Main {
                             System.out.println("Sommet de destination :");
                             destination = scan.nextInt();
                         } while (destination < 0);
+                        long startTime = System.nanoTime();
+
                         System.out.println("Flow maximum : " + graphe.algoFordFulkerson(source, destination));
 
                         long endTime = System.nanoTime();
                         long duration = (endTime - startTime);
-                        System.out.println("Durée : " + duration / 1000000.0 + " s");
+                        System.out.println("Durée : " + duration / 1000000000.0 + " s");
                     } else {
                         System.out.println("Merci d'instancier un sac graphe");
                     }
@@ -283,7 +284,7 @@ public class Main {
                         backpack.sacADosDisjonctif();
                         long endTime = System.nanoTime();
                         long duration = (endTime - startTime);
-                        System.out.println("Durée : " + duration / 1000000.0 + " s");
+                        System.out.println("Durée : " + duration / 1000000000.0 + " s");
                     } else {
                         System.out.println("Merci d'instancier un sac à dos");
                     }
