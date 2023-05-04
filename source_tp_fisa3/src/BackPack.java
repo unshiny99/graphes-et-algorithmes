@@ -210,18 +210,16 @@ public class BackPack {
 
         // Ajout des sommets
         for (int i = 1; i <= n; i++) {
-            backPack.addSommet(new Sommet(i, rDouble.nextDouble(poidMax), rInt.nextInt(1000)));
+            backPack.addSommet(
+                    new Sommet(i, (double) Math.round(rDouble.nextDouble(poidMax) * 10) / 10, rInt.nextInt(1000)));
             backPack.incompatibilite.put(i, new ArrayList<>());
         }
 
         // passe par tous les couples possibles et regarde si on ajoute cette connexion
         for (Sommet i : backPack.sommets) {
             for (Sommet j : backPack.sommets) {
-                if (i.getIndex() != j.getIndex() && !backPack.isIncompatible(i.getIndex(), j.getIndex())) { // si
-                                                                                                            // sommets
-                                                                                                            // différents
-                                                                                                            // et non
-                    // connectés
+                if (i.getIndex() != j.getIndex() && !backPack.isIncompatible(i.getIndex(), j.getIndex())) {
+                    // si sommets différents et non connectés
                     Double d = rDouble.nextDouble();
                     if (d <= 0.6) {
                         backPack.addConnexion(i.getIndex(), j.getIndex());
@@ -274,11 +272,11 @@ public class BackPack {
         // Mise en forme des incompatibilités
         List<List<Integer>> incomp = new ArrayList<List<Integer>>();
 
-        for (Integer i : this.incompatibilite.keySet()) {
+        for (int i = 0; i < this.nbSommet; i++) {
             incomp.add(new ArrayList<Integer>());
 
             for (int j = 0; j < this.nbSommet; j++) {
-                if (this.incompatibilite.get(i).contains(j + 1)) {
+                if (this.incompatibilite.get(i + 1).contains(j + 1)) {
                     incomp.get(i).add(1);
                 } else {
                     incomp.get(i).add(0);
@@ -296,35 +294,33 @@ public class BackPack {
      * gère aussi la les incompatibilités entre éléments (sommets)
      */
     public void sacADosDisjonctif() {
-        List<Sommet> choixSommets = new ArrayList<>();
+        List<Integer> choixSommets = new ArrayList<>();
         // tri décroissant au préalable (sur le profit)
         Collections.sort(this.sommets, Collections.reverseOrder());
 
         Double wConso = 0.0; // poids consommé
+
         // itération sur les sommets
         for (Sommet sommet : this.getSommets()) {
-            if ((sommet.getPoids() + wConso) <= this.getPoidsMax()) {
-                // parcours des listes d'adjacence
-                for (Integer key : incompatibilite.keySet()) {
-                    if (key != sommet.getIndex()) { // si pas sommet courant
-                        // && choixSommets.contains(sommet) // vérif si sommet déjà dans le sac
-
-                        // vérifie la compatibilité des sommets
-                        if (!this.incompatibilite.get(key).contains(sommet.getIndex())
-                                && (sommet.getPoids() + wConso) <= this.getPoidsMax()) {
-                            // ajout du sommet (liste et poids total)
-                            choixSommets.add(sommet);
-                            wConso = wConso + sommet.getPoids();
-                        }
-                    }
+            Boolean compatible = true;
+            for (Integer j : this.incompatibilite.get(sommet.getIndex())) {
+                if (choixSommets.contains(j)) {
+                    compatible = false;
                 }
+            }
+
+            if (compatible && (sommet.getPoids() + wConso) <= this.getPoidsMax()) {
+                choixSommets.add(sommet.getIndex());
+                wConso = wConso + sommet.getPoids();
             }
         }
         System.out.println("Poids total dans le sac : " + wConso);
         // calcul somme des profits
         Integer totalprofit = 0;
-        for (Sommet sommet : choixSommets) {
-            totalprofit += sommet.getProfit();
+        for (Sommet sommet : this.getSommets()) {
+            if (choixSommets.contains(sommet.getIndex())) {
+                totalprofit += sommet.getProfit();
+            }
         }
         System.out.println("Profit total : " + totalprofit);
     }

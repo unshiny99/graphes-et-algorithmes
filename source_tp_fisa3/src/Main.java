@@ -300,6 +300,7 @@ public class Main {
                     } else {
                         System.out.println("Merci d'instancier un graphe");
                     }
+                    break;
                 default:
                     select = 0;
                     scan_menu.close();
