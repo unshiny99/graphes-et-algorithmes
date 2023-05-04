@@ -44,6 +44,7 @@ public class Main {
                             "|14 : MODE : Sauvegarde du sac à dos                       |\n" +
                             "|15 : MODE : Problème du sac à dos disjonctif              |\n" +
                             "|16 : MODE : Générer un sac à dos                          |\n" +
+                            "|17 : MODE : Exporter le sac à dos pour CPLEX              |\n" +
                             "|0  : QUITTER                                              |\n" +
                             "-----------------------------------------------------------");
             try {
@@ -288,6 +289,17 @@ public class Main {
                         e.printStackTrace();
                     }
                     break;
+                case 17:
+                    // exporter le graphe dans un format valide pour CPLEX (.dat)
+                    if (backpack != null) {
+                        try {
+                            backpack.exportCPLEX();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("Merci d'instancier un graphe");
+                    }
                 default:
                     select = 0;
                     scan_menu.close();

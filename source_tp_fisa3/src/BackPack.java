@@ -116,7 +116,7 @@ public class BackPack {
 
         for (int i = 0; i < Integer.valueOf(data[0]); i++) {
             backPack.addSommet(new Sommet(i + 1, Double.parseDouble(poids[i]), Integer.parseInt(profits[i])));
-            backPack.incompatibilite.put(i, new ArrayList<>());
+            backPack.incompatibilite.put(i + 1, new ArrayList<>());
         }
 
         // ajoute des incompatibilité
@@ -243,6 +243,51 @@ public class BackPack {
      */
     public boolean isIncompatible(Integer i, Integer j) {
         return this.incompatibilite.get(i).contains(j);
+    }
+
+    /**
+     * Exporte le sac à dos dans un .dat pour l'utiliser dans CPLEX
+     * 
+     * @throws IOException
+     */
+    public void exportCPLEX() throws IOException {
+        File file = new File("source_tp_fisa3/data/donneeSac.dat");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+        bw.write("nbObjet = " + this.nbSommet + ";");
+        bw.newLine();
+        bw.write("poidsMax = " + this.poidsMax + ";");
+        bw.newLine();
+
+        List<Double> poids = new ArrayList<>();
+        List<Integer> profits = new ArrayList<>();
+        for (Sommet s : this.sommets) {
+            poids.add(s.getPoids());
+            profits.add(s.getProfit());
+        }
+
+        bw.write("valeur = " + profits + ";");
+        bw.newLine();
+        bw.write("poids = " + poids + ";");
+        bw.newLine();
+
+        // Mise en forme des incompatibilités
+        List<List<Integer>> incomp = new ArrayList<List<Integer>>();
+
+        for (Integer i : this.incompatibilite.keySet()) {
+            incomp.add(new ArrayList<Integer>());
+
+            for (int j = 0; j < this.nbSommet; j++) {
+                if (this.incompatibilite.get(i).contains(j + 1)) {
+                    incomp.get(i).add(1);
+                } else {
+                    incomp.get(i).add(0);
+                }
+            }
+        }
+        bw.write("incomp = " + incomp + ";");
+
+        bw.close();
     }
 
     /**
