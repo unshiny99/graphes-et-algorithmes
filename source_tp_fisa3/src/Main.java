@@ -236,21 +236,31 @@ public class Main {
                         System.out.println("Merci d'instancier un graphe");
                     }
                     break;
-                case 12:
-                    // Ford-Fulkerson
-                    Integer destination = -1;
-                    Integer source = -1;
-                    do {
-                        System.out.println("Sommet source :");
-                        source = scan.nextInt();
-                    } while (source < 0);
-                    do {
-                        System.out.println("Sommet de destination :");
-                        destination = scan.nextInt();
-                    } while (destination < 0);
-                    System.out.println("Flow maximum : " + graphe.algoFordFulkerson(source, destination));
+                case 12: // Ford-Fulkerson
+                    if(graphe != null) {
+                        long startTime = System.nanoTime();
+                        
+                        Integer destination = -1;
+                        Integer source = -1;
+                        do {
+                            System.out.println("Sommet source :");
+                            source = scan.nextInt();
+                        } while (source < 0);
+                        do {
+                            System.out.println("Sommet de destination :");
+                            destination = scan.nextInt();
+                        } while (destination < 0);
+                        System.out.println("Flow maximum : " + graphe.algoFordFulkerson(source, destination));
+
+                        long endTime = System.nanoTime();
+                        long duration = (endTime - startTime);
+                        System.out.println("Durée : " + duration / 1000000.0 + " s");
+                    } else {
+                        System.out.println("Merci d'instancier un sac graphe");
+                    }
                     break;
                 case 13:
+                    // charger un fichier de graphe pour Backpack
                     try {
                         backpack = BackPack.loadBackPack("source_tp_fisa3/data/mon_backpack.txt");
                         backpack.showBackPack();
