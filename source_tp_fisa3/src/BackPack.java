@@ -144,23 +144,25 @@ public class BackPack {
     /**
 	 * Solve le problème du sac à dos disjonctif
      * base de l'algo dit "glouton"
+     * gère aussi la les incompatibilités entre éléments (sommets)
 	 */
 	public void sacADosDisjonctif() {
         List<Sommet> choixSommets = new ArrayList<>();
 		// tri décroissant au préalable (sur le profit)
 		Collections.sort(this.sommets, Collections.reverseOrder());
 
-        Double wConso = 0.0;
+        Double wConso = 0.0; // poids consommé
 		// itération sur les sommets
 		for(Sommet sommet : this.getSommets()) {
-            if(sommet.getPoids() + wConso <= this.getPoidsMax()) {
+            if((sommet.getPoids() + wConso) <= this.getPoidsMax()) {
                 // parcours des listes d'adjacence
                 for(Integer key : incompatibilite.keySet()){
-                    if(key != sommet.getIndex()) { // si pas sommet courant et sommet dans le sac
-                        // && choixSommets.contains(sommet)
+                    if(key != sommet.getIndex()) { // si pas sommet courant
+                        // && choixSommets.contains(sommet) // vérif si sommet déjà dans le sac
                         
-                        // parcourir toutes les values pour vérifier si on a le sommet courant
-                        if(!this.incompatibilite.get(key).contains(sommet.getIndex())) {
+                        // vérifie la compatibilité des sommets 
+                        if(!this.incompatibilite.get(key).contains(sommet.getIndex()) && (sommet.getPoids() + wConso) <= this.getPoidsMax()) {
+                            // ajout du sommet (liste et poids total)
                             choixSommets.add(sommet);
                             wConso = wConso + sommet.getPoids();
                         }
