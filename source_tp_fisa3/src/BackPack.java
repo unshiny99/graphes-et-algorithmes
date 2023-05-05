@@ -298,6 +298,7 @@ public class BackPack {
 
         // tri décroissant au préalable (sur le profit)
         List<Sommet> sommets = new ArrayList<Sommet>();
+        sommets.addAll(this.sommets);
         Collections.sort(sommets, Collections.reverseOrder());
         Double wConso = 0.0; // poids consommé
 
